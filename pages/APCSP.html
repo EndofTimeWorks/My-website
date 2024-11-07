@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCSP Project</title>
+    <link rel="stylesheet" href="/pages/style.css"> <!-- CSS with correct path -->
+</head>
+<body>
+
+    <!-- Include the Navbar -->
+    <div id="navbar"></div>
+
+    <script>
+        // Load the navbar
+        fetch('/pages/navbar.html') <!-- Correct path within pages folder -->
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            });
+    </script>
+
+    <!-- Page Content -->
+    <header class="header">
+        <div class="header-content">
+            <h1>APCSP</h1>
+            <p class="apcsp-blurb">AP Computer Science Principles (APCSP) offers a multidisciplinary approach to teaching the foundations of modern computing. The course will introduce students to the creative aspects of programming, abstractions, algorithms, large data sets, the Internet, cybersecurity concerns, and societal impacts of computing. APCSP also gives students the opportunity to use current technologies to create computational artifacts for both self-expression and problem solving. This course seeks to provide knowledge and skills to meaningfully participate in our increasingly digital society, economy, and culture. Together, these aspects of the course make up a rigorous and rich curriculum that aims to broaden participation in computer science.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h2 class="section-title">APCSP Project</h2>
+        <div class="project-demo">
+            <h3>Demo of My Project</h3>
+            <iframe 
+                src="https://drive.google.com/file/d/1JT7nZ82QJh5NIxFVHyewRBR1MLsWohEF/preview" 
+                width="640" 
+                height="480" 
+                allow="autoplay">
+            </iframe>
+            <p><a href="https://drive.google.com/file/d/1JT7nZ82QJh5NIxFVHyewRBR1MLsWohEF/view" target="_blank">View the full demo</a></p>
+        </div>
+    </main>
+
+    <script src="/pages/theme-toggle.js"></script> <!-- Correct path within pages folder -->
+</body>
+</html>
