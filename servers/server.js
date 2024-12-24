@@ -88,3 +88,37 @@ app.get('/github-repos', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+app.get('/spotify-data', async (req, res) => {
+    if (!access_token) {
+        return res.status(401).json({ error: 'User not authenticated. Please login first.' });
+    }
+    try {
+        const fetch = (await import('node-fetch')).default;
+
+        // Fetch user's top tracks
+        const tracksResponse = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
+            headers: { Authorization: `Bearer ${access_token}` }
+        });
+        const topTracks = await tracksResponse.json();
+
+        // Fetch user's playlists
+        const playlistsResponse = await fetch('https://api.spotify.com/v1/me/playlists?limit=5', {
+            headers: { Authorization: `Bearer ${access_token}` }
+        });
+        const playlists = await playlistsResponse.json();
+
+        res.json({
+            topTracks: topTracks.items.map(track => ({
+                name: track.name,
+                artist: track.artists.map(artist => artist.name).join(', ')
+            })),
+            playlists: playlists.items.map(playlist => ({
+                name: playlist.name,
+                url: playlist.external_urls.spotify
+            }))
+        });
+    } catch (error) {
+        console.error('Error fetching Spotify data:', error);
+        res.status(500).json({ error: 'Failed to fetch Spotify data' });
+    }
+});
