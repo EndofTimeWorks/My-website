@@ -1,29 +1,44 @@
+
 import React, { useEffect, useState } from 'react';
+import './GithubRepos.css';
 
-function GitHubRepos() {
-  const [repos, setRepos] = useState([]);
+const GithubRepos = () => {
+    const [repos, setRepos] = useState([]);
 
-  useEffect(() => {
-    fetch('/github-repos')
-      .then(response => response.json())
-      .then(data => {
-        setRepos(data);
-      });
-  }, []);
+    useEffect(() => {
+        const fetchRepos = async () => {
+            try {
+                const response = await fetch('https://api.github.com/users/EndofTimee/repos');
+                const data = await response.json();
+                setRepos(data);
+            } catch (error) {
+                console.error('Error fetching GitHub repos:', error);
+            }
+        };
 
-  return (
-    <div id="github-repos">
-      <h2>My GitHub Repositories</h2>
-      <ul>
-        {repos.map(repo => (
-          <li key={repo.id}>
-            <h3>{repo.name}</h3>
-            <p>{repo.description}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+        fetchRepos();
+    }, []);
 
-export default GitHubRepos;
+    return (
+        <div className="github-repos-container">
+            <h1>My GitHub Repositories</h1>
+            <div className="repos-grid">
+                {repos.map((repo) => (
+                    <div key={repo.id} className="repo-card">
+                        <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-name">
+                            {repo.name}
+                        </a>
+                        <p className="repo-description">
+                            {repo.description || 'No description provided.'}
+                        </p>
+                        {repo.language && (
+                            <span className="repo-language">{repo.language}</span>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default GithubRepos;
