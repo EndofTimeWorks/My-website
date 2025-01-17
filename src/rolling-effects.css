@@ -1,0 +1,88 @@
+
+@keyframes rollingCode {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes particleMove {
+    0% { transform: translateY(0) translateX(0); opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { transform: translateY(100vh) translateX(10px); opacity: 0; }
+}
+
+@keyframes lightAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: monospace;
+    font-size: 1rem;
+    color: limegreen;
+    position: relative;
+    height: 100vh;
+}
+
+.animated-lighting {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 0, 0.3), transparent 60%);
+    background-size: 300% 300%;
+    animation: lightAnimation 12s infinite linear;
+    z-index: 0;
+}
+
+.code-line {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: rollingCode 10s linear infinite;
+    opacity: 0.7;
+    z-index: 1;
+    color: #00ff00;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: particleMove 8s linear infinite;
+    z-index: 2;
+}
+
+.particle:nth-child(odd) {
+    animation-duration: 12s;
+}
+
+.particle:nth-child(even) {
+    animation-duration: 10s;
+    width: 4px;
+    height: 4px;
+}
+
+.content {
+    position: relative;
+    z-index: 3;
+    color: white;
+    text-align: center;
+    margin-top: 20vh;
+}

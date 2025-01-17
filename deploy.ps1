@@ -8,7 +8,7 @@ npm run build
 
 # Step 3: Deploy Frontend to Cloudflare Pages
 Write-Output "Deploying frontend to Cloudflare Pages..."
-wrangler pages deploy ./build --project-name personal-site
+wrangler pages deploy ./build --project-name personal-site-test
 
 # Step 4: Deploy Backend to Cloudflare Workers
 Write-Output "Deploying backend worker..."
