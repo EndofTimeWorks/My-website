@@ -5,6 +5,9 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  background-image: url('/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 @media (prefers-reduced-motion: no-preference) {
