@@ -1,52 +1,33 @@
-{
-  "name": "my-website",
+﻿{
+  "name": "personal-site",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-transform-class-properties": "^7.25.9",
-    "@babel/plugin-transform-nullish-coalescing-operator": "^7.25.9",
-    "@babel/plugin-transform-numeric-separator": "^7.25.9",
-    "@babel/plugin-transform-optional-chaining": "^7.25.9",
-    "@babel/plugin-transform-private-methods": "^7.25.9",
-    "@eslint/eslintrc": "^1.4.1",
-    "@eslint/js": "^8.57.1",
-    "@jridgewell/sourcemap-codec": "^1.5.0",
-    "@babel/plugin-transform-class-properties": "^7.25.9",
-    "@babel/plugin-transform-nullish-coalescing-operator": "^7.25.9",
-    "@babel/plugin-transform-numeric-separator": "^7.25.9",
-    "@babel/plugin-transform-optional-chaining": "^7.25.9",
-    "@babel/plugin-transform-private-methods": "^7.25.9",
-    "@eslint/eslintrc": "^1.4.1",
-    "@eslint/js": "^8.57.1",
-    "@jridgewell/sourcemap-codec": "^1.5.0",
-    "cra-template": "1.2.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "@babel/plugin-transform-private-methods": "^7.25.9",
-    "@babel/plugin-transform-numeric-separator": "^7.25.9",
-    "@babel/plugin-transform-class-properties": "^7.25.9",
-    "@babel/plugin-transform-nullish-coalescing-operator": "^7.25.9",
-    "@babel/plugin-transform-optional-chaining": "^7.25.9",
-    "@eslint/eslintrc": "^1.4.1",
-    "@eslint/js": "^8.57.1",
-    "@jridgewell/sourcemap-codec": "^1.5.0",
-    "@rollup/plugin-terser": "7.0.2",
-    "eslint": "^8.57.1",
-    "rimraf": "^4.4.1",
-    "glob": "^9.3.5",
-    "svgo": "^2.8.0"
+    "web-vitals": "^2.1.4",
+    "itty-router": "^4.0.27",
+    "lru-cache": "^10.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@cloudflare/workers-types": "^4.20240208.0",
+    "wrangler": "^3.28.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "powershell ./deploy-master.ps1"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -60,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "inflight": "npm:lru-cache@^10.1.0"
   }
 }

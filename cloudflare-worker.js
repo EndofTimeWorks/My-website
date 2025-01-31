@@ -3,9 +3,9 @@ import { Router } from 'itty-router';
 
 const router = Router();
 
-const CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
-const CLIENT_SECRET = 'YOUR_SPOTIFY_CLIENT_SECRET';
-const REDIRECT_URI = 'YOUR_REDIRECT_URI';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = proccess.env.CLIENT_SECRET;
+const REDIRECT_URI = proces.env.REDIRECT_URI
 let accessToken = null;
 
 // Function to refresh Spotify Access Token
