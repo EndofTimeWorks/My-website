@@ -1,15 +1,16 @@
-
-import React, { useEffect, useState } from 'react';
-import '@/styles/.css';
+import { useEffect, useState } from 'react';
+import { GithubRepo } from '@/types';
+import '@/styles/GithubRepos.css';
 
 const GithubRepos = () => {
-    const [repos, setRepos] = useState([]);
+    const [repos, setRepos] = useState<GithubRepo[]>([]);
 
     useEffect(() => {
         const fetchRepos = async () => {
             try {
                 const response = await fetch('https://api.github.com/users/EndofTimee/repos');
-                const data = await response.json();
+                if (!response.ok) throw new Error('Failed to fetch repositories');
+                const data: GithubRepo[] = await response.json();
                 setRepos(data);
             } catch (error) {
                 console.error('Error fetching GitHub repos:', error);
@@ -42,4 +43,3 @@ const GithubRepos = () => {
 };
 
 export default GithubRepos;
-

@@ -1,15 +1,13 @@
-﻿/* Base cursor */
 * {
-    cursor: url("cursor/default.svg") 16 16, auto;
+  cursor: url('/cursors/default.svg') 16 16, auto;
 }
 
-/* Clickable elements cursor */
-a, button, [role="button"], input[type="submit"], 
-input[type="button"], select {
-    cursor: url("cursor/paw.svg") 16 16, pointer;
+a, button, [role="button"], 
+input[type="submit"], input[type="button"], 
+select {
+  cursor: url('/cursors/paw.svg') 16 16, pointer;
 }
 
-/* Loading cursor */
 .loading {
-    cursor: url("cursor/tail-loading.svg") 16 16, progress;
+  cursor: url('/cursors/tail-loading.svg') 16 16, progress;
 }

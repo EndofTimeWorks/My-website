@@ -1,10 +1,12 @@
-import React from 'react';
-import FoxCard from '../components/FoxCard';
 import { Heart, Gamepad2, Code, Music } from 'lucide-react';
-import { SpotifyVisualizer } from '../components/SpotifyVisualizer';
+import FoxCard from '@/components/FoxCard';
+import SpotifyVisualizer from '@/components/SpotifyVisualizer';
+import useSpotifyData from '@/hooks/useSpotifyData';
 
 const AboutPage = () => {
-    const calculateAge = () => {
+    const { data: spotifyData, loading } = useSpotifyData();
+
+    const calculateAge = (): number => {
         const birthDate = new Date("2009-05-15");
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -19,7 +21,9 @@ const AboutPage = () => {
         <div className="page-container">
             <FoxCard className="header-card">
                 <h1 className="text-glow">About Me</h1>
-                <p className="text-gradient">Transfem Foxgirl • {calculateAge()} years old • Programmer & Streamer</p>
+                <p className="text-gradient">
+                    Transfem Foxgirl • {calculateAge()} years old • Programmer & Streamer
+                </p>
             </FoxCard>
 
             <div className="content-grid">
@@ -40,7 +44,18 @@ const AboutPage = () => {
                         <Gamepad2 size={24} className="text-accent-primary" />
                         <h2>Streaming</h2>
                     </div>
-                    <p>Find me on <a href="https://twitch.tv/EndofTimee" className="text-accent-neon hover:text-glow" target="_blank" rel="noopener noreferrer">Twitch</a> playing FiveM and other games!</p>
+                    <p>
+                        Find me on{' '}
+                        <a 
+                            href="https://twitch.tv/EndofTimee" 
+                            className="text-accent-neon hover:text-glow"
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            Twitch
+                        </a>
+                        {' '}playing FiveM and other games!
+                    </p>
                 </FoxCard>
 
                 <FoxCard>
@@ -48,7 +63,7 @@ const AboutPage = () => {
                         <Music size={24} className="text-accent-primary" />
                         <h2>Current Tunes</h2>
                     </div>
-                    <SpotifyVisualizer />
+                    <SpotifyVisualizer isPlaying={!loading && !!spotifyData} />
                 </FoxCard>
             </div>
         </div>
@@ -56,4 +71,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-
