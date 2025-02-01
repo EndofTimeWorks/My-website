@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-function ThemeToggle() {
-  useEffect(() => {
-    const colorPicker = document.getElementById('theme-color-picker');
-    const currentColor = localStorage.getItem('theme-color') || '#3f10ad';
-    document.documentElement.style.setProperty('--primary-color', currentColor);
-    colorPicker.value = currentColor;
+const ThemeToggle = () => {
+    useEffect(() => {
+        const colorPicker = document.getElementById('theme-color-picker') as HTMLInputElement;
+        if (!colorPicker) return;
 
-    colorPicker.addEventListener('input', (event) => {
-      const newColor = event.target.value;
-      document.documentElement.style.setProperty('--primary-color', newColor);
-      localStorage.setItem('theme-color', newColor);
-    });
-  }, []);
+        const currentColor = localStorage.getItem('theme-color') || '#3f10ad';
+        document.documentElement.style.setProperty('--primary-color', currentColor);
+        colorPicker.value = currentColor;
 
-  return null;
-}
+        const handleInput = (event: Event) => {
+            const input = event.target as HTMLInputElement;
+            const newColor = input.value;
+            document.documentElement.style.setProperty('--primary-color', newColor);
+            localStorage.setItem('theme-color', newColor);
+        };
+
+        colorPicker.addEventListener('input', handleInput);
+
+        return () => {
+            colorPicker.removeEventListener('input', handleInput);
+        };
+    }, []);
+
+    return null;
+};
 
 export default ThemeToggle;

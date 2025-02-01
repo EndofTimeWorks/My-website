@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background-primary: #1a0b2e;
+    --background-secondary: #2f1c54;
+    --accent-primary: #9d4edd;
+    --accent-neon: #b249f8;
+    --text-glow: #e0aaff;
+    --text-primary: #ffffff;
+    --dark-accent: #240046;
+    --fox-pink: #ffc6e5;
+    --fox-pink-glow: #ffadd6;
+    --fox-orange: #ff9466;
+    --fox-white: #fff5f9;
+  }
+
+  body {
+    @apply bg-background-primary text-text-primary;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg transition-all
+           hover:bg-accent-primary/10 hover:text-accent-neon;
+  }
+
+  .nav-link.active {
+    @apply bg-accent-primary/20 text-accent-neon;
+  }
+
+  .fox-card {
+    @apply relative bg-gradient-card rounded-xl p-6 border border-accent-primary/20
+           transition-all hover:border-accent-neon/40 hover:shadow-lg
+           hover:shadow-accent-primary/10;
+  }
+
+  .text-glow {
+    @apply text-text-primary drop-shadow-[0_0_10px_rgba(224,170,255,0.5)];
+  }
+}

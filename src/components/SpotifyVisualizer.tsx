@@ -1,17 +1,24 @@
-import React, { useEffect, useRef } from 'react';
-import '../styles/SpotifyVisualizer.css';
+import { useEffect, useRef } from 'react';
+import type { SpotifyVisualizerProps } from '@/types';
+import '@/styles/SpotifyVisualizer.css';
 
-const SpotifyVisualizer = ({ isPlaying }) => {
-    const canvasRef = useRef(null);
-    const animationRef = useRef(null);
+const SpotifyVisualizer = ({ isPlaying = false }: SpotifyVisualizerProps) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const animationRef = useRef<number | null>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        if (!canvas) return;
+
         const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
         const bars = 50;
         const barWidth = canvas.width / bars;
 
         const animate = () => {
+            if (!canvas || !ctx) return;
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             for (let i = 0; i < bars; i++) {
@@ -47,9 +54,9 @@ const SpotifyVisualizer = ({ isPlaying }) => {
     return (
         <div className="visualizer-container">
             <canvas 
-                ref={canvasRef} 
-                width={300} 
-                height={60} 
+                ref={canvasRef}
+                width={300}
+                height={60}
                 className="music-visualizer"
             />
         </div>
@@ -57,4 +64,3 @@ const SpotifyVisualizer = ({ isPlaying }) => {
 };
 
 export default SpotifyVisualizer;
-

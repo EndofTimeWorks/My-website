@@ -1,0 +1,27 @@
+@layer utilities {
+  .animated-bg {
+    @apply relative bg-gradient-primary overflow-hidden;
+  }
+
+  .animated-bg::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-primary opacity-50;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  .fox-ear {
+    @apply absolute w-8 h-8 bg-fox-pink opacity-10 transition-opacity;
+  }
+
+  .fox-ear-left {
+    @apply -top-4 -left-4 transform rotate-45 rounded-bl-xl;
+  }
+
+  .fox-ear-right {
+    @apply -top-4 -right-4 transform -rotate-45 rounded-br-xl;
+  }
+
+  .fox-card:hover .fox-ear {
+    @apply opacity-20;
+  }
+}
