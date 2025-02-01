@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import FoxCard from '../components/FoxCard';
 import GithubRepos from '../components/GithubRepos';
 import useGithubRepos from '../hooks/useGithubRepos';
@@ -31,3 +31,4 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+

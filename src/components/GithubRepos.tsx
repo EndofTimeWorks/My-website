@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import './GithubRepos.css';
+import '@/styles/.css';
 
 const GithubRepos = () => {
     const [repos, setRepos] = useState([]);
@@ -42,3 +42,4 @@ const GithubRepos = () => {
 };
 
 export default GithubRepos;
+

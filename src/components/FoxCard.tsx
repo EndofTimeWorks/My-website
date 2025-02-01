@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import '../styles/FoxCard.css';
 
 const FoxCard = ({ children, className = '' }) => {
@@ -12,3 +12,4 @@ const FoxCard = ({ children, className = '' }) => {
 };
 
 export default FoxCard;
+
