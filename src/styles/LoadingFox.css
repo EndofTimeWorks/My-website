@@ -1,0 +1,49 @@
+﻿.loading-fox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.fox-loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.fox-face {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: var(--fox-orange);
+    border-radius: 50%;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.fox-ears {
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ear {
+    width: 20px;
+    height: 20px;
+    background: var(--fox-orange);
+    border-radius: 5px;
+}
+
+.ear.left {
+    transform: rotate(-30deg);
+}
+
+.ear.right {
+    transform: rotate(30deg);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
