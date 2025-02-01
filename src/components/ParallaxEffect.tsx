@@ -1,6 +1,4 @@
-
-import React from 'react';
-import '@/styles/.css';
+﻿import '@/styles/parallax-effect.css';
 
 const ParallaxEffect = () => {
     return (
@@ -18,4 +16,3 @@ const ParallaxEffect = () => {
 };
 
 export default ParallaxEffect;
-

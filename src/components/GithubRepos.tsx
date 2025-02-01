@@ -1,28 +1,13 @@
-import { useEffect, useState } from 'react';
-import { GithubRepo } from '@/types';
+﻿import { GithubRepo } from '@/types';
 import '@/styles/GithubRepos.css';
 
-const GithubRepos = () => {
-    const [repos, setRepos] = useState<GithubRepo[]>([]);
+interface GithubReposProps {
+    repos: GithubRepo[];
+}
 
-    useEffect(() => {
-        const fetchRepos = async () => {
-            try {
-                const response = await fetch('https://api.github.com/users/EndofTimee/repos');
-                if (!response.ok) throw new Error('Failed to fetch repositories');
-                const data: GithubRepo[] = await response.json();
-                setRepos(data);
-            } catch (error) {
-                console.error('Error fetching GitHub repos:', error);
-            }
-        };
-
-        fetchRepos();
-    }, []);
-
+const GithubRepos: React.FC<GithubReposProps> = ({ repos }) => {
     return (
         <div className="github-repos-container">
-            <h1>My GitHub Repositories</h1>
             <div className="repos-grid">
                 {repos.map((repo) => (
                     <div key={repo.id} className="repo-card">
@@ -34,6 +19,15 @@ const GithubRepos = () => {
                         </p>
                         {repo.language && (
                             <span className="repo-language">{repo.language}</span>
+                        )}
+                        {repo.languages && repo.languages.length > 0 && (
+                            <div className="repo-languages">
+                                {repo.languages.map((lang) => (
+                                    <span key={lang} className="language-tag">
+                                        {lang}
+                                    </span>
+                                ))}
+                            </div>
                         )}
                     </div>
                 ))}

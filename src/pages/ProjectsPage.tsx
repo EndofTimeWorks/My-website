@@ -1,8 +1,7 @@
-import React from 'react';
-import FoxCard from '../components/FoxCard';
-import GithubRepos from '../components/GithubRepos';
-import useGithubRepos from '../hooks/useGithubRepos';
-import LoadingFox from '../components/LoadingFox';
+﻿import FoxCard from '@/components/FoxCard';
+import GithubRepos from '@/components/GithubRepos';
+import useGithubRepos from '@/hooks/useGithubRepos';
+import LoadingFox from '@/components/LoadingFox';
 
 const ProjectsPage = () => {
     const { repos, loading, error } = useGithubRepos();
@@ -31,4 +30,3 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
-

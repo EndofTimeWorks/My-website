@@ -1,7 +1,5 @@
-// src/worker/utils/spotify.ts
+﻿import type { SpotifyTokenResponse, SpotifyError } from '../types/spotify';
 import type { Env } from '../types';
-import type { SpotifyTokenResponse, SpotifyError } from '../types/spotify';
-import { errorResponse } from './response';
 
 export async function getSpotifyToken(env: Env): Promise<string> {
     try {
@@ -18,7 +16,7 @@ export async function getSpotifyToken(env: Env): Promise<string> {
             throw new Error(`Failed to get token: ${response.status}`);
         }
 
-        const data = await response.json<SpotifyTokenResponse | SpotifyError>();
+        const data = await response.json() as SpotifyTokenResponse | SpotifyError;
 
         if ('error' in data) {
             throw new Error(data.error.message);
@@ -26,6 +24,7 @@ export async function getSpotifyToken(env: Env): Promise<string> {
 
         return data.access_token;
     } catch (error) {
-        throw new Error(`Failed to get Spotify token: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        const err = error as Error;
+        throw new Error(`Failed to get Spotify token: ${err.message}`);
     }
 }

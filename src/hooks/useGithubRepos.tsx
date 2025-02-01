@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { GithubRepo } from '@/types';
+﻿import { useState, useEffect } from 'react';
+import type { GithubRepo } from '@/types';
 
 const useGithubRepos = () => {
     const [repos, setRepos] = useState<GithubRepo[]>([]);
@@ -13,13 +13,13 @@ const useGithubRepos = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch repositories');
                 }
-                const data = await response.json();
+                const reposData = await response.json() as GithubRepo[];
                 
                 const repoDetails = await Promise.all(
-                    data.map(async (repo: GithubRepo) => {
+                    reposData.map(async (repo: GithubRepo) => {
                         try {
                             const languagesResponse = await fetch(repo.languages_url);
-                            const languages = await languagesResponse.json();
+                            const languages = await languagesResponse.json() as Record<string, number>;
                             return {
                                 ...repo,
                                 languages: Object.keys(languages)
@@ -37,7 +37,8 @@ const useGithubRepos = () => {
                 setRepos(repoDetails);
                 setError(null);
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
+                const error = err as Error;
+                setError(error.message);
                 console.error('Error fetching repos:', err);
             } finally {
                 setLoading(false);
