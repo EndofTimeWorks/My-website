@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../styles/SpotifyVisualizer.css';
 
 const SpotifyVisualizer = ({ isPlaying }) => {
@@ -57,3 +57,4 @@ const SpotifyVisualizer = ({ isPlaying }) => {
 };
 
 export default SpotifyVisualizer;
+

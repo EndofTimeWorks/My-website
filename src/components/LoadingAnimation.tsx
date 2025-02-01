@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './LoadingAnimation.css';
+import '@/styles/.css';
 
 const generateRandomCode = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';

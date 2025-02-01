@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import FoxCard from '../components/FoxCard';
 import { Heart, Gamepad2, Code, Music } from 'lucide-react';
 import { SpotifyVisualizer } from '../components/SpotifyVisualizer';
@@ -19,7 +19,7 @@ const AboutPage = () => {
         <div className="page-container">
             <FoxCard className="header-card">
                 <h1 className="text-glow">About Me</h1>
-                <p className="text-gradient">Transfem Foxgirl â€¢ {calculateAge()} years old â€¢ Programmer & Streamer</p>
+                <p className="text-gradient">Transfem Foxgirl • {calculateAge()} years old • Programmer & Streamer</p>
             </FoxCard>
 
             <div className="content-grid">
@@ -56,3 +56,4 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+

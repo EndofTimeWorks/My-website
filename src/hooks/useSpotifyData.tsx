@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const useSpotifyData = () => {
     const [data, setData] = useState(null);
@@ -27,3 +27,4 @@ const useSpotifyData = () => {
 };
 
 export default useSpotifyData;
+
