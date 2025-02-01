@@ -1,5 +1,4 @@
-import React from 'react';
-import '../styles/LoadingFox.css';
+import '@/styles/LoadingFox.css';
 
 const LoadingFox = () => {
     return (
@@ -23,4 +22,3 @@ const LoadingFox = () => {
 };
 
 export default LoadingFox;
-

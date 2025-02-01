@@ -1,6 +1,4 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
 import { Home, Code, BookOpen, Twitch } from 'lucide-react';
 
 const Navbar = () => {
@@ -49,8 +47,6 @@ const Navbar = () => {
                         <span>Stream</span>
                     </a>
                 </div>
-
-                <ThemeToggle />
             </div>
         </nav>
     );

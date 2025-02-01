@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { GithubRepo } from '@/types';
 
 const useGithubRepos = () => {
-    const [repos, setRepos] = useState([]);
+    const [repos, setRepos] = useState<GithubRepo[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchRepos = async () => {
@@ -14,9 +15,8 @@ const useGithubRepos = () => {
                 }
                 const data = await response.json();
                 
-                // Get additional details for each repo
                 const repoDetails = await Promise.all(
-                    data.map(async (repo) => {
+                    data.map(async (repo: GithubRepo) => {
                         try {
                             const languagesResponse = await fetch(repo.languages_url);
                             const languages = await languagesResponse.json();
@@ -35,8 +35,9 @@ const useGithubRepos = () => {
                 );
                 
                 setRepos(repoDetails);
+                setError(null);
             } catch (err) {
-                setError(err.message);
+                setError(err instanceof Error ? err.message : 'An error occurred');
                 console.error('Error fetching repos:', err);
             } finally {
                 setLoading(false);
@@ -50,4 +51,3 @@ const useGithubRepos = () => {
 };
 
 export default useGithubRepos;
-
