@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import '@/styles/.css';
+﻿import { useEffect, useState } from 'react';
+import '@/styles/LoadingAnimation.css';
 
 const generateRandomCode = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
@@ -7,7 +7,7 @@ const generateRandomCode = () => {
 };
 
 const LoadingAnimation = () => {
-    const [codeLines, setCodeLines] = useState([]);
+    const [codeLines, setCodeLines] = useState<string[]>([]);
 
     useEffect(() => {
         setCodeLines(generateRandomCode());

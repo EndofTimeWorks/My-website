@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import type { SpotifyTrack } from '@/types';
 
-interface SpotifyData {
-    data: SpotifyTrack[] | null;
-    loading: boolean;
-    error: string | null;
+interface SpotifyResponse {
+    items: SpotifyTrack[];
 }
 
-const useSpotifyData = (): SpotifyData => {
+const useSpotifyData = () => {
     const [data, setData] = useState<SpotifyTrack[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -21,10 +19,11 @@ const useSpotifyData = (): SpotifyData => {
                 const response = await fetch(`${workerUrl}/spotify-data`);
                 if (!response.ok) throw new Error('Failed to fetch Spotify data');
                 
-                const result = await response.json();
-                setData(result);
+                const result = await response.json() as SpotifyResponse;
+                setData(result.items);
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
+                const error = err as Error;
+                setError(error.message);
             } finally {
                 setLoading(false);
             }

@@ -1,6 +1,5 @@
-import React from 'react';
-import FoxCard from '../components/FoxCard';
-import { Code, BookOpen, Cpu } from 'lucide-react';
+﻿import FoxCard from '@/components/FoxCard';
+import { Code, Cpu } from 'lucide-react';
 
 const APCSPPage = () => {
     return (
@@ -40,4 +39,3 @@ const APCSPPage = () => {
 };
 
 export default APCSPPage;
-
