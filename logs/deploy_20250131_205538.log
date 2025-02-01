@@ -1,0 +1,421 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250131205538
+Username: ENDOFTIMEE\mason
+RunAs User: ENDOFTIMEE\mason
+Configuration Name: 
+Machine: ENDOFTIMEE (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command Import-Module 'c:\Users\mason\.vscode\extensions\ms-vscode.powershell-2025.0.0\modules\PowerShellEditorServices\PowerShellEditorServices.psd1'; Start-EditorServices -HostName 'Visual Studio Code Host' -HostProfileId 'Microsoft.VSCode' -HostVersion '2025.0.0' -BundledModulesPath 'c:\Users\mason\.vscode\extensions\ms-vscode.powershell-2025.0.0\modules' -EnableConsoleRepl -StartupBanner "PowerShell Extension v2025.0.0
+Copyright (c) Microsoft Corporation.
+
+https://aka.ms/vscode-powershell
+Type 'help' to get help.
+" -LogLevel 'Warning' -LogPath 'c:\Users\mason\AppData\Roaming\Code\logs\20250131T175040\window1\exthost\ms-vscode.powershell' -SessionDetailsPath 'c:\Users\mason\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-17324-675064.json' -FeatureFlags @() 
+Process ID: 29200
+PSVersion: 5.1.26100.2161
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.2161
+BuildVersion: 10.0.26100.2161
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is logs/deploy_20250131_205538.log
+
+================================================================================
+Starting Deployment Process
+================================================================================
+
+================================================================================
+Checking Node.js Environment
+================================================================================
+[+] Node.js version: v22.12.0
+[+] npm version: 10.9.0
+
+================================================================================
+Checking Dependencies
+================================================================================
+[*] Removing existing node_modules...
+[*] Installing dependencies...
+node.exe : npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out 
+lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive 
+and powerful.
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm warn deprec...e and powerful.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+npm warn deprecated @babel/plugin-proposal-private-methods@7.18.6: This proposal has been merged to the ECMAScript 
+standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
+npm warn deprecated @babel/plugin-proposal-numeric-separator@7.18.6: This proposal has been merged to the ECMAScript 
+standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
+npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript 
+standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+npm warn deprecated @babel/plugin-proposal-nullish-coalescing-operator@7.18.6: This proposal has been merged to the 
+ECMAScript standard and thus this plugin is no longer maintained. Please use 
+@babel/plugin-transform-nullish-coalescing-operator instead.
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is 
+deprecated. See the compatibility table on MDN: 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+npm warn deprecated @babel/plugin-proposal-optional-chaining@7.21.0: This proposal has been merged to the ECMAScript 
+standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rollup-plugin-inject@3.0.2: This package has been deprecated and is no longer maintained. Please 
+use @rollup/plugin-inject.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please 
+use @rollup/plugin-terser
+npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave 
+JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript 
+promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+npm warn deprecated
+npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead
+npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as 
+long as you are using GAv3 it should be ok, but the package is not longer being maintained
+npm warn deprecated svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support 
+for other options.
+[!] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[!] npm warn deprecated @babel/plugin-proposal-private-methods@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
+[!] npm warn deprecated @babel/plugin-proposal-numeric-separator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
+[!] npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+[!] npm warn deprecated @babel/plugin-proposal-nullish-coalescing-operator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
+[!] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+[!] npm warn deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+[!] npm warn deprecated @babel/plugin-proposal-optional-chaining@7.21.0: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+[!] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[!] npm warn deprecated rollup-plugin-inject@3.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
+[!] npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+[!] npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+[!] npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[!] npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+[!] npm warn deprecated
+[!] npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+[!] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+[!] npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead
+[!] npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+[!] npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+[!] npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+[!] npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+[!] npm warn deprecated svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+[!] npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+[*]
+[*] added 1549 packages in 2m
+[*]
+[*] 274 packages are looking for funding
+[*]   run `npm fund` for details
+[+] Dependencies installed successfully
+
+================================================================================
+Checking Cloudflare Setup
+================================================================================
+[+] Wrangler version: 3.107.2
+[+] Authenticated with Cloudflare
+
+================================================================================
+Checking Project Files
+================================================================================
+[+] Found package.json
+[+] Found wrangler.toml
+[+] Found spotify-worker.js
+[+] Found .env
+[+] Found .dev.vars
+[+] Found .prod.vars
+[+] Found public/index.html
+[+] Found public/manifest.json
+[+] Found public/robots.txt
+[+] Found src/App.js
+[+] Found src/App.css
+[+] Found src/index.js
+[+] Found src/App.test.js
+[+] Found src/reportWebVitals.js
+[+] Found src/setupTests.js
+[+] Directory exists: src
+[+] Directory exists: public
+[*] Creating directory: build
+[+] Directory exists: build
+[+] Directory exists: logs
+
+================================================================================
+Checking Environment Variables
+================================================================================
+
+================================================================================
+Building Project
+================================================================================
+[+] Cleaned previous build
+[*] Building project...
+node.exe : node:internal/modules/cjs/loader:1252
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/cjs/loader:1252:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+  throw err;
+  ^
+
+Error: Cannot find module 'ajv/dist/compile/codegen'
+Require stack:
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\typeof.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\validate.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\terser-webpack-plugin\dist\index.js
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\config\webpack.config.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\scripts\build.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1249:15)
+    at Function._load (node:internal/modules/cjs/loader:1075:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
+    at Module.require (node:internal/modules/cjs/loader:1340:12)
+    at require (node:internal/modules/helpers:138:16)
+    at Object.<anonymous> (C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js:3:19)
+    at Module._compile (node:internal/modules/cjs/loader:1565:14)
+    at Object..js (node:internal/modules/cjs/loader:1708:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\definitions\\typeof.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\typeof.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\validate.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\terser-webpack-plugin\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\config\\webpack.config.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\scripts\\build.js'
+  ]
+}
+
+Node.js v22.12.0
+[*]
+[*] > personal-site@0.1.0 build
+[*] > react-scripts build
+[*]
+[*] node:internal/modules/cjs/loader:1252
+[*]   throw err;
+[*]   ^
+[*] System.Management.Automation.RemoteException
+[*] Error: Cannot find module 'ajv/dist/compile/codegen'
+[*] Require stack:
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\typeof.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\validate.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\terser-webpack-plugin\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\config\webpack.config.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\scripts\build.js
+[*]     at Function._resolveFilename (node:internal/modules/cjs/loader:1249:15)
+[*]     at Function._load (node:internal/modules/cjs/loader:1075:27)
+[*]     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[*]     at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
+[*]     at Module.require (node:internal/modules/cjs/loader:1340:12)
+[*]     at require (node:internal/modules/helpers:138:16)
+[*]     at Object.<anonymous> (C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js:3:19)
+[*]     at Module._compile (node:internal/modules/cjs/loader:1565:14)
+[*]     at Object..js (node:internal/modules/cjs/loader:1708:10)
+[*]     at Module.load (node:internal/modules/cjs/loader:1318:32) {
+[*]   code: 'MODULE_NOT_FOUND',
+[*]   requireStack: [
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\definitions\\typeof.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\typeof.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\validate.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\terser-webpack-plugin\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\config\\webpack.config.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\scripts\\build.js'
+[*]   ]
+[*] }
+[*] System.Management.Automation.RemoteException
+[*] Node.js v22.12.0
+[!] Build completed with warnings:
+[!] Build failed with exit code: 1
+
+================================================================================
+Deploying Project
+================================================================================
+[*] Deploying Cloudflare Worker...
+node.exe : node:internal/modules/cjs/loader:1252
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/cjs/loader:1252:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+  throw err;
+  ^
+
+Error: Cannot find module 'ajv/dist/compile/codegen'
+Require stack:
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\typeof.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\validate.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\index.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\terser-webpack-plugin\dist\index.js
+- C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\config\webpack.config.js
+- C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\scripts\build.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1249:15)
+    at Function._load (node:internal/modules/cjs/loader:1075:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
+    at Module.require (node:internal/modules/cjs/loader:1340:12)
+    at require (node:internal/modules/helpers:138:16)
+    at Object.<anonymous> (C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js:3:19)
+    at Module._compile (node:internal/modules/cjs/loader:1565:14)
+    at Object..js (node:internal/modules/cjs/loader:1708:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\definitions\\typeof.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\typeof.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\validate.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\terser-webpack-plugin\\dist\\index.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\config\\webpack.config.js',
+    'C:\\Users\\mason\\OneDrive - 
+masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\scripts\\build.js'
+  ]
+}
+
+Node.js v22.12.0
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mRunning custom build `npm run build` failed. There are likely more logs 
+from your build command above.[0m
+
+
+🪵  Logs were written to "C:\Users\mason\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2025-02-01_03-58-25_199.log"
+[*]
+[*]  ⛅️ wrangler 3.107.2
+[*] --------------------
+[*]
+[*] Running custom build: npm run build
+[*]
+[*] > personal-site@0.1.0 build
+[*] > react-scripts build
+[*]
+[*] node:internal/modules/cjs/loader:1252
+[*]   throw err;
+[*]   ^
+[*] System.Management.Automation.RemoteException
+[*] Error: Cannot find module 'ajv/dist/compile/codegen'
+[*] Require stack:
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\typeof.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\keywords\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\validate.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\schema-utils\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\terser-webpack-plugin\dist\index.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\config\webpack.config.js
+[*] - C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\react-scripts\scripts\build.js
+[*]     at Function._resolveFilename (node:internal/modules/cjs/loader:1249:15)
+[*]     at Function._load (node:internal/modules/cjs/loader:1075:27)
+[*]     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[*]     at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
+[*]     at Module.require (node:internal/modules/cjs/loader:1340:12)
+[*]     at require (node:internal/modules/helpers:138:16)
+[*]     at Object.<anonymous> (C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\node_modules\ajv-keywords\dist\definitions\typeof.js:3:19)
+[*]     at Module._compile (node:internal/modules/cjs/loader:1565:14)
+[*]     at Object..js (node:internal/modules/cjs/loader:1708:10)
+[*]     at Module.load (node:internal/modules/cjs/loader:1318:32) {
+[*]   code: 'MODULE_NOT_FOUND',
+[*]   requireStack: [
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\definitions\\typeof.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\typeof.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\keywords\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\ajv-keywords\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\validate.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\schema-utils\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\terser-webpack-plugin\\dist\\index.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\config\\webpack.config.js',
+[*]     'C:\\Users\\mason\\OneDrive - masoncucci.com\\Desktop\\Github\\personal-site\\node_modules\\react-scripts\\scripts\\build.js'
+[*]   ]
+[*] }
+[*] System.Management.Automation.RemoteException
+[*] Node.js v22.12.0
+[*]
+[*] [31mX [41;31m[[41;97mERROR[41;31m][0m [1mRunning custom build `npm run build` failed. There are likely more logs from your build command above.[0m
+[*] System.Management.Automation.RemoteException
+[*] System.Management.Automation.RemoteException
+[*] 🪵  Logs were written to "C:\Users\mason\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2025-02-01_03-58-25_199.log"
+[*] Deploying to Cloudflare Pages...
+node.exe : [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mPages now has wrangler.toml support.[0m
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([33m▲ [43;33m...ml support.[0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+  We detected a configuration file at C:\Users\mason\OneDrive - 
+masoncucci.com\Desktop\Github\personal-site\wrangler.toml but it is missing the "pages_build_output_dir" field, 
+required by Pages.
+  If you would like to use this configuration file to deploy your project, please use "pages_build_output_dir" to 
+specify the directory of static files to upload.
+  Ignoring configuration file for now, and proceeding with project deploy.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mThis command cannot be run in a non-interactive context[0m
+
+
+🪵  Logs were written to "C:\Users\mason\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2025-02-01_03-58-33_874.log"
+[!] [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mPages now has wrangler.toml support.[0m
+[*] System.Management.Automation.RemoteException
+[*]   We detected a configuration file at C:\Users\mason\OneDrive - masoncucci.com\Desktop\Github\personal-site\wrangler.toml but it is missing the "pages_build_output_dir" field, required by Pages.
+[*]   If you would like to use this configuration file to deploy your project, please use "pages_build_output_dir" to specify the directory of static files to upload.
+[*]   Ignoring configuration file for now, and proceeding with project deploy.
+[*] System.Management.Automation.RemoteException
+[*] System.Management.Automation.RemoteException
+[*]
+[*] [31mX [41;31m[[41;97mERROR[41;31m][0m [1mThis command cannot be run in a non-interactive context[0m
+[*] System.Management.Automation.RemoteException
+[*] System.Management.Automation.RemoteException
+[*] 🪵  Logs were written to "C:\Users\mason\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2025-02-01_03-58-33_874.log"
+[!] Deployment completed with warnings:
+[!] Worker deployment failed with exit code: 1
+[!] Pages deployment failed with exit code: 1
+[*] Log file: logs/deploy_20250131_205538.log
+**********************
+Windows PowerShell transcript end
+End time: 20250131205835
+**********************
