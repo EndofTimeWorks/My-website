@@ -1,54 +1,69 @@
-
-.github-repos-container {
-    padding: 2rem;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-    text-align: center;
+﻿.github-repos-container {
+    width: 100%;
+    padding: 1rem;
 }
 
 .repos-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin-top: 2rem;
 }
 
 .repo-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgba(47, 28, 84, 0.3);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
 }
 
 .repo-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 20px rgba(178, 73, 248, 0.2);
 }
 
 .repo-name {
     font-size: 1.2rem;
-    font-weight: bold;
-    color: #0077cc;
+    font-weight: 600;
+    color: var(--text-primary);
     text-decoration: none;
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
 .repo-name:hover {
-    text-decoration: underline;
+    color: var(--accent-neon);
 }
 
 .repo-description {
-    color: #555;
-    margin-top: 0.5rem;
+    color: var(--text-primary);
+    opacity: 0.8;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
 }
 
 .repo-language {
     display: inline-block;
-    margin-top: 1rem;
-    padding: 0.3rem 0.6rem;
-    background-color: #eee;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: #333;
+    padding: 0.25rem 0.75rem;
+    background: rgba(157, 78, 221, 0.2);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    margin-top: 0.5rem;
+}
+
+.repo-languages {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.language-tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(157, 78, 221, 0.1);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-primary);
 }

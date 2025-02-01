@@ -1,13 +1,11 @@
-// src/types/index.ts
+﻿import { ReactNode } from 'react';
 
-import { ReactNode } from 'react';
-
-export interface SpotifyTrack {
+export interface Track {
     id: string;
     name: string;
-    artists: {
+    artists: Array<{
         name: string;
-    }[];
+    }>;
 }
 
 export interface GithubRepo {
@@ -20,26 +18,48 @@ export interface GithubRepo {
     languages: string[];
 }
 
-export interface ErrorBoundaryState {
-    hasError: boolean;
-    error: Error | null;
+export interface SpotifyTokenResponse {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+}
+
+export interface SpotifyError {
+    error: {
+        status: number;
+        message: string;
+    };
+}
+
+export interface CardProps {
+    className?: string;
+    children: ReactNode;
+}
+
+export interface FoxCardProps {
+    className?: string;
+    children: ReactNode;
 }
 
 export interface ErrorBoundaryProps {
     children: ReactNode;
 }
 
-export interface FoxCardProps {
-    children: ReactNode;
-    className?: string;
+export interface ErrorBoundaryState {
+    hasError: boolean;
+    error: Error | null;
 }
 
 export interface SpotifyVisualizerProps {
     isPlaying?: boolean;
 }
 
-export interface ThemeColors {
-    primary: string;
-    secondary: string;
-    accent: string;
+export interface SpotifyTrack {
+    id: string;
+    name: string;
+    artists: Array<{ name: string }>;
+}
+
+export interface GithubReposProps {
+    repos: GithubRepo[];
 }

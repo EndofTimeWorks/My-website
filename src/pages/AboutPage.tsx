@@ -1,4 +1,4 @@
-import { Heart, Gamepad2, Code, Music } from 'lucide-react';
+﻿import { Gamepad2, Code, Music } from 'lucide-react';
 import FoxCard from '@/components/FoxCard';
 import SpotifyVisualizer from '@/components/SpotifyVisualizer';
 import useSpotifyData from '@/hooks/useSpotifyData';

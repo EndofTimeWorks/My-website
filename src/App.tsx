@@ -1,11 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+﻿import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import AboutPage from '@/pages/AboutPage';
 import APCSPPage from '@/pages/APCSPPage';
 import ProjectsPage from '@/pages/ProjectsPage';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import '@/styles/.css';
+import '@/styles/App.css';
 
 const App = () => {
     return (
