@@ -24,10 +24,6 @@
 }
 
 @layer components {
-  .page-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
-  }
-
   .nav-link {
     @apply flex items-center gap-2 px-4 py-2 rounded-lg transition-all
            hover:bg-accent-primary/10 hover:text-accent-neon;
@@ -46,4 +42,12 @@
   .text-glow {
     @apply text-text-primary drop-shadow-[0_0_10px_rgba(224,170,255,0.5)];
   }
+}
+
+.content-grid {
+  @apply grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.card-spacing > * + * {
+  @apply mt-8;
 }
