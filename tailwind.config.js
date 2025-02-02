@@ -39,6 +39,10 @@ export default {
         'gradient-card': 'linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%)',
         'gradient-hover': 'linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(178, 73, 248, 0.1) 100%)',
       },
+      zIndex: {
+        'behind': '-1',
+        'deep': '-10',
+      }
     },
   },
   plugins: [],
