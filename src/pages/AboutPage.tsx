@@ -1,28 +1,26 @@
 ﻿import { Gamepad2, Code, Music } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import FoxCard from '@/components/FoxCard';
-import SpotifyVisualizer from '@/components/SpotifyVisualizer';
-import useSpotifyData from '@/hooks/useSpotifyData';
+import MusicDisplay from '@/components/MusicDisplay';
+import { calculatePreciseAge } from '@/utils/dateUtils';
 
 const AboutPage = () => {
-    const { data: spotifyData, loading } = useSpotifyData();
+    const [age, setAge] = useState(calculatePreciseAge(new Date("2009-05-15")));
 
-    const calculateAge = (): number => {
-        const birthDate = new Date("2009-05-15");
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
-    };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setAge(calculatePreciseAge(new Date("2009-05-15")));
+        }, 50);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="page-container">
             <FoxCard className="header-card">
                 <h1 className="text-glow">About Me</h1>
                 <p className="text-gradient">
-                    Transfem Foxgirl • {calculateAge()} years old • Programmer & Streamer
+                    Transfem Foxgirl • {age} years old • Programmer & Streamer
                 </p>
             </FoxCard>
 
@@ -59,11 +57,11 @@ const AboutPage = () => {
                 </FoxCard>
 
                 <FoxCard>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 mb-4">
                         <Music size={24} className="text-accent-primary" />
-                        <h2>Current Tunes</h2>
+                        <h2>Music</h2>
                     </div>
-                    <SpotifyVisualizer isPlaying={!loading && !!spotifyData} />
+                    <MusicDisplay />
                 </FoxCard>
             </div>
         </div>

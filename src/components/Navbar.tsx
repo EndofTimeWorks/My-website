@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Code, BookOpen, Twitch } from 'lucide-react';
+import { Home, Code, BookOpen, Twitch, Layers } from 'lucide-react';
 
 const Navbar = () => {
     const location = useLocation();
@@ -7,11 +7,6 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="nav-content">
-                <Link to="/" className="nav-brand">
-                    <img src="/logo.jpg" alt="Logo" className="nav-logo" />
-                    <span className="text-glow">EndofTimee</span>
-                </Link>
-
                 <div className="nav-links">
                     <Link 
                         to="/" 

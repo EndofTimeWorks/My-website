@@ -58,12 +58,9 @@ function Start-Development {
         # Start Vite
         $viteWindow = Start-Process powershell -ArgumentList "-NoExit", "-Command", "npm run dev" -PassThru
 
-        # Start Wrangler
-        $wranglerWindow = Start-Process powershell -ArgumentList "-NoExit", "-Command", "npx wrangler dev spotify-worker.ts" -PassThru
-
+        
         Write-Status "Development servers started successfully!" "Success"
         Write-Status "Vite running on: http://localhost:3000" "Info"
-        Write-Status "Worker running on: http://localhost:8787" "Info"
         Write-Status "Log file: $logFile" "Info"
 
         # Wait for user input to stop servers
@@ -72,14 +69,12 @@ function Start-Development {
 
         # Stop the servers
         if ($viteWindow) { Stop-Process -Id $viteWindow.Id -Force }
-        if ($wranglerWindow) { Stop-Process -Id $wranglerWindow.Id -Force }
 
         Write-Status "Development servers stopped" "Success"
     }
     catch {
         Write-Status "Error during development: $_" "Error"
         if ($viteWindow) { Stop-Process -Id $viteWindow.Id -Force }
-        if ($wranglerWindow) { Stop-Process -Id $wranglerWindow.Id -Force }
         exit 1
     }
     finally {
