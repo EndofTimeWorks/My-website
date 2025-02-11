@@ -1,5 +1,4 @@
-# deploy-master.ps1
-#Requires -Version 5.1
+# deploy.ps1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
@@ -28,9 +27,6 @@ function Write-Status {
 
 function Test-Environment {
     $requiredVars = @{
-        "SPOTIFY_CLIENT_ID" = ""
-        "SPOTIFY_CLIENT_SECRET" = ""
-        "SPOTIFY_REDIRECT_URI" = ""
         "CLOUDFLARE_API_TOKEN" = "For Cloudflare API access"
         "CLOUDFLARE_ACCOUNT_ID" = "For Cloudflare account identification"
     }
@@ -47,21 +43,13 @@ function Test-Environment {
         }
     }
     
-    # Check for deprecated variables
-    if (Get-Item env:CF_API_TOKEN -ErrorAction SilentlyContinue) {
-        Write-Status "CF_API_TOKEN is deprecated. Please use CLOUDFLARE_API_TOKEN instead" "Warning"
-        # Automatically migrate the value
-        $env:CLOUDFLARE_API_TOKEN = $env:CF_API_TOKEN
-        Remove-Item env:CF_API_TOKEN
-    }
-    
     if ($missingVars.Count -gt 0) {
         throw "Missing required environment variables: $($missingVars -join ', ')"
     }
 }
 
 function Clear-BuildArtifacts {
-    $paths = @("dist", ".wrangler", "node_modules/.cache")
+    $paths = @("dist", "node_modules/.cache")
     foreach ($path in $paths) {
         if (Test-Path $path) {
             Remove-Item -Recurse -Force $path
@@ -82,31 +70,11 @@ function Install-Dependencies {
 
 function Start-Build {
     Write-Status "Building project..." "Info"
-
-    Write-Status "Building worker..." "Info"
-    npm run build:worker
-    if ($LASTEXITCODE -ne 0) { throw "Worker build failed" }
-
-    Write-Status "Building frontend..." "Info"
     npm run build
     if ($LASTEXITCODE -ne 0) { throw "Frontend build failed" }
     
     if (-not (Test-Path "dist")) { throw "Build failed - dist directory not created" }
     Write-Status "Build completed successfully" "Success"
-}
-
-function Deploy-Worker {
-    Write-Status "Deploying Cloudflare Worker..." "Info"
-    
-    # Set wrangler environment variables
-    $env:WRANGLER_AUTH_TOKEN = $env:CLOUDFLARE_API_TOKEN
-    
-    $deployEnv = if ($env:CI) { "production" } else { "development" }
-    
-    npx wrangler deploy src/worker/index.ts --env $deployEnv
-    if ($LASTEXITCODE -ne 0) { throw "Worker deployment failed" }
-    
-    Write-Status "Worker deployed successfully" "Success"
 }
 
 function Deploy-Frontend {
@@ -132,7 +100,6 @@ function Start-Deployment {
         Clear-BuildArtifacts
         Install-Dependencies
         Start-Build
-        Deploy-Worker
         Deploy-Frontend
         
         Write-Status "Deployment completed successfully!" "Success"

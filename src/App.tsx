@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import AboutPage from "@/pages/AboutPage";
 import ProjectsPage from "@/pages/ProjectsPage";
+import APCSPPage from "@/pages/APCSPPage";
+import ParallaxPage from "@/pages/ParallaxPage";
 
 const App = () => {
     return (
@@ -25,6 +27,8 @@ const App = () => {
                         <Routes>
                             <Route path="/" element={<AboutPage />} />
                             <Route path="/projects" element={<ProjectsPage />} />
+                            <Route path="/apcsp" element={<APCSPPage />} />
+                            <Route path="/parallax" element={<ParallaxPage />} />
                             <Route path="*" element={
                                 <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
                                     <h1 className="text-4xl font-bold text-glow">404: Page Not Found</h1>
