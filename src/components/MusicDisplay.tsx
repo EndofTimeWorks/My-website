@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Music, Pause } from 'lucide-react';
+import { Music } from 'lucide-react';
 
 interface LastFMImage {
   '#text': string;
