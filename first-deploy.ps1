@@ -102,33 +102,11 @@ function Setup-CloudflareAccount {
     $envContent = @"
 CLOUDFLARE_API_TOKEN=$apiToken
 CLOUDFLARE_ACCOUNT_ID=$accountId
-SPOTIFY_CLIENT_ID=
-SPOTIFY_CLIENT_SECRET=
-SPOTIFY_REDIRECT_URI=
+VITE_LASTFM_API_KEY=
+VITE_LASTFM_USERNAME=
 "@
     Set-Content -Path ".env.local" -Value $envContent
     Write-Status "Created .env.local file with Cloudflare credentials" "Success"
-}
-
-function Setup-SpotifyApp {
-    Write-Status "Setting up Spotify Developer App..." "Info"
-    Open-BrowserIfConfirmed "https://developer.spotify.com/dashboard" "Opening Spotify Developer Dashboard..."
-    
-    Write-Status "Create a new app in the Spotify Developer Dashboard" "Info"
-    Write-Status "Once created, get the Client ID and Client Secret" "Info"
-    
-    $clientId = Get-UserInput "Enter your Spotify Client ID"
-    $clientSecret = Get-UserInput "Enter your Spotify Client Secret" -IsPassword
-    $redirectUri = "https://personal-site.pages.dev/callback"
-    
-    # Update .env.local file
-    $envContent = Get-Content ".env.local" -Raw
-    $envContent = $envContent.Replace("SPOTIFY_CLIENT_ID=", "SPOTIFY_CLIENT_ID=$clientId")
-    $envContent = $envContent.Replace("SPOTIFY_CLIENT_SECRET=", "SPOTIFY_CLIENT_SECRET=$clientSecret")
-    $envContent = $envContent.Replace("SPOTIFY_REDIRECT_URI=", "SPOTIFY_REDIRECT_URI=$redirectUri")
-    Set-Content -Path ".env.local" -Value $envContent
-    
-    Write-Status "Updated .env.local file with Spotify credentials" "Success"
 }
 
 function Setup-Project {
@@ -190,7 +168,6 @@ function Start-FirstTimeSetup {
         # Run setup steps
         Install-RequiredTools
         Setup-CloudflareAccount
-        Setup-SpotifyApp
         Setup-Project
         
         Write-Status "First-time setup completed successfully!" "Success"
