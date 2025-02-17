@@ -27,7 +27,7 @@ function Write-Status {
 
 function Test-Environment {
     $requiredVars = @{
-        "CLOUDFLARE_API_TOKEN" = "For Cloudflare API access"
+        # "CLOUDFLARE_API_TOKEN" = "For Cloudflare API access"
         "CLOUDFLARE_ACCOUNT_ID" = "For Cloudflare account identification"
     }
     
