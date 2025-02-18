@@ -1,205 +1,173 @@
 /* src/styles/game.css */
-
+@import 'base.css';
+@import 'animations.css';
+@import 'utilities.css';
+@import 'cursor.css';
 /* Base game styles */
 .game-viewport {
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    var(--background-primary) 0%,
-    var(--background-secondary) 100%
-  );
+touch-action: none;
+user-select: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+overflow: hidden;
+background: linear-gradient(
+135deg,
+var(--background-primary) 0%,
+var(--background-secondary) 100%
+);
 }
-
 /* Game UI elements */
 .game-hud {
-  pointer-events: none;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+pointer-events: none;
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 .game-card {
-  background: rgba(47, 28, 84, 0.3);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(157, 78, 221, 0.2);
-  transition: all 0.3s ease;
+background: rgba(47, 28, 84, 0.3);
+backdrop-filter: blur(8px);
+border: 1px solid rgba(157, 78, 221, 0.2);
+transition: all 0.3s ease;
 }
-
 .game-card:hover {
-  border-color: rgba(178, 73, 248, 0.4);
-  box-shadow: 0 0 20px rgba(178, 73, 248, 0.2);
+border-color: rgba(178, 73, 248, 0.4);
+box-shadow: 0 0 20px rgba(178, 73, 248, 0.2);
 }
-
 /* Player animations */
 .player-idle {
-  animation: playerIdle 2s ease-in-out infinite;
+animation: playerIdle 2s ease-in-out infinite;
 }
-
 .player-move {
-  animation: playerMove 0.3s linear infinite;
+animation: playerMove 0.3s linear infinite;
 }
-
 .player-hit {
-  animation: playerHit 0.5s ease-in-out;
+animation: playerHit 0.5s ease-in-out;
 }
-
 @keyframes playerIdle {
-  0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, calc(-50% - 4px)); }
+0%, 100% { transform: translate(-50%, -50%); }
+50% { transform: translate(-50%, calc(-50% - 4px)); }
 }
-
 @keyframes playerMove {
-  0% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-  100% { transform: rotate(-2deg); }
+0% { transform: rotate(-2deg); }
+50% { transform: rotate(2deg); }
+100% { transform: rotate(-2deg); }
 }
-
 @keyframes playerHit {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+0%, 100% { opacity: 1; }
+50% { opacity: 0.5; }
 }
-
 /* Enemy animations */
 .enemy-patrol {
-  animation: enemyPatrol 3s linear infinite;
+animation: enemyPatrol 3s linear infinite;
 }
-
 .enemy-chase {
-  animation: enemyChase 0.5s ease-in-out infinite;
+animation: enemyChase 0.5s ease-in-out infinite;
 }
-
 @keyframes enemyPatrol {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(50px); }
-  100% { transform: translateX(0); }
+0% { transform: translateX(0); }
+50% { transform: translateX(50px); }
+100% { transform: translateX(0); }
 }
-
 @keyframes enemyChase {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.1); }
 }
-
 /* Collectible animations */
 .collectible {
-  animation: collectibleFloat 2s ease-in-out infinite;
+animation: collectibleFloat 2s ease-in-out infinite;
 }
-
 .collectible-gem {
-  animation: collectibleGem 3s linear infinite;
+animation: collectibleGem 3s linear infinite;
 }
-
 @keyframes collectibleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
 }
-
 @keyframes collectibleGem {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
 }
-
 /* Power-up effects */
 .powerup-active {
-  animation: powerupPulse 1s ease-in-out infinite;
+animation: powerupPulse 1s ease-in-out infinite;
 }
-
 .powerup-shield {
-  animation: shieldRotate 3s linear infinite;
+animation: shieldRotate 3s linear infinite;
 }
-
 @keyframes powerupPulse {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.5); }
+0%, 100% { filter: brightness(1); }
+50% { filter: brightness(1.5); }
 }
-
 @keyframes shieldRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
 }
-
 /* Game effects */
 .particle {
-  position: absolute;
-  pointer-events: none;
-  animation: particleFade 1s ease-out forwards;
+position: absolute;
+pointer-events: none;
+animation: particleFade 1s ease-out forwards;
 }
-
 @keyframes particleFade {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0); opacity: 0; }
+0% { transform: scale(1); opacity: 1; }
+100% { transform: scale(0); opacity: 0; }
 }
-
 /* Game UI animations */
 .score-popup {
-  animation: scorePopup 0.5s ease-out forwards;
+animation: scorePopup 0.5s ease-out forwards;
 }
-
 .health-change {
-  animation: healthChange 0.5s ease-in-out;
+animation: healthChange 0.5s ease-in-out;
 }
-
 @keyframes scorePopup {
-  0% { transform: scale(0) translateY(0); opacity: 1; }
-  50% { transform: scale(1.2) translateY(-20px); opacity: 1; }
-  100% { transform: scale(1) translateY(-40px); opacity: 0; }
+0% { transform: scale(0) translateY(0); opacity: 1; }
+50% { transform: scale(1.2) translateY(-20px); opacity: 1; }
+100% { transform: scale(1) translateY(-40px); opacity: 0; }
 }
-
 @keyframes healthChange {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.2); }
 }
-
 /* Menu transitions */
 .menu-enter {
-  animation: menuEnter 0.3s ease-out forwards;
+animation: menuEnter 0.3s ease-out forwards;
 }
-
 .menu-exit {
-  animation: menuExit 0.3s ease-in forwards;
+animation: menuExit 0.3s ease-in forwards;
 }
-
 @keyframes menuEnter {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+from { opacity: 0; transform: scale(0.9); }
+to { opacity: 1; transform: scale(1); }
 }
-
 @keyframes menuExit {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(1.1); }
+from { opacity: 1; transform: scale(1); }
+to { opacity: 0; transform: scale(1.1); }
 }
-
 /* Custom cursor */
 .game-cursor {
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
-  position: fixed;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.1s ease;
+width: 24px;
+height: 24px;
+pointer-events: none;
+position: fixed;
+z-index: 9999;
+mix-blend-mode: difference;
+transition: transform 0.1s ease;
 }
-
 /* Responsive adjustments */
 @media (max-width: 640px) {
-  .game-hud {
-    font-size: 0.875rem;
-  }
-  
-  .game-card {
-    padding: 1rem;
-  }
+.game-hud {
+font-size: 0.875rem;
 }
-
+.game-card {
+padding: 1rem;
+}
+}
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .player-idle,
-  .player-move,
-  .enemy-patrol,
-  .collectible,
-  .powerup-active {
-    animation: none;
-  }
+.player-idle,
+.player-move,
+.enemy-patrol,
+.collectible,
+.powerup-active {
+animation: none;
+}
 }

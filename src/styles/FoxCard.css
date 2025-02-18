@@ -1,35 +1,31 @@
-﻿.fox-card {
-    position: relative;
-    background: var(--gradient-card);
-    border-radius: 16px;
-    padding: 1.5rem;
-    border: 1px solid rgba(157, 78, 221, 0.2);
-    overflow: hidden;
+.fox-card {
+position: relative;
+background: var(--gradient-card);
+border-radius: 16px;
+padding: 1.5rem;
+border: 1px solid rgba(157, 78, 221, 0.2);
+overflow: hidden;
 }
-
 .fox-ear {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: var(--fox-pink);
-    opacity: 0.1;
-    transition: opacity 0.3s ease;
+position: absolute;
+width: 30px;
+height: 30px;
+background: var(--fox-pink);
+opacity: 0.1;
+transition: opacity 0.3s ease;
 }
-
 .fox-ear-left {
-    top: -15px;
-    left: -15px;
-    transform: rotate(45deg);
-    border-radius: 0 0 0 15px;
+top: -15px;
+left: -15px;
+transform: rotate(45deg);
+border-radius: 0 0 0 15px;
 }
-
 .fox-ear-right {
-    top: -15px;
-    right: -15px;
-    transform: rotate(-45deg);
-    border-radius: 0 0 15px 0;
+top: -15px;
+right: -15px;
+transform: rotate(-45deg);
+border-radius: 0 0 15px 0;
 }
-
 .fox-card:hover .fox-ear {
-    opacity: 0.2;
+opacity: 0.2;
 }

@@ -1,69 +1,60 @@
-﻿.github-repos-container {
-    width: 100%;
-    padding: 1rem;
+.github-repos-container {
+width: 100%;
+padding: 1rem;
 }
-
 .repos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 1.5rem;
 }
-
 .repo-card {
-    background: rgba(47, 28, 84, 0.3);
-    border: 1px solid rgba(157, 78, 221, 0.2);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+background: rgba(47, 28, 84, 0.3);
+border: 1px solid rgba(157, 78, 221, 0.2);
+border-radius: 12px;
+padding: 1.5rem;
+transition: all 0.3s ease;
 }
-
 .repo-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-neon);
-    box-shadow: 0 0 20px rgba(178, 73, 248, 0.2);
+transform: translateY(-5px);
+border-color: var(--accent-neon);
+box-shadow: 0 0 20px rgba(178, 73, 248, 0.2);
 }
-
 .repo-name {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    display: block;
+font-size: 1.2rem;
+font-weight: 600;
+color: var(--text-primary);
+text-decoration: none;
+margin-bottom: 0.5rem;
+display: block;
 }
-
 .repo-name:hover {
-    color: var(--accent-neon);
+color: var(--accent-neon);
 }
-
 .repo-description {
-    color: var(--text-primary);
-    opacity: 0.8;
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
+color: var(--text-primary);
+opacity: 0.8;
+margin: 0.5rem 0;
+font-size: 0.9rem;
 }
-
 .repo-language {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: rgba(157, 78, 221, 0.2);
-    border-radius: 1rem;
-    font-size: 0.8rem;
-    color: var(--text-primary);
-    margin-top: 0.5rem;
+display: inline-block;
+padding: 0.25rem 0.75rem;
+background: rgba(157, 78, 221, 0.2);
+border-radius: 1rem;
+font-size: 0.8rem;
+color: var(--text-primary);
+margin-top: 0.5rem;
 }
-
 .repo-languages {
-    margin-top: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+margin-top: 0.5rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
 }
-
 .language-tag {
-    padding: 0.25rem 0.75rem;
-    background: rgba(157, 78, 221, 0.1);
-    border-radius: 1rem;
-    font-size: 0.8rem;
-    color: var(--text-primary);
+padding: 0.25rem 0.75rem;
+background: rgba(157, 78, 221, 0.1);
+border-radius: 1rem;
+font-size: 0.8rem;
+color: var(--text-primary);
 }

@@ -1,52 +1,45 @@
-
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+height: 100%;
+overflow-x: hidden;
+font-family: Arial, sans-serif;
 }
-
 .parallax-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    perspective: 2px; /* Creates the parallax effect */
+position: relative;
+width: 100%;
+height: 100vh;
+overflow: hidden;
+perspective: 2px; /* Creates the parallax effect */
 }
-
 .parallax-layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transform: translateZ(0);
-    z-index: -1;
+position: absolute;
+width: 100%;
+height: 100%;
+background-size: cover;
+background-position: center;
+transform: translateZ(0);
+z-index: -1;
 }
-
 .layer-1 {
-    background-image: url('https://source.unsplash.com/1600x900/?nature');
-    transform: translateZ(-1px) scale(1.5);
+background-image: url('https://source.unsplash.com/1600x900/?nature');
+transform: translateZ(-1px) scale(1.5);
 }
-
 .layer-2 {
-    background-image: url('https://source.unsplash.com/1600x900/?forest');
-    transform: translateZ(-0.5px) scale(1.2);
+background-image: url('https://source.unsplash.com/1600x900/?forest');
+transform: translateZ(-0.5px) scale(1.2);
 }
-
 .content-layer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    color: white;
-    font-size: 2rem;
-    padding-top: 40vh;
+position: relative;
+z-index: 1;
+text-align: center;
+color: white;
+font-size: 2rem;
+padding-top: 40vh;
 }
-
 .parallax-text {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 1rem 2rem;
-    display: inline-block;
-    border-radius: 8px;
+background: rgba(0, 0, 0, 0.5);
+padding: 1rem 2rem;
+display: inline-block;
+border-radius: 8px;
 }
