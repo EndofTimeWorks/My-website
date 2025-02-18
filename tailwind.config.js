@@ -23,6 +23,8 @@ export default {
         'bounce-slow': 'bounce 3s linear infinite',
         'glow': 'glow 2s ease-in-out infinite',
         'float': 'float 3s ease-in-out infinite',
+        'spin-slow': 'spin 3s linear infinite',
+        'wag': 'wag 1s ease-in-out infinite',
       },
       keyframes: {
         glow: {
@@ -33,16 +35,11 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        wag: {
+          '0%, 100%': { transform: 'rotate(-10deg)' },
+          '50%': { transform: 'rotate(10deg)' },
+        },
       },
-      backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%)',
-        'gradient-card': 'linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%)',
-        'gradient-hover': 'linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(178, 73, 248, 0.1) 100%)',
-      },
-      zIndex: {
-        'behind': '-1',
-        'deep': '-10',
-      }
     },
   },
   plugins: [],
