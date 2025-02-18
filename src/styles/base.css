@@ -1,67 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
-  :root {
-    --background-primary: #1a0b2e;
-    --background-secondary: #2f1c54;
-    --accent-primary: #9d4edd;
-    --accent-neon: #b249f8;
-    --text-glow: #e0aaff;
-    --text-primary: #ffffff;
-    --dark-accent: #240046;
-    --fox-pink: #ffc6e5;
-    --fox-pink-glow: #ffadd6;
-    --fox-orange: #ff9466;
-    --fox-white: #fff5f9;
-  }
-
-  body {
-    @apply bg-background-primary text-text-primary;
-    font-family: "Inter", sans-serif;
-  }
-
-  /* Global spacing */
-  .content-wrapper {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
-  }
-
-  .section-spacing {
-    @apply space-y-12;
-  }
-
-  .card-spacing {
-    @apply space-y-8;
-  }
-
-  .element-spacing {
-    @apply space-y-4;
-  }
+:root {
+--background-primary: #1a0b2e;
+--background-secondary: #2f1c54;
+--accent-primary: #9d4edd;
+--accent-neon: #b249f8;
+--text-glow: #e0aaff;
+--text-primary: #ffffff;
+--dark-accent: #240046;
+--fox-pink: #ffc6e5;
+--fox-pink-glow: #ffadd6;
+--fox-orange: #ff9466;
+--fox-white: #fff5f9;
 }
-
-@layer components {
-  .nav-link {
-    @apply flex items-center gap-3 px-4 py-2 rounded-lg transition-all
-           hover:bg-accent-primary/10 hover:text-accent-neon my-1;
-  }
-
-  .nav-link.active {
-    @apply bg-accent-primary/20 text-accent-neon;
-  }
-
-  .fox-card {
-    @apply relative bg-gradient-card rounded-xl p-8 border border-accent-primary/20
-           transition-all hover:border-accent-neon/40 hover:shadow-lg
-           hover:shadow-accent-primary/10 mb-8;
-  }
-
-  .text-glow {
-    @apply text-text-primary drop-shadow-[0_0_10px_rgba(224,170,255,0.5)];
-  }
-
-  /* Card Grid */
-  .content-grid {
-    @apply grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
-  }
+body {
+    @apply
+      font-family: "Inter", sans-serif
+      bg-background-primary text-text-primary;;
 }
+/* Global spacing */
+.content-wrapper {
+    @apply
+      gap-3 px-4 py-2 my-1
+      items-center rounded-lg
+      transition-all hover:bg-accent-primary/10 hover:text-accent-neon
+      flex
+      hover:bg-accent-primary/10 hover:text-accent-neon;
+}
+.nav-link.active {
+    @apply
+      p-8 mb-8
+      rounded-xl
+      transition-all hover:border-accent-neon/40 hover:shadow-lg hover:shadow-accent-primary/10
+      relative
+      bg-gradient-card border border-accent-primary/20 hover:border-accent-neon/40 hover:shadow-lg hover:shadow-accent-primary/10;
+}
+.text-glow {

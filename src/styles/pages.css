@@ -1,77 +1,65 @@
-﻿/* Page Container */
+/* Page Container */
 .page-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    min-height: calc(100vh - 4rem);
+max-width: 1200px;
+margin: 0 auto;
+padding: 2rem;
+min-height: calc(100vh - 4rem);
 }
-
 /* Header Card */
 .header-card {
-    margin-bottom: 2rem;
-    text-align: center;
-    background: var(--gradient-primary);
+margin-bottom: 2rem;
+text-align: center;
+background: var(--gradient-primary);
 }
-
 .header-card h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+font-size: 2.5rem;
+margin-bottom: 1rem;
 }
-
 /* Content Grid */
 .content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
 }
-
 /* Interest List */
 .interest-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
+list-style: none;
+padding: 0;
+margin: 1rem 0;
 }
-
 .interest-list li {
-    padding: 0.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+padding: 0.5rem 0;
+display: flex;
+align-items: center;
+gap: 0.5rem;
 }
-
 .interest-list li::before {
-    content: "ðŸ¦Š";
-    margin-right: 0.5rem;
+content: "🦊";
+margin-right: 0.5rem;
 }
-
 /* Project Demo */
 .project-demo {
-    margin-top: 1rem;
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
+margin-top: 1rem;
+border-radius: var(--border-radius-lg);
+overflow: hidden;
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .page-container {
-        padding: 1rem;
-    }
-
-    .header-card h1 {
-        font-size: 2rem;
-    }
-
-    .content-grid {
-        grid-template-columns: 1fr;
-    }
+.page-container {
+padding: 1rem;
 }
-
+.header-card h1 {
+font-size: 2rem;
+}
+.content-grid {
+grid-template-columns: 1fr;
+}
+}
 /* Animation Classes */
 .fade-in {
-    animation: fadeIn 0.5s ease-in;
+animation: fadeIn 0.5s ease-in;
 }
-
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
 }
