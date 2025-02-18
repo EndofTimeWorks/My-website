@@ -1,0 +1,31 @@
+/* Game-specific styles */
+.game-active * {
+  cursor: none;
+}
+
+.game-viewport {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Game-specific shadows */
+.fox-shadow {
+  filter: drop-shadow(0 0 8px var(--fox-pink-glow));
+}
+
+.enemy-shadow {
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.3));
+}

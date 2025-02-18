@@ -4,6 +4,7 @@ import AboutPage from "@/pages/AboutPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import APCSPPage from "@/pages/APCSPPage";
 import ParallaxPage from "@/pages/ParallaxPage";
+import VNCViewer from '@/components/VNCViewer';
 
 const App = () => {
     return (
@@ -28,7 +29,8 @@ const App = () => {
                             <Route path="/" element={<AboutPage />} />
                             <Route path="/projects" element={<ProjectsPage />} />
                             <Route path="/apcsp" element={<APCSPPage />} />
-                            <Route path="/parallax" element={<ParallaxPage />} />
+                            {/* <Route path="/parallax" element={<ParallaxPage />} /> */}
+                            <Route path="/novnc" element={<VNCViewer />} />
                             <Route path="*" element={
                                 <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
                                     <h1 className="text-4xl font-bold text-glow">404: Page Not Found</h1>

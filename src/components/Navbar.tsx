@@ -32,6 +32,14 @@ const Navbar = () => {
                         <span>APCSP</span>
                     </Link>
 
+                    <Link 
+                        to="/novnc" 
+                        className={`nav-link ${location.pathname === '/novnc' ? 'active' : ''}`}
+                    >
+                        <Code size={20} />
+                        <span>noVNC</span>
+                    </Link>
+
                     <a 
                         href="https://twitch.tv/EndofTimee"
                         target="_blank"
