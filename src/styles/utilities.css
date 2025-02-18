@@ -1,22 +1,28 @@
 @layer utilities {
+  /* Animated background */
   .animated-bg {
-    @apply overflow-hidden;
+    position: relative;
+    overflow: hidden;
   }
 
   .animated-bg::before {
     content: '';
-    @apply absolute inset-0 opacity-50;
-    @apply bg-gradient-primary;
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
     animation: gradientShift 15s ease infinite;
   }
 
+  /* Fox ear styling */
   .fox-ear {
     position: absolute;
     width: 30px;
     height: 30px;
-    background: var(--fox-pink);
+    background-color: var(--fox-pink);
     opacity: 0.1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
   }
 
   .fox-ear-left {
@@ -31,6 +37,34 @@
     right: -15px;
     transform: rotate(-45deg);
     border-radius: 0 0 15px 0;
+  }
+
+  /* Hover effects */
+  .hover-glow {
+    transition: all 0.2s ease;
+  }
+
+  .hover-glow:hover {
+    filter: drop-shadow(0 0 4px var(--fox-pink-glow));
+  }
+
+  /* Spacing utilities */
+  .section-spacing {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-spacing > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .content-spacing {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-spacing > * + * {
+    margin-top: 1rem;
   }
 }
 
