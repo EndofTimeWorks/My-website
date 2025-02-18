@@ -25,6 +25,12 @@ export default {
         'float': 'float 3s ease-in-out infinite',
         'spin-slow': 'spin 3s linear infinite',
         'wag': 'wag 1s ease-in-out infinite',
+        'score-popup': 'scorePopup 0.5s ease-out forwards',
+        'particle-fade': 'particleFade 1s ease-out forwards',
+        'menu-enter': 'menuEnter 0.3s ease-out forwards',
+        'menu-exit': 'menuExit 0.3s ease-in forwards',
+        'player-idle': 'playerIdle 2s ease-in-out infinite',
+        'player-hit': 'playerHit 0.5s ease-in-out',
       },
       keyframes: {
         glow: {
@@ -39,6 +45,12 @@ export default {
           '0%, 100%': { transform: 'rotate(-10deg)' },
           '50%': { transform: 'rotate(10deg)' },
         },
+      },
+      backgroundImage: {
+        'gradient-game': 'linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%)',
+      },
+      backdropFilter: {
+        'game': 'blur(8px)',
       },
     },
   },

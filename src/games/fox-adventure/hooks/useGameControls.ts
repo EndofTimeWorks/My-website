@@ -34,6 +34,11 @@ export const useGameControls = () => {
       if (keys.has('ArrowRight') || keys.has('d')) direction.x += 1;
 
       if (direction.x !== 0 || direction.y !== 0) {
+        // Normalize diagonal movement
+        const magnitude = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+        direction.x /= magnitude;
+        direction.y /= magnitude;
+        
         gameStore.movePlayer(direction);
       }
     };
