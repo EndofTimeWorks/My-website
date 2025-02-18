@@ -1,7 +1,6 @@
 // src/games/fox-adventure/components/GameOverlay.tsx
-import React from 'react';
+import { Play, RotateCcw } from 'lucide-react';
 import useGameStore from '../state/gameStore';
-import { Play, Pause, RotateCcw } from 'lucide-react';
 
 export const GameOverlay: React.FC = () => {
   const { gameStatus, score, startNewGame, resumeGame } = useGameStore();

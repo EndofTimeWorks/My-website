@@ -32,7 +32,7 @@ export const useGameLoop = () => {
 
       if (gameStore.gameStatus === 'PLAYING') {
         // Update entities
-        gameStore.updateEnemies();
+        gameStore.updateEnemies(deltaTime);
         
         // Spawn collectibles
         spawnCollectible();
@@ -76,3 +76,4 @@ export const useGameLoop = () => {
     };
   }, []);
 };
+

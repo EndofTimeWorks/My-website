@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Tail base -->
+  <path d="M4 16 Q8 8 16 8 Q24 8 28 16 Q24 24 16 24 Q8 24 4 16" 
+        fill="#ff9466" 
+        stroke="#240046" 
+        stroke-width="1.5">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 16 16"
+      to="360 16 16"
+      dur="1s"
+      repeatCount="indefinite"/>
+  </path>
+  <!-- Tail tip -->
+  <circle cx="16" cy="16" r="4" 
+          fill="#ffc6e5" 
+          stroke="#240046" 
+          stroke-width="1.5">
+    <animate
+      attributeName="r"
+      values="4;5;4"
+      dur="1s"
+      repeatCount="indefinite"/>
+  </circle>
+</svg>

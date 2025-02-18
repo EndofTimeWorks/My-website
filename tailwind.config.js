@@ -19,40 +19,31 @@ export default {
         'fox-orange': '#ff9466',
         'fox-white': '#fff5f9',
       },
-      animation: {
-        'bounce-slow': 'bounce 3s linear infinite',
-        'glow': 'glow 2s ease-in-out infinite',
-        'float': 'float 3s ease-in-out infinite',
-        'spin-slow': 'spin 3s linear infinite',
-        'wag': 'wag 1s ease-in-out infinite',
-        'score-popup': 'scorePopup 0.5s ease-out forwards',
-        'particle-fade': 'particleFade 1s ease-out forwards',
-        'menu-enter': 'menuEnter 0.3s ease-out forwards',
-        'menu-exit': 'menuExit 0.3s ease-in forwards',
-        'player-idle': 'playerIdle 2s ease-in-out infinite',
-        'player-hit': 'playerHit 0.5s ease-in-out',
-      },
-      keyframes: {
-        glow: {
-          '0%, 100%': { filter: 'drop-shadow(0 0 2px var(--accent-neon))' },
-          '50%': { filter: 'drop-shadow(0 0 8px var(--accent-neon))' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        wag: {
-          '0%, 100%': { transform: 'rotate(-10deg)' },
-          '50%': { transform: 'rotate(10deg)' },
-        },
-      },
       backgroundImage: {
-        'gradient-game': 'linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%)',
+        'gradient-card': 'linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%)',
       },
-      backdropFilter: {
-        'game': 'blur(8px)',
+      transitionProperty: {
+        'all': 'all',
       },
+      boxShadow: {
+        'accent': '0 0 10px var(--accent-primary)',
+      },
+      opacity: {
+        '10': '0.1',
+        '20': '0.2',
+        '40': '0.4',
+      }
     },
   },
   plugins: [],
+  safelist: [
+    'bg-accent-primary/10',
+    'bg-accent-primary/20',
+    'border-accent-primary/20',
+    'border-accent-neon/40',
+    'shadow-accent-primary/10',
+    'hover:bg-accent-primary/10',
+    'hover:border-accent-neon/40',
+    'hover:shadow-accent-primary/10'
+  ]
 }
