@@ -1,62 +1,5 @@
 import { create } from 'zustand';
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface PowerUp {
-  id: string;
-  type: 'SPEED' | 'SHIELD' | 'MAGNET';
-  duration: number;
-  position: Position;
-}
-
-interface Collectible {
-  id: string;
-  type: 'STAR' | 'GEM' | 'KEY';
-  value: number;
-  position: Position;
-}
-
-interface Enemy {
-  id: string;
-  type: 'WOLF' | 'OWL' | 'HUNTER';
-  position: Position;
-  direction: Position;
-  speed: number;
-}
-
-interface PlayerState {
-  position: Position;
-  health: number;
-  speed: number;
-  powerUps: PowerUp[];
-  isInvincible: boolean;
-  hasKey: boolean;
-}
-
-interface GameState {
-  player: PlayerState;
-  enemies: Enemy[];
-  collectibles: Collectible[];
-  powerUps: PowerUp[];
-  score: number;
-  level: number;
-  gameStatus: 'MENU' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
-  highScores: number[];
-  timePlayed: number;
-  
-  // Actions
-  movePlayer: (direction: Position) => void;
-  updateEnemies: () => void;
-  collectItem: (itemId: string) => void;
-  takeDamage: (amount: number) => void;
-  activatePowerUp: (powerUpId: string) => void;
-  startNewGame: () => void;
-  pauseGame: () => void;
-  resumeGame: () => void;
-}
+import type { GameState, Position } from '@/types/game';
 
 const useGameStore = create<GameState>((set, get) => ({
   player: {
@@ -76,7 +19,7 @@ const useGameStore = create<GameState>((set, get) => ({
   highScores: [],
   timePlayed: 0,
 
-  movePlayer: (direction) => {
+  movePlayer: (direction: Position) => {
     const { player } = get();
     set({
       player: {
@@ -112,8 +55,8 @@ const useGameStore = create<GameState>((set, get) => ({
     set({ enemies: updatedEnemies });
   },
 
-  collectItem: (itemId) => {
-    const { collectibles, score, player } = get();
+  collectItem: (itemId: string) => {
+    const { collectibles, score } = get();
     const item = collectibles.find(c => c.id === itemId);
     if (!item) return;
 
@@ -123,7 +66,7 @@ const useGameStore = create<GameState>((set, get) => ({
     });
   },
 
-  takeDamage: (amount) => {
+  takeDamage: (amount: number) => {
     const { player, gameStatus } = get();
     if (player.isInvincible) return;
 
@@ -137,7 +80,7 @@ const useGameStore = create<GameState>((set, get) => ({
     });
   },
 
-  activatePowerUp: (powerUpId) => {
+  activatePowerUp: (powerUpId: string) => {
     const { player, powerUps } = get();
     const powerUp = powerUps.find(p => p.id === powerUpId);
     if (!powerUp) return;
@@ -150,7 +93,6 @@ const useGameStore = create<GameState>((set, get) => ({
       powerUps: powerUps.filter(p => p.id !== powerUpId)
     });
 
-    // Reset power-up after duration
     setTimeout(() => {
       const currentPlayer = get().player;
       set({

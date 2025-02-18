@@ -1,27 +1,32 @@
+export interface Position {
+  x: number;
+  y: number;
+}
+
 export interface PowerUp {
   id: string;
   type: 'SPEED' | 'SHIELD' | 'MAGNET';
   duration: number;
-  position: { x: number; y: number };
+  position: Position;
 }
 
 export interface Collectible {
   id: string;
   type: 'STAR' | 'GEM' | 'KEY';
   value: number;
-  position: { x: number; y: number };
+  position: Position;
 }
 
 export interface Enemy {
   id: string;
   type: 'WOLF' | 'OWL' | 'HUNTER';
-  position: { x: number; y: number };
-  direction: { x: number; y: number };
+  position: Position;
+  direction: Position;
   speed: number;
 }
 
 export interface PlayerState {
-  position: { x: number; y: number };
+  position: Position;
   health: number;
   speed: number;
   powerUps: PowerUp[];
@@ -39,4 +44,14 @@ export interface GameState {
   gameStatus: 'MENU' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
   highScores: number[];
   timePlayed: number;
+
+  // Actions
+  movePlayer: (direction: Position) => void;
+  updateEnemies: (deltaTime?: number) => void;
+  collectItem: (itemId: string) => void;
+  takeDamage: (amount: number) => void;
+  activatePowerUp: (powerUpId: string) => void;
+  startNewGame: () => void;
+  pauseGame: () => void;
+  resumeGame: () => void;
 }

@@ -1,13 +1,44 @@
 @layer utilities {
-.animated-bg {
-    @apply
-      overflow-hidden; } { content: ''
-      .animated-bg::before
-      relative
-      bg-gradient-primary .animated-bg::before;
-    @apply
-      inset-0 opacity-50; animation: gradientShift 15s ease infinite
-      absolute
-      bg-gradient-primary;
+  .animated-bg {
+    @apply overflow-hidden;
+  }
+
+  .animated-bg::before {
+    content: '';
+    @apply absolute inset-0 opacity-50;
+    @apply bg-gradient-primary;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  .fox-ear {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--fox-pink);
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+  }
+
+  .fox-ear-left {
+    top: -15px;
+    left: -15px;
+    transform: rotate(45deg);
+    border-radius: 0 0 0 15px;
+  }
+
+  .fox-ear-right {
+    top: -15px;
+    right: -15px;
+    transform: rotate(-45deg);
+    border-radius: 0 0 15px 0;
+  }
 }
-.fox-ear {
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
