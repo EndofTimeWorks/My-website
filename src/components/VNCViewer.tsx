@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Monitor, Power, Lock } from 'lucide-react';
 
 const VNCViewer = () => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   
   const toggleFullscreen = () => {
@@ -10,10 +9,8 @@ const VNCViewer = () => {
     if (iframe) {
       if (!document.fullscreenElement) {
         iframe.requestFullscreen();
-        setIsFullscreen(true);
       } else {
         document.exitFullscreen();
-        setIsFullscreen(false);
       }
     }
   };
@@ -21,7 +18,6 @@ const VNCViewer = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <div className="w-full max-w-6xl bg-background-primary/80 backdrop-blur-sm rounded-xl shadow-xl border border-accent-primary/20 overflow-hidden transition-all duration-300 hover:border-accent-neon/40 hover:shadow-accent-primary/20">
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-accent-primary/20">
           <div className="flex items-center gap-3">
             <Monitor className="text-accent-primary" size={24} />
@@ -49,7 +45,6 @@ const VNCViewer = () => {
           </div>
         </div>
         
-        {/* VNC Viewer */}
         <div className="aspect-video w-full bg-black/50 relative">
           {isConnected ? (
             <iframe
@@ -66,7 +61,6 @@ const VNCViewer = () => {
           )}
         </div>
         
-        {/* Status Bar */}
         <div className="p-2 border-t border-accent-primary/20 flex justify-between items-center text-sm text-text-primary/60">
           <span>Status: {isConnected ? 'Connected' : 'Disconnected'}</span>
           <span>Press ESC to exit fullscreen</span>
