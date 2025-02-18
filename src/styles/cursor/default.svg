@@ -1,3 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-    <path fill="#ffffff" stroke="#000000" stroke-width="2" d="M6,2 L26,22 L16,22 L12,30 L8,22 L6,22 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Fox head shape -->
+  <path d="M16 2 L24 10 L24 24 L8 24 L8 10 Z" 
+        fill="#ff9466" 
+        stroke="#240046" 
+        stroke-width="1.5"/>
+  <!-- Ears -->
+  <path d="M8 10 L2 2 L8 8" 
+        fill="#ff9466" 
+        stroke="#240046" 
+        stroke-width="1.5"/>
+  <path d="M24 10 L30 2 L24 8" 
+        fill="#ff9466" 
+        stroke="#240046" 
+        stroke-width="1.5"/>
+  <!-- Eyes -->
+  <circle cx="12" cy="14" r="2" fill="#240046"/>
+  <circle cx="20" cy="14" r="2" fill="#240046"/>
+  <!-- Nose -->
+  <circle cx="16" cy="18" r="1.5" fill="#240046"/>
 </svg>

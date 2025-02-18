@@ -2,3 +2,30 @@
 @import 'animations.css';
 @import 'utilities.css';
 @import 'cursor.css';
+
+@import './game.css';
+
+/* Game Styles */
+.game-viewport {
+  touch-action: none;
+  user-select: none;
+}
+
+.game-active * {
+  cursor: none;
+}
+
+/* Game Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Game-specific effects */
+.fox-shadow {
+  filter: drop-shadow(0 0 8px var(--fox-pink-glow));
+}
