@@ -1,22 +1,20 @@
-﻿/* Base theme colors */
+/* Base theme colors */
 :root {
-    /* Main colors */
-    --background-primary: #1a0b2e;
-    --background-secondary: #2f1c54;
-    --accent-primary: #9d4edd;
-    --accent-neon: #b249f8;
-    --text-glow: #e0aaff;
-    --text-primary: #ffffff;
-    --dark-accent: #240046;
-    
-    /* Fox theme accents */
-    --fox-pink: #ffc6e5;
-    --fox-pink-glow: #ffadd6;   
-    --fox-orange: #ff9466;
-    --fox-white: #fff5f9;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
-    --gradient-card: linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%);
-    --gradient-hover: linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(178, 73, 248, 0.1) 100%);
+/* Main colors */
+--background-primary: #1a0b2e;
+--background-secondary: #2f1c54;
+--accent-primary: #9d4edd;
+--accent-neon: #b249f8;
+--text-glow: #e0aaff;
+--text-primary: #ffffff;
+--dark-accent: #240046;
+/* Fox theme accents */
+--fox-pink: #ffc6e5;
+--fox-pink-glow: #ffadd6;
+--fox-orange: #ff9466;
+--fox-white: #fff5f9;
+/* Gradients */
+--gradient-primary: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+--gradient-card: linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%);
+--gradient-hover: linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(178, 73, 248, 0.1) 100%);
 }
