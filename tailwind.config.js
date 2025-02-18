@@ -20,30 +20,19 @@ export default {
         'fox-white': '#fff5f9',
       },
       backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%)',
         'gradient-card': 'linear-gradient(135deg, rgba(47, 28, 84, 0.3) 0%, rgba(157, 78, 221, 0.1) 100%)',
       },
-      transitionProperty: {
-        'all': 'all',
-      },
-      boxShadow: {
-        'accent': '0 0 10px var(--accent-primary)',
+      spacing: {
+        'ear': '30px',
       },
       opacity: {
+        '5': '0.05',
         '10': '0.1',
+        '15': '0.15',
         '20': '0.2',
-        '40': '0.4',
-      }
+      },
     },
   },
   plugins: [],
-  safelist: [
-    'bg-accent-primary/10',
-    'bg-accent-primary/20',
-    'border-accent-primary/20',
-    'border-accent-neon/40',
-    'shadow-accent-primary/10',
-    'hover:bg-accent-primary/10',
-    'hover:border-accent-neon/40',
-    'hover:shadow-accent-primary/10'
-  ]
 }
