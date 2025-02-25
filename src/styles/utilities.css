@@ -1,5 +1,4 @@
 @layer utilities {
-  /* Animated background */
   .animated-bg {
     position: relative;
     overflow: hidden;
@@ -15,7 +14,6 @@
     animation: gradientShift 15s ease infinite;
   }
 
-  /* Fox ear styling */
   .fox-ear {
     position: absolute;
     width: 30px;
@@ -37,34 +35,6 @@
     right: -15px;
     transform: rotate(-45deg);
     border-radius: 0 0 15px 0;
-  }
-
-  /* Hover effects */
-  .hover-glow {
-    transition: all 0.2s ease;
-  }
-
-  .hover-glow:hover {
-    filter: drop-shadow(0 0 4px var(--fox-pink-glow));
-  }
-
-  /* Spacing utilities */
-  .section-spacing {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .section-spacing > * + * {
-    margin-top: 1.5rem;
-  }
-
-  .content-spacing {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .content-spacing > * + * {
-    margin-top: 1rem;
   }
 }
 
