@@ -197,7 +197,7 @@ const App = () => {
                             <footer className="py-6 border-t border-accent-primary/10 text-center text-sm text-text-primary/60">
                                 <p>Â© {new Date().getFullYear()} EndofTimee. All rights reserved.</p>
                                 <div className="flex justify-center items-center gap-2 mt-2">
-                                    <span className="text-xs">Try the Konami code: â†‘â†‘â†“â†“â†â†’â†â†’BA</span>
+                                    <span className="text-xs">Try the Konami code: ↑↑↓↓←→←→BA</span>
                                     <div className="bg-background-secondary px-2 py-0.5 rounded-full text-[10px] text-accent-primary">
                                         v1.3.0
                                     </div>
