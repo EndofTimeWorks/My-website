@@ -20,7 +20,7 @@ const AboutPage = () => {
             <FoxCard className="header-card">
                 <h1 className="text-glow">About Me</h1>
                 <p className="text-gradient">
-                    Transfem Foxgirl • {age} years old • Programmer & Streamer
+                    End • ProtoFoxes • They/Them • {age} years old • Programmer & Streamer
                 </p>
             </FoxCard>
 
