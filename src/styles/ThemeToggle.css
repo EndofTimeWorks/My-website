@@ -1,0 +1,135 @@
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+    background-color: rgba(26,11,46,0.5);
+    backdrop-filter: blur(5px);
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(157,78,221,0.2);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-container:hover {
+    border-color: rgba(157,78,221,0.4);
+    box-shadow: 0 4px 12px rgba(157,78,221,0.2);
+}
+
+.theme-toggle {
+    position:relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-track {
+    width: 60px;
+    height: 30px;
+    background-color: var(--background-secondary);
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.toggle-indicator {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-color: var(--text-primary);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+    overflow: visible;
+}
+
+.fox-ears {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--fox-orange);
+    top: -5px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.fox-ear.left {
+    left: 3px;
+    transform: rotate(45deg);
+    border-radius: 0 0 0 5px;
+}
+
+.fox-ear.right {
+    right: 3px;
+    transform: rotate(-45deg);
+    border-radius: 0 0 5px 0;
+}
+
+.fox-ear.active {
+    opacity: 1;
+}
+
+.toggle.visor {
+    position: absolute;
+    width: 16px;
+    height: 4px;
+    background-color: transparent;
+    top: 10px;
+    left: 5px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+input:checked + .toggle-track {
+    background-color: var(--background-primary);
+}
+
+input:checked + .toggle-track .toggle-indicator {
+    left: 32px;
+    background-color: #121212;
+}
+
+input:checked + .toggle-track .toggle.visor {
+    background-color: #00E5FF;
+    box-shadow: 0 0 5px #00e5FF;
+}
+
+.toggle-label {
+    margin-left: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease; 
+    white-space: nowrap;
+}
+
+input:checked + .toggle-track .toggle-label {
+    color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+    .togle-label {
+        display: none;
+    }
+
+    .theme-toggle-container {
+        padding: 0.3rem;
+    }
+
+    .toggle-track {
+        width: 50px;
+    }
+
+
+    input:checked + .toggle-track .toggle-indicator {
+        left: 22px;
+    }
+}
