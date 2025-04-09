@@ -49,6 +49,16 @@ const Navbar = () => {
                         <Twitch size={20} />
                         <span>Stream</span>
                     </a>
+                    
+                    <div className="nav-link">
+                        <iframe 
+                            src="https://github.com/sponsors/EndofTimee/button" 
+                            title="Sponsor EndofTimee" 
+                            height="32" 
+                            width="114" 
+                            style={{ border: 0, borderRadius: '6px' }}
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </nav>

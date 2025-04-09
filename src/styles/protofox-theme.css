@@ -1,0 +1,225 @@
+body.protofox-theme {
+  /* Override core variables with protofox colors */
+  --background-primary: #1a0b2e;
+  --background-secondary: #2f1c54;
+  --accent-primary: #FF7E5F;
+  --accent-secondary: #00E5FF;
+  --text-glow: #4dffc7;
+  --visor-glow: #FF005C;
+  --fox-orange: #ff9466;
+  --fox-orange-dark: #e07242;
+  --proto-blue: #4dc3ff;
+  --proto-cyan: #00e5ff;
+  --proto-neon: #39FFBF;
+  --circuit-line: rgba(0, 229, 255, 0.2);
+  --circuit-node: rgba(0, 229, 255, 0.4);
+  
+  /* Apply protofox font overrides */
+  --heading-font: 'Orbitron', sans-serif;
+  --body-font: 'Exo 2', sans-serif;
+}
+
+/* Font imports and assignments */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Exo+2:wght@300;400;600&display=swap');
+
+body.protofox-theme h1,
+body.protofox-theme h2,
+body.protofox-theme h3,
+body.protofox-theme h4,
+body.protofox-theme h5,
+body.protofox-theme h6 {
+  font-family: var(--heading-font);
+  letter-spacing: 0.05em;
+}
+
+body.protofox-theme {
+  font-family: var(--body-font);
+}
+
+/* Add circuit background only in protofox mode */
+body.protofox-theme::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: var(--background-primary);
+  background-image: 
+    radial-gradient(var(--circuit-node) 2px, transparent 2px),
+    linear-gradient(to right, var(--circuit-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--circuit-line) 1px, transparent 1px);
+  background-size: 30px 30px, 30px 30px, 30px 30px;
+  background-position: 0 0;
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ProtoFox mode cursor */
+body.protofox-theme {
+  cursor: url('/cursors/protofox-default.svg') 16 16, auto;
+}
+
+body.protofox-theme a,
+body.protofox-theme button,
+body.protofox-theme [role="button"],
+body.protofox-theme .interactive {
+  cursor: url('/cursors/protofox-pointer.svg') 16 16, pointer;
+}
+
+/* Add scan line animation */
+body.protofox-theme::after {
+  content: '';
+  position: fixed;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-secondary);
+  opacity: 0.03;
+  box-shadow: 0 0 8px var(--accent-secondary);
+  animation: protofox-scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes protofox-scan {
+  0% { top: -10px; }
+  100% { top: 100vh; }
+}
+
+/* Enhance existing components in protofox mode */
+
+/* Cards */
+body.protofox-theme .fox-card {
+  border-color: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+body.protofox-theme .fox-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/protofox/fur-texture.png');
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+body.protofox-theme .fox-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--proto-cyan);
+  opacity: 0.5;
+  box-shadow: 0 0 5px var(--proto-cyan);
+}
+
+/* Buttons */
+body.protofox-theme button:not(.theme-toggle *),
+body.protofox-theme .button {
+  position: relative;
+  overflow: hidden;
+}
+
+body.protofox-theme button:not(.theme-toggle *):before,
+body.protofox-theme .button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--proto-cyan);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.protofox-theme button:hover:before,
+body.protofox-theme .button:hover:before {
+  opacity: 1;
+  box-shadow: 0 0 5px var(--proto-cyan);
+}
+
+/* Navigation */
+body.protofox-theme .navbar {
+  position: relative;
+}
+
+body.protofox-theme .navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--proto-cyan);
+  box-shadow: 0 0 10px var(--proto-cyan);
+  z-index: 1;
+}
+
+body.protofox-theme .nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+body.protofox-theme .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
+  transition: width 0.3s ease;
+}
+
+body.protofox-theme .nav-link:hover::after,
+body.protofox-theme .nav-link.active::after {
+  width: 100%;
+}
+
+/* WebRing Enhancements */
+body.protofox-theme .webring-button {
+  position: relative;
+  overflow: hidden;
+}
+
+body.protofox-theme .webring-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--proto-cyan);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.protofox-theme .webring-button:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 5px var(--proto-cyan);
+}
+
+/* More Foxxos Button Enhancements */
+body.protofox-theme .foxxos-container {
+  border-color: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.protofox-theme .foxxos-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--proto-cyan);
+  box-shadow: 0 0 10px var(--proto-cyan);
+  z-index: 1;
+}
