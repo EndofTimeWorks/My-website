@@ -1,0 +1,523 @@
+
+/* Full screen overlay */
+.endos-boot-container {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', monospace;
+  color: #00E5FF;
+  overflow: hidden;
+}
+
+/* Scanning animation effect */
+.boot-scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    rgba(0, 229, 255, 0) 0%, 
+    rgba(0, 229, 255, 0.8) 50%, 
+    rgba(0, 229, 255, 0) 100%);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+  animation: scanAnimation 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanAnimation {
+  0% { top: -10px; }
+  100% { top: 100vh; }
+}
+
+/* Fox ear decorations */
+.visor-left-ear, 
+.visor-right-ear {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #ff9466;
+  top: -20px;
+  z-index: 2;
+}
+
+.visor-left-ear {
+  left: calc(50% - 100px);
+  transform: rotate(45deg);
+  border-radius: 0 0 0 20px;
+  transform-origin: bottom right;
+  animation: earTwitch 4s ease-in-out infinite;
+}
+
+.visor-right-ear {
+  right: calc(50% - 100px);
+  transform: rotate(-45deg);
+  border-radius: 0 0 20px 0;
+  transform-origin: bottom left;
+  animation: earTwitchRight 4s ease-in-out infinite;
+}
+
+@keyframes earTwitch {
+  0%, 100% { transform: rotate(45deg); }
+  50% { transform: rotate(30deg); }
+}
+
+@keyframes earTwitchRight {
+  0%, 100% { transform: rotate(-45deg); }
+  50% { transform: rotate(-30deg); }
+}
+
+/* Main visor frame */
+.boot-visor-frame {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  height: 60vh;
+  max-height: 600px;
+  border: 2px solid #00E5FF;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  overflow: hidden;
+  background-color: rgba(0, 10, 15, 0.95);
+}
+
+.boot-visor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Visor top and bottom glowing lines */
+.visor-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #00E5FF;
+  box-shadow: 0 0 10px #00E5FF;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.visor-line.top {
+  top: 0;
+}
+
+.visor-line.bottom {
+  bottom: 0;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px #00E5FF, 0 0 20px rgba(0, 229, 255, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 15px #00E5FF, 0 0 30px rgba(0, 229, 255, 0.7); }
+}
+
+/* Boot content area */
+.boot-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transform: translateY(0); /* Reset to prevent z-index conflicts */
+}
+
+.boot-content.active {
+  opacity: 1;
+}
+
+/* Common styles for all boot stages */
+.boot-stage {
+  position: absolute;
+  width: 80%;
+  max-width: 600px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker background to prevent seeing through */
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  display: none; /* Added display:none to completely remove from flow */
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  max-height: 80%;
+  overflow-y: auto;
+  z-index: 1; /* Ensure z-index is consistent */
+}
+
+.boot-stage.active {
+  opacity: 1;
+  visibility: visible;
+  display: block; /* Make it visible in the flow */
+  z-index: 10; /* Higher z-index when active */
+}
+
+/* Hide scrollbar but allow scrolling */
+.boot-stage::-webkit-scrollbar {
+  width: 3px;
+}
+
+.boot-stage::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.boot-stage::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+}
+
+/* BIOS Stage */
+.bios-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #FF005C;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 0, 92, 0.7);
+}
+
+.boot-text-line {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin: 8px 0;
+  color: #8be9fd;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typeWriter 1s steps(50, end);
+}
+
+@keyframes typeWriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* System Scan Stage */
+.scan-header {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #FF005C;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 0, 92, 0.7);
+}
+
+.scan-progress-container {
+  width: 100%;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 5px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.scan-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00E5FF, #FF005C);
+  width: 0;
+  animation: progressFill 2s ease-in-out forwards;
+}
+
+@keyframes progressFill {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.scan-detail {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin: 8px 0;
+  color: #8be9fd;
+}
+
+/* Module Loading Stage */
+.module-header {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #FF005C;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 0, 92, 0.7);
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.module-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 5px;
+  animation: moduleLoad 1s ease forwards;
+  opacity: 0;
+}
+
+.module-item:nth-child(1) { animation-delay: 0.2s; }
+.module-item:nth-child(2) { animation-delay: 0.4s; }
+.module-item:nth-child(3) { animation-delay: 0.6s; }
+.module-item:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes moduleLoad {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.module-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #00E5FF;
+  margin-right: 10px;
+  animation: iconPulse 2s infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 5px #00E5FF; }
+  50% { transform: scale(1.1); box-shadow: 0 0 10px #00E5FF; }
+}
+
+.module-name {
+  font-size: 14px;
+  color: #fff;
+}
+
+/* Fox Protocol Stage */
+.fox-header {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #ff9466;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 148, 102, 0.7);
+}
+
+.fox-trait {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin: 10px 0;
+  color: #ff9466;
+  padding-left: 20px;
+  position: relative;
+  opacity: 0;
+  animation: traitAppear 0.5s ease forwards;
+}
+
+.fox-trait:nth-child(2) { animation-delay: 0.2s; }
+.fox-trait:nth-child(3) { animation-delay: 0.4s; }
+.fox-trait:nth-child(4) { animation-delay: 0.6s; }
+.fox-trait:nth-child(5) { animation-delay: 0.8s; }
+.fox-trait:nth-child(6) { animation-delay: 1s; }
+
+@keyframes traitAppear {
+  0% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.fox-trait::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: #ff9466;
+}
+
+/* Logo Display Stage */
+.logo-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.endos-logo {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  background: linear-gradient(90deg, #ff9466, #00E5FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  opacity: 0;
+  animation: logoAppear 1s ease forwards;
+}
+
+.logo-end {
+  color: #ff9466;
+}
+
+.logo-os {
+  color: #00E5FF;
+}
+
+.logo-subtitle {
+  font-size: 16px;
+  color: #fff;
+  opacity: 0;
+  animation: logoAppear 1s ease forwards 0.5s;
+}
+
+@keyframes logoAppear {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* System Ready Stage */
+.system-ready {
+  text-align: center;
+}
+
+.ready-status {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #00E5FF;
+  animation: textPulse 2s infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.welcome-message {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.boot-complete-message {
+  font-size: 14px;
+  color: #8be9fd;
+  margin-top: 20px;
+}
+
+/* Skip button - Enhanced with animation and more prominence */
+.skip-button {
+  position: absolute;
+  bottom: 40px; /* More visible position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 92, 0.3); /* More visible color */
+  color: white;
+  border: 1px solid rgba(255, 0, 92, 0.5);
+  border-radius: 5px;
+  padding: 10px 20px; /* Larger size */
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px; /* Larger font */
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+  animation: skipPulse 2s infinite; /* Pulsing animation to draw attention */
+  box-shadow: 0 0 10px rgba(255, 0, 92, 0.3); /* Glow effect */
+}
+
+.skip-button:hover {
+  background-color: rgba(255, 0, 92, 0.7);
+  color: white;
+  border-color: rgba(255, 0, 92, 0.8);
+  box-shadow: 0 0 15px rgba(255, 0, 92, 0.5);
+  transform: translateX(-50%) scale(1.05);
+}
+
+@keyframes skipPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Accessibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .boot-visor-frame {
+    width: 95%;
+    height: 80vh;
+  }
+  
+  .visor-left-ear, .visor-right-ear {
+    width: 30px;
+    height: 30px;
+    top: -15px;
+  }
+  
+  .visor-left-ear {
+    left: calc(50% - 70px);
+  }
+  
+  .visor-right-ear {
+    right: calc(50% - 70px);
+  }
+  
+  .boot-visor {
+    padding: 15px;
+  }
+  
+  .boot-stage {
+    width: 90%;
+    padding: 15px;
+  }
+  
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bios-header, .scan-header, .module-header, .fox-header {
+    font-size: 18px;
+  }
+  
+  .endos-logo {
+    font-size: 36px;
+  }
+  
+  .logo-subtitle {
+    font-size: 14px;
+  }
+  
+  .ready-status {
+    font-size: 24px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .boot-stage {
+    width: 95%;
+    padding: 10px;
+  }
+  
+  .bios-header, .scan-header, .module-header, .fox-header {
+    font-size: 16px;
+  }
+  
+  .boot-text-line, .scan-detail, .fox-trait {
+    font-size: 12px;
+  }
+  
+  .skip-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Digital visor frame -->
+  <rect x="4" y="8" width="24" height="16" rx="2" ry="2" fill="#121212" stroke="#00E5FF" stroke-width="1" />
+  
+  <!-- Visor screen glow -->
+  <rect x="5" y="9" width="22" height="14" rx="1" ry="1" fill="#00111A" opacity="0.7" />
+  
+  <!-- Fox ears -->
+  <path d="M6 8 L2 2 L6 6" fill="#ff9466" stroke="#240046" stroke-width="1" />
+  <path d="M26 8 L30 2 L26 6" fill="#ff9466" stroke="#240046" stroke-width="1" />
+  
+  <!-- Visor glowing line -->
+  <rect x="6" y="14" width="20" height="2" fill="#00E5FF" opacity="0.8">
+    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Digital cursor element -->
+  <path d="M14 14 L18 14 L16 18 Z" fill="#FF005C" />
+  
+  <!-- Digital circuit accents -->
+  <circle cx="8" cy="11" r="1" fill="#00E5FF" />
+  <circle cx="24" cy="11" r="1" fill="#00E5FF" />
+  <circle cx="8" cy="21" r="1" fill="#00E5FF" />
+  <circle cx="24" cy="21" r="1" fill="#00E5FF" />
+</svg>

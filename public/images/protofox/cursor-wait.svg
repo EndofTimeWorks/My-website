@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Digital visor frame -->
+  <rect x="4" y="8" width="24" height="16" rx="2" ry="2" fill="#121212" stroke="#39FFBF" stroke-width="1" />
+  
+  <!-- Visor screen glow -->
+  <rect x="5" y="9" width="22" height="14" rx="1" ry="1" fill="#00111A" opacity="0.7" />
+  
+  <!-- Fox ears -->
+  <path d="M6 8 L2 2 L6 6" fill="#ff9466" stroke="#240046" stroke-width="1" />
+  <path d="M26 8 L30 2 L26 6" fill="#ff9466" stroke="#240046" stroke-width="1" />
+  
+  <!-- Loading animation -->
+  <circle cx="16" cy="16" r="6" fill="none" stroke="#39FFBF" stroke-width="1.5">
+    <animate attributeName="stroke-dasharray" values="1, 31;20, 31;1, 31" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="stroke-dashoffset" values="0;100;0" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Digital circuit accents -->
+  <circle cx="8" cy="11" r="1" fill="#39FFBF" />
+  <circle cx="24" cy="11" r="1" fill="#39FFBF" />
+  <circle cx="8" cy="21" r="1" fill="#39FFBF" />
+  <circle cx="24" cy="21" r="1" fill="#39FFBF" />
+  
+  <!-- Tail wagging animation -->
+  <path d="M16 24 Q17 26 19 25" fill="none" stroke="#ff9466" stroke-width="1.5">
+    <animate attributeName="d" values="M16 24 Q17 26 19 25;M16 24 Q17 28 19 25;M16 24 Q17 26 19 25" dur="1s" repeatCount="indefinite" />
+  </path>
+</svg>

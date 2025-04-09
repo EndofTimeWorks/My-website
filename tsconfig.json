@@ -16,8 +16,8 @@
                             "noEmit":  true,
                             "jsx":  "react-jsx",
                             "strict":  true,
-                            "noUnusedLocals":  true,
-                            "noUnusedParameters":  true,
+                            "noUnusedLocals":  false,
+                            "noUnusedParameters":  false,
                             "noFallthroughCasesInSwitch":  true,
                             "baseUrl":  ".",
                             "paths":  {
@@ -26,11 +26,18 @@
                                                   ]
                                       },
                             "types":  [
-                                          "@cloudflare/workers-types"
+                                          "@cloudflare/workers-types",
+                                          "node"
                                       ]
                         },
     "include":  [
-                    "src"
+                    "src",
+                    ".unused/ParallaxPage.tsx",
+                    ".unused/ParallaxEffect.tsx",
+                    ".unused/SystemStatus.tsx",
+                    ".unused/SwitchNotification.tsx",
+                    ".unused/LoginPage.tsx",
+                    ".unused/SystemPage.tsx"
                 ],
     "references":  [
                        {
