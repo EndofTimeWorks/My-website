@@ -1,5 +1,5 @@
-import { Component, ErrorInfo } from 'react';
-import { ErrorBoundaryProps, ErrorBoundaryState } from '@/types';
+import { Component, ErrorInfo } from "react";
+import { ErrorBoundaryProps, ErrorBoundaryState } from "@/types";
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
@@ -12,7 +12,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        console.error('Error caught by boundary:', error, errorInfo);
+        console.error("Error caught by boundary:", error, errorInfo);
     }
 
     render() {

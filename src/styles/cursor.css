@@ -1,6 +1,8 @@
 /* Default cursor for all elements */
 * {
-  cursor: url('@/assets/cursors/default.svg') 16 16, auto;
+    cursor:
+        url("@/assets/cursors/default.svg") 16 16,
+        auto;
 }
 
 /* Interactive elements cursor */
@@ -12,14 +14,18 @@ input[type="button"],
 select,
 .interactive,
 .nav-link {
-  cursor: url('@/assets/cursors/paw.svg') 16 16, pointer;
+    cursor:
+        url("@/assets/cursors/paw.svg") 16 16,
+        pointer;
 }
 
 /* Loading state cursor */
 .loading,
 :disabled,
 [aria-busy="true"] {
-  cursor: url('@/assets/cursors/tail-loading.svg') 16 16, progress;
+    cursor:
+        url("@/assets/cursors/tail-loading.svg") 16 16,
+        progress;
 }
 
 /* Hover effects for interactive elements */
@@ -27,21 +33,21 @@ a:hover,
 button:hover,
 [role="button"]:hover,
 .nav-link:hover {
-  filter: drop-shadow(0 0 4px var(--fox-pink-glow));
-  transition: filter 0.3s ease;
+    filter: drop-shadow(0 0 4px var(--fox-pink-glow));
+    transition: filter 0.3s ease;
 }
 
 /* Custom cursor regions */
 .text-select {
-  cursor: text;
+    cursor: text;
 }
 
 .resize {
-  cursor: nw-resize;
+    cursor: nw-resize;
 }
 
 /* Prevent cursor inheritance in certain cases */
 iframe,
 canvas {
-  cursor: inherit;
+    cursor: inherit;
 }
