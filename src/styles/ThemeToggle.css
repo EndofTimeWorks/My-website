@@ -3,22 +3,22 @@
     align-items: center;
     justify-content: center;
     margin: 0.5rem;
-    background-color: rgba(26,11,46,0.5);
+    background-color: rgba(26, 11, 46, 0.5);
     backdrop-filter: blur(5px);
     padding: 0.5rem;
     border-radius: 1rem;
-    border: 1px solid rgb(157,78,221,0.2);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid rgb(157, 78, 221, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 .theme-toggle-container:hover {
-    border-color: rgba(157,78,221,0.4);
-    box-shadow: 0 4px 12px rgba(157,78,221,0.2);
+    border-color: rgba(157, 78, 221, 0.4);
+    box-shadow: 0 4px 12px rgba(157, 78, 221, 0.2);
 }
 
 .theme-toggle {
-    position:relative;
+    position: relative;
     display: inline-flex;
     align-items: center;
     cursor: pointer;
@@ -100,14 +100,14 @@ input:checked + .toggle-track .toggle-indicator {
 }
 
 input:checked + .toggle-track .toggle.visor {
-    background-color: #00E5FF;
-    box-shadow: 0 0 5px #00e5FF;
+    background-color: #00e5ff;
+    box-shadow: 0 0 5px #00e5ff;
 }
 
 .toggle-label {
     margin-left: 10px;
     font-size: 14px;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
@@ -127,7 +127,6 @@ input:checked + .toggle-track .toggle-label {
     .toggle-track {
         width: 50px;
     }
-
 
     input:checked + .toggle-track .toggle-indicator {
         left: 22px;

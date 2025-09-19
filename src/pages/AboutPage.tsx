@@ -1,26 +1,26 @@
-﻿import { Gamepad2, Code, Music } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import FoxCard from '@/components/FoxCard';
-import MusicDisplay from '@/components/MusicDisplay';
-import { calculatePreciseAge } from '@/utils/dateUtils';
+﻿import { Gamepad2, Code, Music } from "lucide-react";
+import { useState, useEffect } from "react";
+import FoxCard from "@/components/FoxCard";
+import MusicDisplay from "@/components/MusicDisplay";
+import { calculatePreciseAge } from "@/utils/dateUtils";
 
 const AboutPage = () => {
-    const [age, setAge] = useState(calculatePreciseAge(new Date("2009-05-15")));
+    // const [age, setAge] = useState(calculatePreciseAge(new Date("date")));
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setAge(calculatePreciseAge(new Date("2009-05-15")));
-        }, 50);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setAge(calculatePreciseAge(new Date("date")));
+    //     }, 50);
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     return (
         <div className="page-container">
             <FoxCard className="header-card">
                 <h1 className="text-glow">About Me</h1>
                 <p className="text-gradient">
-                    End • ProtoFoxes • They/Them • {age} years old • Programmer & Streamer
+                    End • They/It/She • Programmer & Streamer
                 </p>
             </FoxCard>
 
@@ -43,16 +43,16 @@ const AboutPage = () => {
                         <h2>Streaming</h2>
                     </div>
                     <p>
-                        Find me on{' '}
-                        <a 
-                            href="https://twitch.tv/EndofTimee" 
+                        Find me on{" "}
+                        <a
+                            href="https://twitch.tv/EndofTimee"
                             className="text-accent-neon hover:text-glow"
-                            target="_blank" 
+                            target="_blank"
                             rel="noopener noreferrer"
                         >
                             Twitch
-                        </a>
-                        {' '}playing FiveM and other games!
+                        </a>{" "}
+                        playing FiveM and other games!
                     </p>
                 </FoxCard>
 

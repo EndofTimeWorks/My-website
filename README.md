@@ -61,20 +61,7 @@ npm start
 
 The application will be available at http://localhost:3000
 
-### Component Structure
 
-The project follows a modular component structure:
-
-```
-src/
-├── components/
-│   ├── LastFMTrack/       # Music integration
-│   ├── GithubRepos/       # GitHub repository display
-│   ├── LoadingFox/        # Loading states
-│   └── ParallaxEffect/    # Visual effects
-├── App.tsx                # Main application component
-└── index.tsx             # Application entry point
-```
 
 ## 🌐 Deployment
 

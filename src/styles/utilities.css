@@ -1,78 +1,79 @@
 @layer utilities {
-  /* Animated background */
-  .animated-bg {
-    position: relative;
-    overflow: hidden;
-  }
+    /* Animated background */
+    .animated-bg {
+        position: relative;
+        overflow: hidden;
+    }
 
-  .animated-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.5;
-    background: var(--gradient-primary);
-    background-size: 200% 200%;
-    animation: gradientShift 15s ease infinite;
-  }
+    .animated-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        background: var(--gradient-primary);
+        background-size: 200% 200%;
+        animation: gradientShift 15s ease infinite;
+    }
 
-  /* Fox ear styling */
-  .fox-ear {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: var(--fox-pink);
-    opacity: 0.1;
-    transition: opacity 0.2s ease;
-  }
+    /* Fox ear styling */
+    .fox-ear {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: var(--fox-pink);
+        opacity: 0.1;
+        transition: opacity 0.2s ease;
+    }
 
-  .fox-ear-left {
-    top: -15px;
-    left: -15px;
-    transform: rotate(45deg);
-    border-radius: 0 0 0 15px;
-  }
+    .fox-ear-left {
+        top: -15px;
+        left: -15px;
+        transform: rotate(45deg);
+        border-radius: 0 0 0 15px;
+    }
 
-  .fox-ear-right {
-    top: -15px;
-    right: -15px;
-    transform: rotate(-45deg);
-    border-radius: 0 0 15px 0;
-  }
+    .fox-ear-right {
+        top: -15px;
+        right: -15px;
+        transform: rotate(-45deg);
+        border-radius: 0 0 15px 0;
+    }
 
-  /* Hover effects */
-  .hover-glow {
-    transition: all 0.2s ease;
-  }
+    /* Hover effects */
+    .hover-glow {
+        transition: all 0.2s ease;
+    }
 
-  .hover-glow:hover {
-    filter: drop-shadow(0 0 4px var(--fox-pink-glow));
-  }
+    .hover-glow:hover {
+        filter: drop-shadow(0 0 4px var(--fox-pink-glow));
+    }
 
-  /* Spacing utilities */
-  .section-spacing {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
+    /* Spacing utilities */
+    .section-spacing {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
 
-  .section-spacing > * + * {
-    margin-top: 1.5rem;
-  }
+    .section-spacing > * + * {
+        margin-top: 1.5rem;
+    }
 
-  .content-spacing {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+    .content-spacing {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 
-  .content-spacing > * + * {
-    margin-top: 1rem;
-  }
+    .content-spacing > * + * {
+        margin-top: 1rem;
+    }
 }
 
 @keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }

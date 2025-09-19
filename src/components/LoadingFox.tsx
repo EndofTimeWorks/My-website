@@ -1,4 +1,4 @@
-import '@/styles/LoadingFox.css';
+import "@/styles/LoadingFox.css";
 
 const LoadingFox = () => {
     return (
