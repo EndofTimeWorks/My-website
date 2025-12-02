@@ -1,13 +1,14 @@
-# Personal Website with Cloudflare Integration
+# Personal Website
+For deployments/checks before resigning: see archive/unsigned-history branch
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This project implements a modern web application architecture leveraging Cloudflare's edge computing capabilities. The architecture consists of two primary components:
 
 1. **React Frontend**: A Single Page Application (SPA) built with React and TypeScript
 2. **Cloudflare Pages**: Static site hosting with global CDN distribution
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -52,7 +53,7 @@ CLOUDFLARE_ACCOUNT_ID=your_cloudflare_account_id
 npm install
 ```
 
-## 💻 Local Development
+## Local Development
 
 Start the development server:
 ```bash
@@ -63,26 +64,9 @@ The application will be available at http://localhost:3000
 
 
 
-## 🌐 Deployment
+## Deployment
 
-### Automated Deployment
-
-The project includes a PowerShell deployment script:
-
-```bash
-npm run deploy
-```
-
-This script:
-1. Loads environment variables
-2. Installs dependencies
-3. Builds the React application
-4. Deploys to Cloudflare Pages
-5. Sets up environment secrets
-
-### Manual Deployment Steps
-
-If you need to deploy manually:
+### Deployment Steps
 
 ```bash
 npm run build
@@ -102,7 +86,7 @@ npx wrangler pages deploy ./dist
    - Production branch: `main`
    - Preview branches: `dev/*`
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -120,13 +104,13 @@ npx wrangler pages deploy ./dist
    npx wrangler secret list
    ```
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
 - [Last.fm API Documentation](https://www.last.fm/api)
 - [React Documentation](https://reactjs.org/docs/getting-started.html)
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -134,6 +118,6 @@ npx wrangler pages deploy ./dist
 4. Push to the branch
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
