@@ -1,16 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import babel from 'vite-plugin-babel';
 import path from "path";
 
 export default defineConfig({
-    plugins: [
-      react(),
-        babel({
-      babelConfig: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),],
+    plugins: [react()],
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),
