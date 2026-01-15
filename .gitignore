@@ -44,3 +44,4 @@ lerna-debug.log*
 .wrangler
 .dev.vars
 .prod.vars
+AGENTS.md

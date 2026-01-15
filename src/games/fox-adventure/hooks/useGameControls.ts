@@ -2,46 +2,45 @@ import { useEffect } from "react";
 import useGameStore from "../state/gameStore";
 
 export const useGameControls = () => {
-    const gameStore = useGameStore();
-
     useEffect(() => {
         const keys = new Set<string>();
 
         const handleKeyDown = (e: KeyboardEvent) => {
-            keys.add(e.key);
+            keys.add(e.key.toLowerCase());
 
             if (e.key === "Escape") {
-                if (gameStore.gameStatus === "PLAYING") {
-                    gameStore.pauseGame();
-                } else if (gameStore.gameStatus === "PAUSED") {
-                    gameStore.resumeGame();
+                const state = useGameStore.getState();
+                if (state.gameStatus === "PLAYING") {
+                    state.pauseGame();
+                } else if (state.gameStatus === "PAUSED") {
+                    state.resumeGame();
                 }
             }
         };
 
         const handleKeyUp = (e: KeyboardEvent) => {
-            keys.delete(e.key);
+            keys.delete(e.key.toLowerCase());
         };
 
         const updatePlayerMovement = () => {
-            if (gameStore.gameStatus !== "PLAYING") return;
+            const state = useGameStore.getState();
+            if (state.gameStatus !== "PLAYING") return;
 
             const direction = { x: 0, y: 0 };
 
-            if (keys.has("ArrowUp") || keys.has("w")) direction.y -= 1;
-            if (keys.has("ArrowDown") || keys.has("s")) direction.y += 1;
-            if (keys.has("ArrowLeft") || keys.has("a")) direction.x -= 1;
-            if (keys.has("ArrowRight") || keys.has("d")) direction.x += 1;
+            if (keys.has("arrowup") || keys.has("w")) direction.y -= 1;
+            if (keys.has("arrowdown") || keys.has("s")) direction.y += 1;
+            if (keys.has("arrowleft") || keys.has("a")) direction.x -= 1;
+            if (keys.has("arrowright") || keys.has("d")) direction.x += 1;
 
             if (direction.x !== 0 || direction.y !== 0) {
-                // Normalize diagonal movement
                 const magnitude = Math.sqrt(
                     direction.x * direction.x + direction.y * direction.y,
                 );
                 direction.x /= magnitude;
                 direction.y /= magnitude;
 
-                gameStore.movePlayer(direction);
+                state.movePlayer(direction);
             }
         };
 

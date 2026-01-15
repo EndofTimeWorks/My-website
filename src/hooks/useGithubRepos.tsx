@@ -10,7 +10,7 @@ const useGithubRepos = () => {
         const fetchRepos = async () => {
             try {
                 const response = await fetch(
-                    "https://api.github.com/users/EndofTimee/repos?sort=updated",
+                    "https://api.github.com/users/System-End/repos?sort=updated",
                 );
                 if (!response.ok) {
                     throw new Error("Failed to fetch repositories");
