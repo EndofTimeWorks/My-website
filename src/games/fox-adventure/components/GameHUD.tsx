@@ -1,9 +1,12 @@
-import React from "react";
 import useGameStore from "../state/gameStore";
-import { Heart, Star, Timer, Trophy } from "lucide-react";
+import { Heart, Star, Timer, Trophy, Zap, Shield } from "lucide-react";
 
 export const GameHUD: React.FC = () => {
-    const { player, score, level, timePlayed } = useGameStore();
+    const player = useGameStore((state) => state.player);
+    const score = useGameStore((state) => state.score);
+    const level = useGameStore((state) => state.level);
+    const timePlayed = useGameStore((state) => state.timePlayed);
+    const highScores = useGameStore((state) => state.highScores);
 
     const formatTime = (ms: number) => {
         const seconds = Math.floor(ms / 1000);
@@ -11,11 +14,22 @@ export const GameHUD: React.FC = () => {
         return `${minutes}:${(seconds % 60).toString().padStart(2, "0")}`;
     };
 
+    const bestScore = highScores.length > 0 ? Math.max(...highScores) : 0;
+
+    const getPowerUpIcon = (type: string) => {
+        switch (type) {
+            case "SPEED":
+                return <Zap className="w-4 h-4 text-yellow-400" />;
+            case "SHIELD":
+                return <Shield className="w-4 h-4 text-blue-400" />;
+            default:
+                return <Star className="w-4 h-4 text-purple-400" />;
+        }
+    };
+
     return (
         <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-start pointer-events-none">
-            {/* Left section - Health and PowerUps */}
             <div className="space-y-4">
-                {/* Health bar */}
                 <div className="flex items-center gap-2 bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm">
                     <Heart
                         className={`w-6 h-6 ${
@@ -30,25 +44,27 @@ export const GameHUD: React.FC = () => {
                             style={{ width: `${player.health}%` }}
                         />
                     </div>
+                    <span className="text-sm text-white/80">
+                        {player.health}%
+                    </span>
                 </div>
 
-                {/* Active power-ups */}
-                <div className="flex gap-2">
-                    {player.powerUps.map((powerUp) => (
-                        <div
-                            key={powerUp.id}
-                            className="bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm"
-                        >
-                            <div className="w-8 h-8 relative">
-                                <div className="absolute inset-0 bg-accent-primary/20 rounded-full animate-ping" />
+                {player.powerUps.length > 0 && (
+                    <div className="flex gap-2">
+                        {player.powerUps.map((powerUp) => (
+                            <div
+                                key={powerUp.id}
+                                className="bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm flex items-center gap-1"
+                            >
+                                {getPowerUpIcon(powerUp.type)}
+                                <span className="text-xs">{powerUp.type}</span>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
-            {/* Center - Score and Level */}
-            <div className="absolute left-1/2 top-0 -translate-x-1/2 text-center space-y-2">
+            <div className="absolute left-1/2 top-4 -translate-x-1/2 text-center">
                 <div className="bg-background-primary/50 px-4 py-2 rounded-lg backdrop-blur-sm">
                     <div className="text-2xl font-bold text-accent-neon">
                         Level {level}
@@ -62,7 +78,6 @@ export const GameHUD: React.FC = () => {
                 </div>
             </div>
 
-            {/* Right section - Time and High Score */}
             <div className="space-y-4 text-right">
                 <div className="bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm flex items-center gap-2">
                     <Timer className="w-5 h-5 text-accent-primary" />
@@ -70,12 +85,7 @@ export const GameHUD: React.FC = () => {
                 </div>
                 <div className="bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-yellow-400" />
-                    <span>
-                        Best:{" "}
-                        {Math.max(
-                            ...useGameStore.getState().highScores,
-                        ).toLocaleString()}
-                    </span>
+                    <span>Best: {bestScore.toLocaleString()}</span>
                 </div>
             </div>
         </div>
