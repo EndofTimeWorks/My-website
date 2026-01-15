@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGameStore from "../state/gameStore";
 import { useGameLoop } from "../hooks/useGameLoop";
 import { useGameControls } from "../hooks/useGameControls";
@@ -7,46 +7,20 @@ import { GameHUD } from "./GameHUD";
 import { GameOverlay } from "./GameOverlay";
 
 const FoxGame: React.FC = () => {
-    const [isActive, setIsActive] = useState(false);
-    const gameStore = useGameStore();
+    const gameStatus = useGameStore((state) => state.gameStatus);
+    const collectibles = useGameStore((state) => state.collectibles);
+    const enemies = useGameStore((state) => state.enemies);
+    const powerUps = useGameStore((state) => state.powerUps);
+    const startNewGame = useGameStore((state) => state.startNewGame);
 
-    // Initialize game systems
     useGameLoop();
     useGameControls();
 
-    // Konami code activation
     useEffect(() => {
-        const konamiCode = [
-            "ArrowUp",
-            "ArrowUp",
-            "ArrowDown",
-            "ArrowDown",
-            "ArrowLeft",
-            "ArrowRight",
-            "ArrowLeft",
-            "ArrowRight",
-            "b",
-            "a",
-        ];
-        let index = 0;
-
-        const handleKeydown = (event: KeyboardEvent) => {
-            if (event.key === konamiCode[index]) {
-                index++;
-                if (index === konamiCode.length) {
-                    setIsActive(true);
-                    gameStore.startNewGame();
-                }
-            } else {
-                index = 0;
-            }
-        };
-
-        window.addEventListener("keydown", handleKeydown);
-        return () => window.removeEventListener("keydown", handleKeydown);
-    }, []);
-
-    if (!isActive) return null;
+        if (gameStatus === "MENU") {
+            startNewGame();
+        }
+    }, [gameStatus, startNewGame]);
 
     return (
         <div className="fixed inset-0 bg-gradient-to-b from-background-primary to-background-secondary z-50">
@@ -56,7 +30,7 @@ const FoxGame: React.FC = () => {
                     <Player />
 
                     {/* Render collectibles */}
-                    {gameStore.collectibles.map((collectible) => (
+                    {collectibles.map((collectible) => (
                         <div
                             key={collectible.id}
                             className={`absolute w-4 h-4 transform -translate-x-1/2 -translate-y-1/2 rounded-full animate-pulse ${
@@ -72,7 +46,7 @@ const FoxGame: React.FC = () => {
                     ))}
 
                     {/* Render enemies */}
-                    {gameStore.enemies.map((enemy) => (
+                    {enemies.map((enemy) => (
                         <div
                             key={enemy.id}
                             className="absolute w-6 h-6 bg-red-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
@@ -84,7 +58,7 @@ const FoxGame: React.FC = () => {
                     ))}
 
                     {/* Render power-ups */}
-                    {gameStore.powerUps.map((powerUp) => (
+                    {powerUps.map((powerUp) => (
                         <div
                             key={powerUp.id}
                             className="absolute w-8 h-8 bg-accent-neon rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-float"
