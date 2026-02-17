@@ -16,27 +16,93 @@ updates:
       prefix: "chore(deps)"
       include: scope
     groups:
-      dev-dependencies:
-        dependency-type: development
-        update-types:
-          - minor
-          - patch
       react:
         patterns:
           - react
           - react-dom
+          - react-router-dom
           - "@types/react"
           - "@types/react-dom"
-      eslint:
+      lint-and-format:
         patterns:
           - eslint
           - eslint-*
           - "@typescript-eslint/*"
+          - prettier
+          - prettier-*
+          - husky
+          - lint-staged
+          - "@commitlint/*"
       testing:
         patterns:
           - "@testing-library/*"
           - vitest
           - "@vitest/*"
+          - jsdom
+      build-tooling:
+        patterns:
+          - vite
+          - "@vitejs/*"
+          - "@rolldown/*"
+          - vite-plugin-*
+          - babel-plugin-react-compiler
+          - typescript
+          - rimraf
+      css-tooling:
+        patterns:
+          - tailwindcss
+          - postcss
+          - autoprefixer
+      cloudflare:
+        patterns:
+          - wrangler
+          - "@cloudflare/*"
+      ui-libs:
+        patterns:
+          - "@radix-ui/*"
+          - class-variance-authority
+          - clsx
+          - tailwind-merge
+          - lucide-react
+      minor-patch-catchall:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - react
+          - react-dom
+          - react-router-dom
+          - "@types/react"
+          - "@types/react-dom"
+          - eslint
+          - eslint-*
+          - "@typescript-eslint/*"
+          - prettier
+          - prettier-*
+          - husky
+          - lint-staged
+          - "@commitlint/*"
+          - "@testing-library/*"
+          - vitest
+          - "@vitest/*"
+          - jsdom
+          - vite
+          - "@vitejs/*"
+          - "@rolldown/*"
+          - vite-plugin-*
+          - babel-plugin-react-compiler
+          - typescript
+          - rimraf
+          - tailwindcss
+          - postcss
+          - autoprefixer
+          - wrangler
+          - "@cloudflare/*"
+          - "@radix-ui/*"
+          - class-variance-authority
+          - clsx
+          - tailwind-merge
+          - lucide-react
 
   - package-ecosystem: github-actions
     directory: /
@@ -50,3 +116,7 @@ updates:
     commit-message:
       prefix: "ci(deps)"
       include: scope
+    groups:
+      actions:
+        patterns:
+          - "*"
