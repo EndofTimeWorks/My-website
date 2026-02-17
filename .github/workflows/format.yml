@@ -54,6 +54,7 @@ jobs:
         run: pnpm format
 
       - name: Commit formatting fixes
+        continue-on-error: true
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "style: auto-format with prettier"
