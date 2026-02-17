@@ -43,7 +43,7 @@
     "autoprefixer": "10.4.20",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "baseline-browser-mapping": "2.8.31",
-    "eslint": "^8.56.0",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "6.0.0-rc.2",
     "eslint-plugin-react-refresh": "^0.4.5",
