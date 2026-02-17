@@ -39,7 +39,7 @@
     "@types/react-dom": "18.3.5",
     "@vitejs/plugin-react-swc": "^4.2.3",
     "@vitest/ui": "^4.0.18",
-    "autoprefixer": "10.4.24",
+    "@tailwindcss/postcss": "4.1.18",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "baseline-browser-mapping": "2.9.19",
     "eslint": "^10.0.0",
