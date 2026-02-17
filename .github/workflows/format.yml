@@ -50,16 +50,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check formatting (PR)
-        if: github.event_name == 'pull_request'
-        run: pnpm prettier --check "src/**/*.{ts,tsx,css}" "*.{json,js,cjs,ts,md}"
-
-      - name: Fix formatting (push to main)
-        if: github.event_name == 'push'
+      - name: Run prettier
         run: pnpm format
 
       - name: Commit formatting fixes
-        if: github.event_name == 'push'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: auto-format with prettier"
