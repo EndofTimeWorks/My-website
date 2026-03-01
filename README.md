@@ -50,14 +50,14 @@ CLOUDFLARE_ACCOUNT_ID=your_cloudflare_account_id
 
 3. Install dependencies:
 ```bash
-npm install
+pnpm install
 ```
 
 ## Local Development
 
 Start the development server:
 ```bash
-npm start
+pnpm start
 ```
 
 The application will be available at http://localhost:3000
