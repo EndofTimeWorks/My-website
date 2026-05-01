@@ -5,14 +5,14 @@ export interface Position {
 
 export interface PowerUp {
     id: string;
-    type: "SPEED" | "SHIELD" | "MAGNET";
+    type: "SPEED" | "SHIELD";
     duration: number;
     position: Position;
 }
 
 export interface Collectible {
     id: string;
-    type: "STAR" | "GEM" | "KEY";
+    type: "STAR" | "GEM";
     value: number;
     position: Position;
 }
@@ -31,7 +31,6 @@ export interface PlayerState {
     speed: number;
     powerUps: PowerUp[];
     isInvincible: boolean;
-    hasKey: boolean;
 }
 
 export interface GameState {

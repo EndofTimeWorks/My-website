@@ -7,17 +7,39 @@ import type {
     PowerUp,
 } from "@/types/game";
 
+const BASE_PLAYER_SPEED = 0.8;
 const COLLISION_DISTANCE = 5;
+const POWER_UP_DURATION_MS = 5000;
+
+const createInitialPlayer = () => ({
+    position: { x: 50, y: 50 },
+    health: 100,
+    speed: BASE_PLAYER_SPEED,
+    powerUps: [],
+    isInvincible: false,
+});
+
+const applyPowerUpEffects = (player: {
+    position: Position;
+    health: number;
+    speed: number;
+    powerUps: PowerUp[];
+    isInvincible: boolean;
+}) => {
+    const hasShield = player.powerUps.some((powerUp) => powerUp.type === "SHIELD");
+    const speedBoosts = player.powerUps.filter(
+        (powerUp) => powerUp.type === "SPEED",
+    ).length;
+
+    return {
+        ...player,
+        speed: BASE_PLAYER_SPEED * Math.pow(1.5, speedBoosts),
+        isInvincible: player.isInvincible || hasShield,
+    };
+};
 
 const useGameStore = create<GameState>((set, get) => ({
-    player: {
-        position: { x: 50, y: 50 },
-        health: 100,
-        speed: 0.8,
-        powerUps: [],
-        isInvincible: false,
-        hasKey: false,
-    },
+    player: createInitialPlayer(),
     enemies: [],
     collectibles: [],
     powerUps: [],
@@ -126,10 +148,13 @@ const useGameStore = create<GameState>((set, get) => ({
         if (!isGameOver) {
             setTimeout(() => {
                 const currentPlayer = get().player;
+                const hasShield = currentPlayer.powerUps.some(
+                    (powerUp) => powerUp.type === "SHIELD",
+                );
                 set({
                     player: {
                         ...currentPlayer,
-                        isInvincible: false,
+                        isInvincible: hasShield,
                     },
                 });
             }, 1500);
@@ -141,16 +166,10 @@ const useGameStore = create<GameState>((set, get) => ({
         const powerUp = powerUps.find((p) => p.id === powerUpId);
         if (!powerUp) return;
 
-        const updatedPlayer = {
+        const updatedPlayer = applyPowerUpEffects({
             ...player,
             powerUps: [...player.powerUps, powerUp],
-        };
-
-        if (powerUp.type === "SHIELD") {
-            updatedPlayer.isInvincible = true;
-        } else if (powerUp.type === "SPEED") {
-            updatedPlayer.speed = player.speed * 1.5;
-        }
+        });
 
         set({
             player: updatedPlayer,
@@ -159,18 +178,12 @@ const useGameStore = create<GameState>((set, get) => ({
 
         setTimeout(() => {
             const currentPlayer = get().player;
-            const resetPlayer = {
+            const resetPlayer = applyPowerUpEffects({
                 ...currentPlayer,
                 powerUps: currentPlayer.powerUps.filter(
                     (p) => p.id !== powerUp.id,
                 ),
-            };
-
-            if (powerUp.type === "SHIELD") {
-                resetPlayer.isInvincible = false;
-            } else if (powerUp.type === "SPEED") {
-                resetPlayer.speed = 0.8;
-            }
+            });
 
             set({ player: resetPlayer });
         }, powerUp.duration);
@@ -178,14 +191,7 @@ const useGameStore = create<GameState>((set, get) => ({
 
     startNewGame: () =>
         set({
-            player: {
-                position: { x: 50, y: 50 },
-                health: 100,
-                speed: 0.8,
-                powerUps: [],
-                isInvincible: false,
-                hasKey: false,
-            },
+            player: createInitialPlayer(),
             enemies: [],
             collectibles: [],
             powerUps: [],
@@ -197,14 +203,7 @@ const useGameStore = create<GameState>((set, get) => ({
 
     showMenu: () =>
         set({
-            player: {
-                position: { x: 50, y: 50 },
-                health: 100,
-                speed: 0.8,
-                powerUps: [],
-                isInvincible: false,
-                hasKey: false,
-            },
+            player: createInitialPlayer(),
             enemies: [],
             collectibles: [],
             powerUps: [],
@@ -282,15 +281,11 @@ const useGameStore = create<GameState>((set, get) => ({
         const { powerUps } = get();
         if (powerUps.length >= 2) return;
 
-        const types: Array<"SPEED" | "SHIELD" | "MAGNET"> = [
-            "SPEED",
-            "SHIELD",
-            "MAGNET",
-        ];
+        const types: Array<"SPEED" | "SHIELD"> = ["SPEED", "SHIELD"];
         const powerUp: PowerUp = {
             id: `powerup-${Date.now()}-${Math.random()}`,
             type: types[Math.floor(Math.random() * types.length)],
-            duration: 5000,
+            duration: POWER_UP_DURATION_MS,
             position: {
                 x: Math.random() * 80 + 10,
                 y: Math.random() * 80 + 10,
