@@ -94,6 +94,8 @@ const MusicDisplay = () => {
                     error instanceof Error
                         ? error.message
                         : "An error occurred";
+                setCurrentTrack(null);
+                setExpanded(true);
                 setError(errorMessage);
             } finally {
                 if (!controller.signal.aborted) {
@@ -120,19 +122,17 @@ const MusicDisplay = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="h-[88px] flex items-center justify-center p-4 text-red-400">
-                <span>Unable to load music data: {error}</span>
-            </div>
-        );
-    }
-
-    if (!currentTrack) {
+    if (error || !currentTrack) {
         return (
             <div
                 className={`overflow-hidden transition-[height] duration-500 ease-in-out ${expanded ? "h-[352px]" : "h-[88px]"}`}
             >
+                {error && (
+                    <div className="mb-3 flex items-center gap-2 rounded-lg border border-accent-primary/10 bg-background-secondary/60 px-3 py-2 text-xs text-text-primary/65">
+                        <Music className="h-4 w-4" />
+                        <span>Live track unavailable. Showing playlist instead.</span>
+                    </div>
+                )}
                 <iframe
                     title="Spotify Playlist"
                     style={{ borderRadius: "12px" }}
