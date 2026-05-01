@@ -7,6 +7,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         this.state = { hasError: false, error: null };
     }
 
+    resetErrorBoundary = () => {
+        this.setState({ hasError: false, error: null });
+    };
+
     static getDerivedStateFromError(error: Error): ErrorBoundaryState {
         return { hasError: true, error };
     }
@@ -32,7 +36,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                             <div className="fox-nose"></div>
                         </div>
                         <p>Oops! Something went wrong</p>
-                        <button onClick={() => window.location.reload()}>
+                        <button onClick={this.resetErrorBoundary}>
                             Try Again
                         </button>
                     </div>

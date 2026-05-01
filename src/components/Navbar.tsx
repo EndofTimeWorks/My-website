@@ -9,9 +9,6 @@ import {
 
 const Navbar = () => {
     const location = useLocation();
-    const handleRedirect = () => {
-        window.open("https://vnc.endoftimee.tech", "_blank");
-    };
 
     return (
         <nav className="navbar">
@@ -50,21 +47,15 @@ const Navbar = () => {
                         <span>APCSP</span>
                     </Link>
 
-                    <button
-                        onClick={handleRedirect}
+                    <a
+                        href="https://vnc.endoftimee.tech"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="nav-link"
-                        style={{
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer",
-                            padding: "0 15px",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
                     >
                         <Code size={20} />
                         <span>NoVNC</span>
-                    </button>
+                    </a>
 
                     <a
                         href="https://twitch.tv/EndofTimee"
