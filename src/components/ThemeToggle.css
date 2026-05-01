@@ -9,6 +9,25 @@
     backdrop-filter: blur(5px);
 }
 
+.theme-toggle-container.compact {
+    margin: 0;
+    width: 100%;
+    justify-content: flex-start;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    backdrop-filter: none;
+}
+
+.theme-toggle-container.compact .theme-toggle {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.theme-toggle-container.compact .toggle-label {
+    margin-left: 0.75rem;
+}
+
 .theme-toggle {
     position: relative;
     display: inline-flex;
