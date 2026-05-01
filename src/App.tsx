@@ -1,38 +1,88 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import BootSettings from "@/components/BootSettings";
 import Navbar from "@/components/Navbar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import AboutPage from "@/pages/AboutPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import APCSPPage from "@/pages/APCSPPage";
 import FoxGame from "@/games/fox-adventure/components/FoxGame";
-import ThemeToggle from "@/components/ThemeToggle";
 import EndOSBootAnimation from "@/components/EndOSBootAnimation";
 import "@/styles/animations.css";
 import "@/styles/protofox-theme.css";
 
+type BootPreference = "session" | "always";
+
+const BOOT_SESSION_KEY = "endos-boot-complete";
+const BOOT_PREFERENCE_KEY = "endos-boot-preference";
+
 const useEndOSAnimation = () => {
     const [bootComplete, setBootComplete] = useState(false);
-    const [skipBoot] = useState(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const skipParam = urlParams.get("skipBoot");
-        const sessionSeen =
-            sessionStorage.getItem("endos-boot-complete") === "true";
+    const [bootRunId, setBootRunId] = useState(0);
+    const [forceReplay, setForceReplay] = useState(false);
+    const [sessionSeen, setSessionSeen] = useState(
+        () => sessionStorage.getItem(BOOT_SESSION_KEY) === "true",
+    );
+    const [bootPreference, setBootPreferenceState] = useState<BootPreference>(
+        () =>
+            localStorage.getItem(BOOT_PREFERENCE_KEY) === "always"
+                ? "always"
+                : "session",
+    );
 
-        return skipParam === "true" || sessionSeen;
-    });
+    const urlParams = new URLSearchParams(window.location.search);
+    const skipFromUrl = urlParams.get("skipBoot") === "true";
+    const skipBoot =
+        !forceReplay &&
+        (skipFromUrl ||
+            (bootPreference === "session" && sessionSeen));
 
     const handleBootComplete = () => {
         setBootComplete(true);
-        sessionStorage.setItem("endos-boot-complete", "true");
+        setForceReplay(false);
+        setSessionSeen(true);
+        sessionStorage.setItem(BOOT_SESSION_KEY, "true");
     };
 
-    return { bootComplete, skipBoot, handleBootComplete };
+    const replayBoot = () => {
+        sessionStorage.removeItem(BOOT_SESSION_KEY);
+        setSessionSeen(false);
+        setBootComplete(false);
+        setForceReplay(true);
+        setBootRunId((current) => current + 1);
+    };
+
+    const setBootPreference = (preference: BootPreference) => {
+        setBootPreferenceState(preference);
+        localStorage.setItem(BOOT_PREFERENCE_KEY, preference);
+    };
+
+    return {
+        bootComplete,
+        bootPreference,
+        bootRunId,
+        forceReplay,
+        handleBootComplete,
+        replayBoot,
+        setBootPreference,
+        skipBoot,
+    };
 };
 
 const App = () => {
     const [isGameActive, setIsGameActive] = useState(false);
-    const { bootComplete, skipBoot, handleBootComplete } = useEndOSAnimation();
+    const {
+        bootComplete,
+        bootPreference,
+        bootRunId,
+        forceReplay,
+        handleBootComplete,
+        replayBoot,
+        setBootPreference,
+        skipBoot,
+    } = useEndOSAnimation();
+    const shouldShowBoot = forceReplay || (!skipBoot && !bootComplete);
+    const isAppVisible = bootComplete || skipBoot || forceReplay;
 
     useEffect(() => {
         const konamiCode = [
@@ -67,14 +117,17 @@ const App = () => {
 
     return (
         <>
-            {!skipBoot && !bootComplete && (
-                <EndOSBootAnimation onComplete={handleBootComplete} />
+            {shouldShowBoot && (
+                <EndOSBootAnimation
+                    key={bootRunId}
+                    onComplete={handleBootComplete}
+                />
             )}
 
             <div
                 style={{
-                    visibility: bootComplete || skipBoot ? "visible" : "hidden",
-                    opacity: bootComplete || skipBoot ? 1 : 0,
+                    visibility: isAppVisible ? "visible" : "hidden",
+                    opacity: isAppVisible ? 1 : 0,
                     transition: "opacity 0.5s ease-in-out",
                 }}
             >
@@ -96,8 +149,12 @@ const App = () => {
                             <div className="relative">
                                 <Navbar />
 
-                                <div className="fixed top-20 right-4 z-30">
-                                    <ThemeToggle />
+                                <div className="fixed top-20 right-4 z-30 flex flex-col items-end gap-3">
+                                    <BootSettings
+                                        bootPreference={bootPreference}
+                                        onPreferenceChange={setBootPreference}
+                                        onReplay={replayBoot}
+                                    />
                                 </div>
 
                                 <main className="content-wrapper section-spacing pb-20 animate-fade-in">
