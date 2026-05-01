@@ -8,7 +8,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "build": "tsc && vite build",
-    "build:worker": "wrangler deploy --dry-run",
+    "build:worker": "tsc -p tsconfig.worker.json --noEmit",
     "type-check": "tsc --noEmit",
     "dev": "vite --host 0.0.0.0",
     "dev:api": "wrangler dev",
