@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useGameStore from "../state/gameStore";
 
 export const useGameControls = () => {
+    const keysRef = useRef<Set<string>>(new Set());
+
     useEffect(() => {
-        const keys = new Set<string>();
+        const handleKeyDown = (event: KeyboardEvent) => {
+            keysRef.current.add(event.key.toLowerCase());
 
-        const handleKeyDown = (e: KeyboardEvent) => {
-            keys.add(e.key.toLowerCase());
-
-            if (e.key === "Escape") {
+            if (event.key === "Escape") {
                 const state = useGameStore.getState();
                 if (state.gameStatus === "PLAYING") {
                     state.pauseGame();
@@ -18,38 +18,9 @@ export const useGameControls = () => {
             }
         };
 
-        const handleKeyUp = (e: KeyboardEvent) => {
-            keys.delete(e.key.toLowerCase());
+        const handleKeyUp = (event: KeyboardEvent) => {
+            keysRef.current.delete(event.key.toLowerCase());
         };
-
-        const updatePlayerMovement = () => {
-            const state = useGameStore.getState();
-            if (state.gameStatus !== "PLAYING") return;
-
-            const direction = { x: 0, y: 0 };
-
-            if (keys.has("arrowup") || keys.has("w")) direction.y -= 1;
-            if (keys.has("arrowdown") || keys.has("s")) direction.y += 1;
-            if (keys.has("arrowleft") || keys.has("a")) direction.x -= 1;
-            if (keys.has("arrowright") || keys.has("d")) direction.x += 1;
-
-            if (direction.x !== 0 || direction.y !== 0) {
-                const magnitude = Math.sqrt(
-                    direction.x * direction.x + direction.y * direction.y,
-                );
-                direction.x /= magnitude;
-                direction.y /= magnitude;
-
-                state.movePlayer(direction);
-            }
-        };
-
-        let animationFrameId: number;
-        const gameLoop = () => {
-            updatePlayerMovement();
-            animationFrameId = requestAnimationFrame(gameLoop);
-        };
-        animationFrameId = requestAnimationFrame(gameLoop);
 
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
@@ -57,7 +28,8 @@ export const useGameControls = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
             window.removeEventListener("keyup", handleKeyUp);
-            cancelAnimationFrame(animationFrameId);
         };
     }, []);
+
+    return keysRef;
 };

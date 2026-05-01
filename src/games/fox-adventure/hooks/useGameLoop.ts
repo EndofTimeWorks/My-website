@@ -1,51 +1,81 @@
-import { useEffect, useRef } from "react";
+import { useEffect, type RefObject } from "react";
 import useGameStore from "../state/gameStore";
 
-export const useGameLoop = () => {
-  const frameRef = useRef<number | null>(null);
-  const lastUpdateRef = useRef<number>(0);
-  const lastCollectibleSpawnRef = useRef<number>(0);
-  const lastEnemySpawnRef = useRef<number>(0);
-  const lastPowerUpSpawnRef = useRef<number>(0);
+interface Direction {
+    x: number;
+    y: number;
+}
 
-  useEffect(() => {
-    const gameLoop = (timestamp: number) => {
-      if (!lastUpdateRef.current) lastUpdateRef.current = timestamp;
-      const deltaTime = timestamp - lastUpdateRef.current;
+const getMovementDirection = (keys: Set<string>): Direction => {
+    const direction = { x: 0, y: 0 };
 
-      const state = useGameStore.getState();
+    if (keys.has("arrowup") || keys.has("w")) direction.y -= 1;
+    if (keys.has("arrowdown") || keys.has("s")) direction.y += 1;
+    if (keys.has("arrowleft") || keys.has("a")) direction.x -= 1;
+    if (keys.has("arrowright") || keys.has("d")) direction.x += 1;
 
-      if (state.gameStatus === "PLAYING") {
-        state.updateTimePlayed(deltaTime);
-        state.updateEnemies();
-        state.checkCollisions();
+    if (direction.x === 0 && direction.y === 0) {
+        return direction;
+    }
 
-        if (timestamp - lastCollectibleSpawnRef.current > 1500) {
-          state.spawnCollectible();
-          lastCollectibleSpawnRef.current = timestamp;
-        }
+    const magnitude = Math.sqrt(
+        direction.x * direction.x + direction.y * direction.y,
+    );
 
-        if (timestamp - lastEnemySpawnRef.current > 4000) {
-          state.spawnEnemy();
-          lastEnemySpawnRef.current = timestamp;
-        }
-
-        if (timestamp - lastPowerUpSpawnRef.current > 8000) {
-          state.spawnPowerUp();
-          lastPowerUpSpawnRef.current = timestamp;
-        }
-      }
-
-      lastUpdateRef.current = timestamp;
-      frameRef.current = requestAnimationFrame(gameLoop);
+    return {
+        x: direction.x / magnitude,
+        y: direction.y / magnitude,
     };
+};
 
-    frameRef.current = requestAnimationFrame(gameLoop);
+export const useGameLoop = (keysRef: RefObject<Set<string>>) => {
+    useEffect(() => {
+        let frameId = 0;
+        let lastUpdate = 0;
+        let lastCollectibleSpawn = 0;
+        let lastEnemySpawn = 0;
+        let lastPowerUpSpawn = 0;
 
-    return () => {
-      if (frameRef.current !== null) {
-        cancelAnimationFrame(frameRef.current);
-      }
-    };
-  }, []);
+        const gameLoop = (timestamp: number) => {
+            if (!lastUpdate) {
+                lastUpdate = timestamp;
+            }
+
+            const deltaTime = timestamp - lastUpdate;
+            const state = useGameStore.getState();
+
+            if (state.gameStatus === "PLAYING") {
+                const direction = getMovementDirection(keysRef.current);
+
+                if (direction.x !== 0 || direction.y !== 0) {
+                    state.movePlayer(direction);
+                }
+
+                state.updateTimePlayed(deltaTime);
+                state.updateEnemies();
+                state.checkCollisions();
+
+                if (timestamp - lastCollectibleSpawn > 1500) {
+                    state.spawnCollectible();
+                    lastCollectibleSpawn = timestamp;
+                }
+
+                if (timestamp - lastEnemySpawn > 4000) {
+                    state.spawnEnemy();
+                    lastEnemySpawn = timestamp;
+                }
+
+                if (timestamp - lastPowerUpSpawn > 8000) {
+                    state.spawnPowerUp();
+                    lastPowerUpSpawn = timestamp;
+                }
+            }
+
+            lastUpdate = timestamp;
+            frameId = requestAnimationFrame(gameLoop);
+        };
+
+        frameId = requestAnimationFrame(gameLoop);
+        return () => cancelAnimationFrame(frameId);
+    }, [keysRef]);
 };
