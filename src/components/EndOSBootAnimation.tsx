@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "@/styles/EndOSBootAnimation.css";
 
 interface EndOSBootAnimationProps {
@@ -6,100 +6,70 @@ interface EndOSBootAnimationProps {
     skipAnimation?: boolean;
 }
 
-const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
+const bootSequence = [
+    { stage: 1, delay: 1500 },
+    { stage: 2, delay: 3000 },
+    { stage: 3, delay: 3500 },
+    { stage: 4, delay: 3500 },
+    { stage: 5, delay: 3500 },
+    { stage: 6, delay: 3000 },
+    { stage: 7, delay: 3000 },
+    { stage: 8, delay: 2000 },
+];
+
+const EndOSBootAnimation = ({
     onComplete,
     skipAnimation = false,
-}) => {
+}: EndOSBootAnimationProps) => {
     const [active, setActive] = useState(true);
     const [bootStage, setBootStage] = useState(0);
-    const [showLogo, setShowLogo] = useState(false);
-    const [bootComplete, setBootComplete] = useState(false);
 
     const handleAnimationComplete = useCallback(() => {
         setActive(false);
-        if (onComplete) {
-            onComplete();
-        }
+        onComplete?.();
     }, [onComplete]);
 
-    // Boot sequence timing
     useEffect(() => {
         if (skipAnimation) {
             const skipTimeout = setTimeout(handleAnimationComplete, 0);
             return () => clearTimeout(skipTimeout);
         }
 
-        // Initialize boot sequence with proper timing to prevent overlap
-        const bootSequence = [
-            { stage: 1, delay: 1500 }, // Initial screen flicker
-            { stage: 2, delay: 3000 }, // BIOS check (longer time to read)
-            { stage: 3, delay: 3500 }, // System scan (longer for progress bar)
-            { stage: 4, delay: 3500 }, // Loading modules (allow time for animation)
-            { stage: 5, delay: 3500 }, // Fox protocols (allow time to read traits)
-            { stage: 6, delay: 3000 }, // Show logo (allow time to appreciate)
-            { stage: 7, delay: 3000 }, // Final activation (longer read time)
-            { stage: 8, delay: 2000 }, // Fade out
-        ];
+        const timeouts: Array<ReturnType<typeof setTimeout>> = [];
 
-        let timeout: ReturnType<typeof setTimeout>;
-        let currentIndex = 0;
-
-        const runNextStage = () => {
-            if (currentIndex < bootSequence.length) {
-                const { stage, delay } = bootSequence[currentIndex];
-
-                // Clean transition - clear ALL previous stages to prevent any background visibility
-                document.querySelectorAll(".boot-stage").forEach((el) => {
-                    el.classList.remove("active");
-                });
-
-                // Reset content visibility
-                document.querySelectorAll(".boot-content").forEach((el) => {
-                    el.classList.remove("active");
-                });
-
-                // Short delay to allow for transition
-                setTimeout(() => {
-                    // First ensure boot content is visible
-                    document.querySelectorAll(".boot-content").forEach((el) => {
-                        el.classList.add("active");
-                    });
-
-                    // Then activate the correct stage
-                    setBootStage(stage);
-
-                    if (stage === 6) {
-                        setShowLogo(true);
-                    } else if (stage === 7) {
-                        setBootComplete(true);
-                    }
-                }, 300);
-
-                currentIndex++;
-                timeout = setTimeout(runNextStage, delay);
-            } else {
-                handleAnimationComplete();
-            }
+        const queueTimeout = (
+            callback: () => void,
+            delay: number,
+        ): ReturnType<typeof setTimeout> => {
+            const timeout = setTimeout(callback, delay);
+            timeouts.push(timeout);
+            return timeout;
         };
 
-        // Start the sequence
-        timeout = setTimeout(runNextStage, 500);
+        const runStage = (index: number) => {
+            if (index >= bootSequence.length) {
+                handleAnimationComplete();
+                return;
+            }
+
+            const { stage, delay } = bootSequence[index];
+            setBootStage(stage);
+            queueTimeout(() => runStage(index + 1), delay);
+        };
+
+        queueTimeout(() => runStage(0), 500);
 
         return () => {
-            if (timeout) clearTimeout(timeout);
+            timeouts.forEach(clearTimeout);
         };
     }, [skipAnimation, handleAnimationComplete]);
 
-    // Skip button click handler
-    const handleSkip = () => {
-        handleAnimationComplete();
-    };
-
-    if (!active) return null;
+    if (!active) {
+        return null;
+    }
 
     return (
         <div className="endos-boot-container">
-            {/* Accessibility */}
             <div className="visually-hidden">
                 Website loading. EndOS boot sequence in progress.
             </div>
@@ -114,9 +84,7 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                     <div className="visor-line top"></div>
                     <div className="visor-line bottom"></div>
 
-                    {/* Boot Sequence Content */}
-                    <div className={`boot-content`}>
-                        {/* BIOS Check */}
+                    <div className={`boot-content ${bootStage > 0 ? "active" : ""}`}>
                         <div
                             className={`boot-stage bios ${bootStage === 2 ? "active" : ""}`}
                         >
@@ -138,7 +106,6 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             </div>
                         </div>
 
-                        {/* System Scan */}
                         <div
                             className={`boot-stage scan ${bootStage === 3 ? "active" : ""}`}
                         >
@@ -155,12 +122,9 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             <div className="scan-detail">
                                 Activating sensory modules...
                             </div>
-                            <div className="scan-detail">
-                                All systems nominal
-                            </div>
+                            <div className="scan-detail">All systems nominal</div>
                         </div>
 
-                        {/* Module Loading */}
                         <div
                             className={`boot-stage modules ${bootStage === 4 ? "active" : ""}`}
                         >
@@ -191,7 +155,6 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             </div>
                         </div>
 
-                        {/* Fox Protocol */}
                         <div
                             className={`boot-stage fox-protocol ${bootStage === 5 ? "active" : ""}`}
                         >
@@ -201,9 +164,7 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             <div className="fox-trait">
                                 Fluffy tail module: Online
                             </div>
-                            <div className="fox-trait">
-                                Fox ears: Calibrated
-                            </div>
+                            <div className="fox-trait">Fox ears: Calibrated</div>
                             <div className="fox-trait">
                                 Cuteness factor: Nonexistent
                             </div>
@@ -215,9 +176,8 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             </div>
                         </div>
 
-                        {/* Logo Display */}
                         <div
-                            className={`boot-stage logo-display ${bootStage === 6 && showLogo ? "active" : ""}`}
+                            className={`boot-stage logo-display ${bootStage === 6 ? "active" : ""}`}
                         >
                             <div className="endos-logo">
                                 <span className="logo-end">End</span>
@@ -228,9 +188,8 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                             </div>
                         </div>
 
-                        {/* System Ready */}
                         <div
-                            className={`boot-stage system-ready ${bootStage === 7 && bootComplete ? "active" : ""}`}
+                            className={`boot-stage system-ready ${bootStage === 7 ? "active" : ""}`}
                         >
                             <div className="ready-status">SYSTEM ACTIVATED</div>
                             <div className="welcome-message">
@@ -244,10 +203,9 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                 </div>
             </div>
 
-            {/* Skip button - More prominent and always visible */}
             <button
                 className="skip-button"
-                onClick={handleSkip}
+                onClick={handleAnimationComplete}
                 aria-label="Skip boot animation"
             >
                 SKIP BOOT SEQUENCE
