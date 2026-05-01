@@ -37,19 +37,13 @@ const MusicDisplay = () => {
     const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const fetchCurrentTrack = async () => {
             try {
-                const API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
-                const USERNAME = import.meta.env.VITE_LASTFM_USERNAME;
-
-                if (!API_KEY || !USERNAME) {
-                    throw new Error(
-                        "Last.fm API key or username not configured",
-                    );
-                }
-
-                const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=1`;
-                const response = await fetch(url);
+                const response = await fetch("/api/lastfm/current-track", {
+                    signal: controller.signal,
+                });
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -92,20 +86,29 @@ const MusicDisplay = () => {
                 setExpanded(false);
                 setError(null);
             } catch (error) {
+                if (controller.signal.aborted) {
+                    return;
+                }
+
                 const errorMessage =
                     error instanceof Error
                         ? error.message
                         : "An error occurred";
-                console.error("Last.fm error:", error);
                 setError(errorMessage);
             } finally {
-                setLoading(false);
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchCurrentTrack();
         const interval = setInterval(fetchCurrentTrack, 30000);
-        return () => clearInterval(interval);
+
+        return () => {
+            controller.abort();
+            clearInterval(interval);
+        };
     }, []);
 
     if (loading) {

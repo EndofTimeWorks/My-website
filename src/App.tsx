@@ -1,16 +1,16 @@
-﻿import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import AboutPage from "@/pages/AboutPage";
 import ProjectsPage from "@/pages/ProjectsPage";
+import APCSPPage from "@/pages/APCSPPage";
 import FoxGame from "@/games/fox-adventure/components/FoxGame";
 import ThemeToggle from "@/components/ThemeToggle";
 import EndOSBootAnimation from "@/components/EndOSBootAnimation";
 import "@/styles/animations.css";
 import "@/styles/protofox-theme.css";
 
-// EndOS animation control
 const useEndOSAnimation = () => {
     const [bootComplete, setBootComplete] = useState(false);
     const [skipBoot] = useState(() => {
@@ -30,49 +30,11 @@ const useEndOSAnimation = () => {
     return { bootComplete, skipBoot, handleBootComplete };
 };
 
-// AuthChecker component to access auth context inside the router
-const AuthChecker = ({ children }: { children: React.ReactNode }) => {
-    const auth = useAuth();
-    const [isStatusVisible, setIsStatusVisible] = useState(false);
-
-    const toggleStatus = () => {
-        setIsStatusVisible((prev) => !prev);
-    };
-
-    return (
-        <>
-            {children}
-
-            {auth.isAuthenticated && (
-                <div
-                    className={`fixed bottom-4 right-4 z-40 transition-transform duration-300 ${
-                        isStatusVisible
-                            ? "translate-y-0"
-                            : "translate-y-[calc(100%-40px)]"
-                    }`}
-                >
-                    <div
-                        className="p-2 bg-background-secondary rounded-t-lg cursor-pointer flex justify-center items-center"
-                        onClick={toggleStatus}
-                    >
-                        <span className="text-xs font-medium">
-                            {isStatusVisible
-                                ? "Hide System Status"
-                                : "System Status"}
-                        </span>
-                    </div>
-                </div>
-            )}
-        </>
-    );
-};
-
 const App = () => {
     const [isGameActive, setIsGameActive] = useState(false);
     const { bootComplete, skipBoot, handleBootComplete } = useEndOSAnimation();
 
     useEffect(() => {
-        // Konami code sequence
         const konamiCode = [
             "ArrowUp",
             "ArrowUp",
@@ -89,11 +51,10 @@ const App = () => {
 
         const handleKeydown = (event: KeyboardEvent) => {
             if (event.key === konamiCode[index]) {
-                index++;
+                index += 1;
 
                 if (index === konamiCode.length) {
                     setIsGameActive(true);
-                    console.log("Konami code activated!");
                 }
             } else {
                 index = 0;
@@ -101,18 +62,15 @@ const App = () => {
         };
 
         window.addEventListener("keydown", handleKeydown);
-
         return () => window.removeEventListener("keydown", handleKeydown);
     }, []);
 
     return (
-        <AuthProvider>
-            {/* EndOS Boot Animation */}
+        <>
             {!skipBoot && !bootComplete && (
                 <EndOSBootAnimation onComplete={handleBootComplete} />
             )}
 
-            {/* Main Application - Only visible after boot animation completes */}
             <div
                 style={{
                     visibility: bootComplete || skipBoot ? "visible" : "hidden",
@@ -120,12 +78,11 @@ const App = () => {
                     transition: "opacity 0.5s ease-in-out",
                 }}
             >
-                <Router>
-                    <AuthChecker>
+                <ErrorBoundary>
+                    <Router>
                         <div
                             className={`min-h-screen bg-background-primary ${isGameActive ? "game-active" : ""}`}
                         >
-                            {/* Background Logo */}
                             <div className="fixed inset-0 z-behind pointer-events-none">
                                 <div className="absolute inset-0">
                                     <img
@@ -136,11 +93,9 @@ const App = () => {
                                 </div>
                             </div>
 
-                            {/* Main Content */}
                             <div className="relative">
                                 <Navbar />
 
-                                {/* Theme Toggle */}
                                 <div className="fixed top-20 right-4 z-30">
                                     <ThemeToggle />
                                 </div>
@@ -154,6 +109,10 @@ const App = () => {
                                         <Route
                                             path="/projects"
                                             element={<ProjectsPage />}
+                                        />
+                                        <Route
+                                            path="/apcsp"
+                                            element={<APCSPPage />}
                                         />
                                         <Route
                                             path="*"
@@ -172,7 +131,6 @@ const App = () => {
                                     </Routes>
                                 </main>
 
-                                {/* Footer */}
                                 <footer className="py-6 border-t border-accent-primary/10 text-center text-sm text-text-primary/60">
                                     <p>
                                         © 2023 - {new Date().getFullYear()}{" "}
@@ -189,7 +147,6 @@ const App = () => {
                                 </footer>
                             </div>
 
-                            {/* Fox Game Overlay - Activated by Konami Code */}
                             {isGameActive && (
                                 <>
                                     <FoxGame />
@@ -202,10 +159,10 @@ const App = () => {
                                 </>
                             )}
                         </div>
-                    </AuthChecker>
-                </Router>
+                    </Router>
+                </ErrorBoundary>
             </div>
-        </AuthProvider>
+        </>
     );
 };
 

@@ -4,7 +4,7 @@ import useGithubRepos from "@/hooks/useGithubRepos";
 import LoadingFox from "@/components/LoadingFox";
 
 const ProjectsPage = () => {
-    const { repos, loading, error } = useGithubRepos();
+    const { repos, loading, error, refetch } = useGithubRepos();
 
     return (
         <div className="page-container">
@@ -21,7 +21,7 @@ const ProjectsPage = () => {
                 <FoxCard className="error-card">
                     <p>Oops! Something went wrong fetching the repositories.</p>
                     <button
-                        onClick={() => window.location.reload()}
+                        onClick={refetch}
                         className="retry-button"
                     >
                         Try Again

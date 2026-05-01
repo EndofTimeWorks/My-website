@@ -16,12 +16,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const location = useLocation();
 
     if (!auth.isAuthenticated) {
-        // Redirect to login page while saving the attempted location
-        // This enables seamless redirection back after successful login
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to="/" state={{ from: location }} replace />;
     }
 
-    // If authenticated, render the protected content
     return <>{children}</>;
 };
 
