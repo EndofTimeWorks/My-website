@@ -21,7 +21,7 @@ const EndOSBootAnimation = ({
     onComplete,
     skipAnimation = false,
 }: EndOSBootAnimationProps) => {
-    const [active, setActive] = useState(true);
+    const [active, setActive] = useState(!skipAnimation);
     const [bootStage, setBootStage] = useState(0);
 
     const handleAnimationComplete = useCallback(() => {
@@ -31,8 +31,8 @@ const EndOSBootAnimation = ({
 
     useEffect(() => {
         if (skipAnimation) {
-            const skipTimeout = setTimeout(handleAnimationComplete, 0);
-            return () => clearTimeout(skipTimeout);
+            onComplete?.();
+            return;
         }
 
         const timeouts: Array<ReturnType<typeof setTimeout>> = [];
@@ -62,7 +62,7 @@ const EndOSBootAnimation = ({
         return () => {
             timeouts.forEach(clearTimeout);
         };
-    }, [skipAnimation, handleAnimationComplete]);
+    }, [skipAnimation, handleAnimationComplete, onComplete]);
 
     if (!active) {
         return null;
