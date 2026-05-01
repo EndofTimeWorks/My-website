@@ -24,6 +24,18 @@
     justify-content: space-between;
 }
 
+.theme-toggle-container.compact .toggle-track {
+    flex-shrink: 0;
+}
+
+.theme-toggle-container.compact .toggle-indicator {
+    overflow: hidden;
+}
+
+.theme-toggle-container.compact .fox-ear {
+    display: none;
+}
+
 .theme-toggle-container.compact .toggle-label {
     margin-left: 0.75rem;
 }
