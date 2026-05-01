@@ -52,6 +52,7 @@ export interface GameState {
     takeDamage: (amount: number) => void;
     activatePowerUp: (powerUpId: string) => void;
     startNewGame: () => void;
+    showMenu: () => void;
     pauseGame: () => void;
     resumeGame: () => void;
     spawnCollectible: () => void;

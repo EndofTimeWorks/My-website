@@ -195,6 +195,25 @@ const useGameStore = create<GameState>((set, get) => ({
             timePlayed: 0,
         }),
 
+    showMenu: () =>
+        set({
+            player: {
+                position: { x: 50, y: 50 },
+                health: 100,
+                speed: 0.8,
+                powerUps: [],
+                isInvincible: false,
+                hasKey: false,
+            },
+            enemies: [],
+            collectibles: [],
+            powerUps: [],
+            score: 0,
+            level: 1,
+            gameStatus: "MENU",
+            timePlayed: 0,
+        }),
+
     pauseGame: () => set({ gameStatus: "PAUSED" }),
     resumeGame: () => set({ gameStatus: "PLAYING" }),
 

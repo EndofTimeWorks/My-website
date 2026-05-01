@@ -11,16 +11,14 @@ const FoxGame: React.FC = () => {
     const collectibles = useGameStore((state) => state.collectibles);
     const enemies = useGameStore((state) => state.enemies);
     const powerUps = useGameStore((state) => state.powerUps);
-    const startNewGame = useGameStore((state) => state.startNewGame);
+    const showMenu = useGameStore((state) => state.showMenu);
 
-    useGameLoop();
-    useGameControls();
+    const keysRef = useGameControls();
+    useGameLoop(keysRef);
 
     useEffect(() => {
-        if (gameStatus === "MENU") {
-            startNewGame();
-        }
-    }, [gameStatus, startNewGame]);
+        showMenu();
+    }, [showMenu]);
 
     return (
         <div className="fixed inset-0 bg-gradient-to-b from-background-primary to-background-secondary z-50">
@@ -71,7 +69,7 @@ const FoxGame: React.FC = () => {
                 </div>
 
                 {/* HUD and Overlay */}
-                <GameHUD />
+                {gameStatus !== "MENU" && <GameHUD />}
                 <GameOverlay />
             </div>
         </div>
