@@ -42,13 +42,6 @@ export const Player: React.FC = () => {
                     <div className="absolute inset-0 rounded-full border-4 border-accent-neon animate-pulse" />
                 )}
 
-                {/* Key indicator */}
-                {player.hasKey && (
-                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                        <div className="w-4 h-4 bg-accent-primary rounded-full animate-float" />
-                    </div>
-                )}
-
                 {/* Health indicator */}
                 <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-12">
                     <div className="w-full h-1 bg-background-secondary rounded-full overflow-hidden">
