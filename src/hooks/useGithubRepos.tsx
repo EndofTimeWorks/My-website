@@ -5,61 +5,49 @@ const useGithubRepos = () => {
     const [repos, setRepos] = useState<GithubRepo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [requestKey, setRequestKey] = useState(0);
+
+    const refetch = () => {
+        setRequestKey((current) => current + 1);
+    };
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const fetchRepos = async () => {
             try {
-                const response = await fetch(
-                    "https://api.github.com/users/System-End/repos?sort=updated",
-                );
+                setLoading(true);
+                setError(null);
+
+                const response = await fetch("/api/github-repos", {
+                    signal: controller.signal,
+                });
+
                 if (!response.ok) {
                     throw new Error("Failed to fetch repositories");
                 }
+
                 const reposData = (await response.json()) as GithubRepo[];
-
-                const repoDetails = await Promise.all(
-                    reposData.map(async (repo: GithubRepo) => {
-                        try {
-                            const languagesResponse = await fetch(
-                                repo.languages_url,
-                            );
-                            const languages =
-                                (await languagesResponse.json()) as Record<
-                                    string,
-                                    number
-                                >;
-                            return {
-                                ...repo,
-                                languages: Object.keys(languages),
-                            };
-                        } catch (error) {
-                            console.error(
-                                `Error fetching languages for ${repo.name}:`,
-                                error,
-                            );
-                            return {
-                                ...repo,
-                                languages: [],
-                            };
-                        }
-                    }),
-                );
-
-                setRepos(repoDetails);
-                setError(null);
+                setRepos(reposData);
             } catch (err) {
+                if (controller.signal.aborted) {
+                    return;
+                }
+
                 const error = err as Error;
                 setError(error.message);
-                console.error("Error fetching repos:", err);
             } finally {
-                setLoading(false);
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchRepos();
-    }, []);
+        return () => controller.abort();
+    }, [requestKey]);
 
-    return { repos, loading, error };
+    return { repos, loading, error, refetch };
 };
 
 export default useGithubRepos;

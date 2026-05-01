@@ -1,5 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Code, BookOpen, TvMinimalPlay } from "lucide-react";
+import {
+    Home,
+    Code,
+    BookOpen,
+    GraduationCap,
+    TvMinimalPlay,
+} from "lucide-react";
 
 const Navbar = () => {
     const location = useLocation();
@@ -36,14 +42,13 @@ const Navbar = () => {
                         <BookOpen size={20} />
                         <span>Blog</span>
                     </a>
-                    {/*
                     <Link
                         to="/apcsp"
-                        className={`nav-link ${location.pathname === '/apcsp' ? 'active' : ''}`}
+                        className={`nav-link ${location.pathname === "/apcsp" ? "active" : ""}`}
                     >
-                        <BookOpen size={20} />
+                        <GraduationCap size={20} />
                         <span>APCSP</span>
-                    </Link> */}
+                    </Link>
 
                     <button
                         onClick={handleRedirect}

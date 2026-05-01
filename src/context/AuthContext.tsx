@@ -51,22 +51,25 @@ const systemMembers: SystemMember[] = [
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    // Initialize authentication state from localStorage if available
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-        const stored = localStorage.getItem("isAuthenticated");
+        const stored = sessionStorage.getItem("isAuthenticated");
         return stored === "true";
     });
 
     const [username, setUsername] = useState<string | null>(() => {
-        return localStorage.getItem("username");
+        return sessionStorage.getItem("username");
     });
 
-    // Initialize system state from localStorage or set defaults
     const [systemState, setSystemState] = useState<SystemState | null>(() => {
-        const stored = localStorage.getItem("systemState");
+        const stored = sessionStorage.getItem("systemState");
         if (stored && isAuthenticated) {
-            return JSON.parse(stored);
+            try {
+                return JSON.parse(stored) as SystemState;
+            } catch {
+                sessionStorage.removeItem("systemState");
+            }
         }
+
         return isAuthenticated
             ? {
                   safetyLevel: "safe",
@@ -77,42 +80,42 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             : null;
     });
 
-    // Sync auth state to localStorage
     useEffect(() => {
-        localStorage.setItem("isAuthenticated", isAuthenticated.toString());
+        sessionStorage.setItem("isAuthenticated", isAuthenticated.toString());
         if (username) {
-            localStorage.setItem("username", username);
+            sessionStorage.setItem("username", username);
         } else {
-            localStorage.removeItem("username");
+            sessionStorage.removeItem("username");
         }
     }, [isAuthenticated, username]);
 
-    // Sync system state to localStorage
     useEffect(() => {
         if (!isAuthenticated) {
-            localStorage.removeItem("systemState");
+            sessionStorage.removeItem("systemState");
         } else if (systemState) {
-            localStorage.setItem("systemState", JSON.stringify(systemState));
+            sessionStorage.setItem("systemState", JSON.stringify(systemState));
         }
     }, [isAuthenticated, systemState]);
 
     const login = async (username: string, password: string) => {
-        // For security, add a slight delay to prevent rapid brute force attempts
-        await new Promise((resolve) => setTimeout(resolve, 800));
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password }),
+        });
 
-        // We use credential verification with multiple allowed passwords for different contexts
-        const validCredentials = [{ user: "system", pass: "." }];
+        if (!response.ok) {
+            return false;
+        }
 
-        const isValid = validCredentials.some(
-            (cred) =>
-                cred.user === username.toLowerCase() && cred.pass === password,
-        );
+        const data = (await response.json()) as { success?: boolean };
 
-        if (isValid) {
+        if (data.success) {
             setIsAuthenticated(true);
             setUsername(username);
 
-            // Initialize system state on login
             const initialState: SystemState = {
                 safetyLevel: "safe",
                 mentalState: "ok",
@@ -121,7 +124,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             };
 
             setSystemState(initialState);
-            localStorage.setItem("systemState", JSON.stringify(initialState));
+            sessionStorage.setItem("systemState", JSON.stringify(initialState));
 
             return true;
         }
@@ -130,15 +133,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const logout = () => {
-        // Add a short delay for better UX
-        setTimeout(() => {
-            setIsAuthenticated(false);
-            setUsername(null);
-            setSystemState(null);
-
-            // Clear sensitive data from localStorage
-            localStorage.removeItem("systemState");
-        }, 300);
+        setIsAuthenticated(false);
+        setUsername(null);
+        setSystemState(null);
+        sessionStorage.removeItem("isAuthenticated");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("systemState");
     };
 
     const updateSystemState = (newState: Partial<SystemState>) => {
@@ -146,10 +146,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         const updatedState = { ...systemState, ...newState };
         setSystemState(updatedState);
-        localStorage.setItem("systemState", JSON.stringify(updatedState));
+        sessionStorage.setItem("systemState", JSON.stringify(updatedState));
     };
 
-    // Construct the context value
     const contextValue: AuthContextType = {
         isAuthenticated,
         username,

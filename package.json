@@ -8,8 +8,10 @@
     "lint": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "build": "tsc && vite build",
+    "build:worker": "wrangler deploy --dry-run",
     "type-check": "tsc --noEmit",
     "dev": "vite --host 0.0.0.0",
+    "dev:api": "wrangler dev",
     "clean": "rimraf dist node_modules/.cache",
     "preview": "vite preview"
   },
@@ -92,10 +94,12 @@
     ]
   },
   "pnpm": {
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ],
     "onlyBuiltDependencies": [
       "@swc/core",
       "esbuild",
-      "sharp",
       "workerd"
     ]
   }

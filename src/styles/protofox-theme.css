@@ -111,7 +111,7 @@ body.protofox-theme .fox-card::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("/images/protofox/fur-texture.png");
+    background: url("/images/protofox/fur-texture.svg");
     opacity: 0.04;
     mix-blend-mode: overlay;
     pointer-events: none;
