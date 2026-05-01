@@ -16,22 +16,35 @@ const BootSettings = ({
     onReplay,
 }: BootSettingsProps) => {
     const [open, setOpen] = useState(false);
+    const bootSummary =
+        bootPreference === "always" ? "Boot always" : "Boot once";
 
     return (
-        <div className="relative w-full max-w-[220px]">
+        <div className="relative w-full max-w-[260px]">
             <button
                 type="button"
                 onClick={() => setOpen((current) => !current)}
-                className="flex w-full items-center justify-between gap-3 rounded-xl border border-accent-primary/20 bg-background-secondary/95 px-4 py-3 text-left text-sm text-text-primary shadow-lg backdrop-blur"
+                className="flex w-full items-center justify-between gap-4 rounded-2xl border border-accent-primary/25 bg-background-secondary/95 px-4 py-3 text-left text-sm text-text-primary shadow-lg backdrop-blur transition-colors hover:border-accent-primary/40 hover:bg-background-secondary"
                 aria-expanded={open}
                 aria-haspopup="dialog"
             >
-                <span className="flex items-center gap-2">
-                    <Settings2 size={16} className="text-accent-primary" />
-                    Site Settings
+                <span className="flex min-w-0 items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-primary/15 text-accent-primary">
+                        <Settings2 size={16} />
+                    </span>
+
+                    <span className="min-w-0">
+                        <span className="block text-sm font-semibold leading-tight">
+                            Site Settings
+                        </span>
+                        <span className="block truncate text-xs text-text-primary/60">
+                            Theme and startup options
+                        </span>
+                    </span>
                 </span>
-                <span className="text-xs uppercase tracking-[0.18em] text-text-primary/60">
-                    {bootPreference === "always" ? "Always" : "Once"}
+
+                <span className="shrink-0 rounded-full bg-background-primary/70 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-text-primary/65">
+                    {bootSummary}
                 </span>
             </button>
 
