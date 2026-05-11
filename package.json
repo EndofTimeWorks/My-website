@@ -59,7 +59,7 @@
     "vite": "7.3.2",
     "vite-plugin-babel": "1.5.1",
     "vitest": "4.1.5",
-    "web-vitals": "4.2.4",
+    "web-vitals": "5.2.0",
     "wrangler": "^4.90.0"
   },
   "lint-staged": {
