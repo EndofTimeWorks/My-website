@@ -25,8 +25,8 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
     // Boot sequence timing
     useEffect(() => {
         if (skipAnimation) {
-            handleAnimationComplete();
-            return;
+            const skipTimeout = setTimeout(handleAnimationComplete, 0);
+            return () => clearTimeout(skipTimeout);
         }
 
         // Initialize boot sequence with proper timing to prevent overlap
