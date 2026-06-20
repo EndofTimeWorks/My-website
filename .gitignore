@@ -45,3 +45,4 @@ lerna-debug.log*
 .dev.vars
 .prod.vars
 AGENTS.md
+deploy.sh
