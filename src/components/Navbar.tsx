@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Code, BookOpen, Twitch } from "lucide-react";
+import { Home, Code, BookOpen, TvMinimalPlay } from "lucide-react";
 
 const Navbar = () => {
     const location = useLocation();
@@ -67,7 +67,7 @@ const Navbar = () => {
                         rel="noopener noreferrer"
                         className="nav-link"
                     >
-                        <Twitch size={20} />
+                        <TvMinimalPlay size={20} />
                         <span>Stream</span>
                     </a>
 
