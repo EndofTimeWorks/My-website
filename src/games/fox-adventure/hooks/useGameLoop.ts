@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import useGameStore from "../state/gameStore";
 
 export const useGameLoop = () => {
-  const frameRef = useRef<number>(null);
+  const frameRef = useRef<number | null>(null);
   const lastUpdateRef = useRef<number>(0);
   const lastCollectibleSpawnRef = useRef<number>(0);
   const lastEnemySpawnRef = useRef<number>(0);
@@ -43,7 +43,7 @@ export const useGameLoop = () => {
     frameRef.current = requestAnimationFrame(gameLoop);
 
     return () => {
-      if (frameRef.current) {
+      if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
       }
     };
