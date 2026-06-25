@@ -1,6 +1,8 @@
 ﻿import { Gamepad2, Code, Music } from "lucide-react";
 import FoxCard from "@/components/FoxCard";
+import MiniTerminal from "@/components/MiniTerminal";
 import MusicDisplay from "@/components/MusicDisplay";
+import "@/styles/pages.css";
 
 const AboutPage = () => {
     // const [age, setAge] = useState(calculatePreciseAge(new Date("date")));
@@ -21,6 +23,10 @@ const AboutPage = () => {
                     End • They/It/She • Programmer & Streamer
                 </p>
             </FoxCard>
+
+            <div className="terminal-row">
+                <MiniTerminal />
+            </div>
 
             <div className="content-grid">
                 <FoxCard>
