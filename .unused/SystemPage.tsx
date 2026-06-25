@@ -1,6 +1,6 @@
 ﻿import FoxCard from '@/components/FoxCard';
 import { Users, Heart, Brain, Shield, LogOut, AlertTriangle, Info, Calendar, Tag, Activity } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 

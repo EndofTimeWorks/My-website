@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useAuth, systemMembers } from '@/context/AuthContext';
+import { systemMembers } from '@/context/systemMembers';
+import { useAuth } from '@/context/useAuth';
 import FoxCard from '@/components/FoxCard';
 import { 
   Shield, 
@@ -269,5 +270,4 @@ const SystemStatus = ({ minimal = false, className = '' }: SystemStatusProps) =>
 };
 
 export default SystemStatus;
-
 

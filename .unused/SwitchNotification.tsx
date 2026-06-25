@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { RefreshCw, AlertCircle, X } from 'lucide-react';
-import { systemMembers } from '@/context/AuthContext';
+import { systemMembers } from '@/context/systemMembers';
 
 interface SwitchNotificationProps {
   show: boolean;
@@ -170,5 +170,4 @@ const SwitchNotification = ({
 };
 
 export default SwitchNotification;
-
 

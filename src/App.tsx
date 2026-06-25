@@ -1,14 +1,23 @@
-﻿import { useState, useEffect } from "react";
+﻿import { lazy, Suspense, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { AuthProvider } from "@/context/AuthProvider";
+import { useAuth } from "@/context/useAuth";
 import Navbar from "@/components/Navbar";
-import AboutPage from "@/pages/AboutPage";
-import ProjectsPage from "@/pages/ProjectsPage";
-import FoxGame from "@/games/fox-adventure/components/FoxGame";
 import ThemeToggle from "@/components/ThemeToggle";
 import EndOSBootAnimation from "@/components/EndOSBootAnimation";
 import "@/styles/animations.css";
 import "@/styles/protofox-theme.css";
+
+const AboutPage = lazy(() => import("@/pages/AboutPage"));
+const ProjectsPage = lazy(() => import("@/pages/ProjectsPage"));
+const FoxGame = lazy(() => import("@/games/fox-adventure/components/FoxGame"));
+
+const LoadingRoute = () => (
+    <div className="flex items-center justify-center min-h-[40vh] text-accent-primary">
+        Loading...
+    </div>
+);
 
 // EndOS animation control
 const useEndOSAnimation = () => {
@@ -31,7 +40,7 @@ const useEndOSAnimation = () => {
 };
 
 // AuthChecker component to access auth context inside the router
-const AuthChecker = ({ children }: { children: React.ReactNode }) => {
+const AuthChecker = ({ children }: { children: ReactNode }) => {
     const auth = useAuth();
     const [isStatusVisible, setIsStatusVisible] = useState(false);
 
@@ -146,30 +155,33 @@ const App = () => {
                                 </div>
 
                                 <main className="content-wrapper section-spacing pb-20 animate-fade-in">
-                                    <Routes>
-                                        <Route
-                                            path="/"
-                                            element={<AboutPage />}
-                                        />
-                                        <Route
-                                            path="/projects"
-                                            element={<ProjectsPage />}
-                                        />
-                                        <Route
-                                            path="*"
-                                            element={
-                                                <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-                                                    <h1 className="text-4xl font-bold text-glow">
-                                                        404: Page Not Found
-                                                    </h1>
-                                                    <p className="text-xl text-text-primary/80">
-                                                        This fox couldn't find
-                                                        what you're looking for.
-                                                    </p>
-                                                </div>
-                                            }
-                                        />
-                                    </Routes>
+                                    <Suspense fallback={<LoadingRoute />}>
+                                        <Routes>
+                                            <Route
+                                                path="/"
+                                                element={<AboutPage />}
+                                            />
+                                            <Route
+                                                path="/projects"
+                                                element={<ProjectsPage />}
+                                            />
+                                            <Route
+                                                path="*"
+                                                element={
+                                                    <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+                                                        <h1 className="text-4xl font-bold text-glow">
+                                                            404: Page Not Found
+                                                        </h1>
+                                                        <p className="text-xl text-text-primary/80">
+                                                            This fox couldn't
+                                                            find what you're
+                                                            looking for.
+                                                        </p>
+                                                    </div>
+                                                }
+                                            />
+                                        </Routes>
+                                    </Suspense>
                                 </main>
 
                                 {/* Footer */}
@@ -192,7 +204,9 @@ const App = () => {
                             {/* Fox Game Overlay - Activated by Konami Code */}
                             {isGameActive && (
                                 <>
-                                    <FoxGame />
+                                    <Suspense fallback={null}>
+                                        <FoxGame />
+                                    </Suspense>
                                     <button
                                         onClick={() => setIsGameActive(false)}
                                         className="fixed top-4 right-4 z-[999] bg-red-500/80 hover:bg-red-500 px-3 py-1.5 rounded-md text-white text-sm font-medium transition-colors"

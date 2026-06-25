@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/useAuth';
 import FoxCard from '@/components/FoxCard';
 import { Lock, User, LogIn, AlertTriangle, Shield, Brain } from 'lucide-react';
 

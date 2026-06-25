@@ -1,11 +1,4 @@
-import {
-    FormEvent,
-    KeyboardEvent,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { Terminal } from "lucide-react";
 import "@/styles/MiniTerminal.css";
 
@@ -36,6 +29,30 @@ const commandNames = [
     "clear",
 ];
 
+const commands: Record<string, () => string[]> = {
+    help: () => ["available commands:", `  ${commandNames.join("  ")}`],
+    about: () => [
+        "End / they-them",
+        "writes code, breaks hardware, streams sometimes",
+    ],
+    ls: () => ["about.txt", "projects/", "links/", "music.now"],
+    projects: () => [
+        "cd /projects",
+        "recent: web stuff, game experiments, robotics, school builds",
+    ],
+    links: () => [
+        "twitch: twitch.tv/EndofTimee",
+        "github: github.com/EndofTimee",
+    ],
+    skills: () => [
+        "typescript  react  linux  robotics  cybersecurity",
+        "also: taking things apart to see why they worked",
+    ],
+    theme: () => ["term: dark, amber, green", "theme daemon says: yip"],
+    whoami: () => ["visitor@endos"],
+    date: () => [new Date().toLocaleString()],
+};
+
 const MiniTerminal = () => {
     const [lines, setLines] = useState<TerminalLine[]>(() =>
         bootLines.map((text, index) => ({
@@ -53,33 +70,6 @@ const MiniTerminal = () => {
     const [nextId, setNextId] = useState(bootLines.length);
     const inputRef = useRef<HTMLInputElement>(null);
     const outputRef = useRef<HTMLDivElement>(null);
-
-    const commands = useMemo<Record<string, () => string[]>>(
-        () => ({
-            help: () => ["available commands:", `  ${commandNames.join("  ")}`],
-            about: () => [
-                "End / they-them",
-                "writes code, breaks hardware, streams sometimes",
-            ],
-            ls: () => ["about.txt", "projects/", "links/", "music.now"],
-            projects: () => [
-                "cd /projects",
-                "recent: web stuff, game experiments, robotics, school builds",
-            ],
-            links: () => [
-                "twitch: twitch.tv/EndofTimee",
-                "github: github.com/EndofTimee",
-            ],
-            skills: () => [
-                "typescript  react  linux  robotics  cybersecurity",
-                "also: taking things apart to see why they worked",
-            ],
-            theme: () => ["term: dark, amber, green", "theme daemon says: yip"],
-            whoami: () => ["visitor@endos"],
-            date: () => [new Date().toLocaleString()],
-        }),
-        [],
-    );
 
     useEffect(() => {
         outputRef.current?.scrollTo({
