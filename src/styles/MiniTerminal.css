@@ -121,6 +121,27 @@
     font: inherit;
 }
 
+.mini-terminal__autocomplete {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.25rem 0 0 7.2rem;
+    color: #8f8a99;
+}
+
+.mini-terminal__autocomplete span {
+    border: 1px solid rgba(238, 184, 112, 0.16);
+    border-radius: 3px;
+    padding: 0.05rem 0.35rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.mini-terminal__autocomplete .is-active {
+    border-color: rgba(138, 223, 136, 0.48);
+    color: #8adf88;
+    background: rgba(138, 223, 136, 0.08);
+}
+
 .mini-terminal__screen::-webkit-scrollbar {
     width: 0.45rem;
 }
@@ -153,5 +174,9 @@
     .mini-terminal__line,
     .mini-terminal__form {
         gap: 0.45rem;
+    }
+
+    .mini-terminal__autocomplete {
+        margin-left: 0;
     }
 }

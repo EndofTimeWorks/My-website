@@ -15,6 +15,12 @@ type TerminalLine = {
     text: string;
 };
 
+type AutocompleteState = {
+    seed: string;
+    matches: string[];
+    index: number;
+};
+
 const bootLines = ["foxterm 0.3.7", "motd: type help if you get lost"];
 
 const commandNames = [
@@ -41,6 +47,9 @@ const MiniTerminal = () => {
     const [value, setValue] = useState("");
     const [history, setHistory] = useState<string[]>([]);
     const [historyIndex, setHistoryIndex] = useState<number | null>(null);
+    const [autocomplete, setAutocomplete] = useState<AutocompleteState | null>(
+        null,
+    );
     const [nextId, setNextId] = useState(bootLines.length);
     const inputRef = useRef<HTMLInputElement>(null);
     const outputRef = useRef<HTMLDivElement>(null);
@@ -90,6 +99,9 @@ const MiniTerminal = () => {
         setNextId((current) => current + newLines.length);
     };
 
+    const getCommandMatches = (prefix: string) =>
+        commandNames.filter((command) => command.startsWith(prefix));
+
     const runCommand = (rawCommand: string) => {
         const command = rawCommand.trim();
         if (!command) return;
@@ -101,6 +113,7 @@ const MiniTerminal = () => {
             ),
         );
         setHistoryIndex(null);
+        setAutocomplete(null);
 
         if (command === "clear") {
             setLines([]);
@@ -133,6 +146,13 @@ const MiniTerminal = () => {
         event.preventDefault();
         runCommand(value);
         setValue("");
+        setAutocomplete(null);
+    };
+
+    const handleChange = (nextValue: string) => {
+        setValue(nextValue);
+        setHistoryIndex(null);
+        setAutocomplete(null);
     };
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -144,6 +164,7 @@ const MiniTerminal = () => {
                     : Math.min(historyIndex + 1, history.length - 1);
             setHistoryIndex(nextIndex);
             setValue(history[nextIndex] ?? "");
+            setAutocomplete(null);
         }
 
         if (event.key === "ArrowDown") {
@@ -154,19 +175,46 @@ const MiniTerminal = () => {
             if (nextIndex < 0) {
                 setHistoryIndex(null);
                 setValue("");
+                setAutocomplete(null);
                 return;
             }
 
             setHistoryIndex(nextIndex);
             setValue(history[nextIndex] ?? "");
+            setAutocomplete(null);
         }
 
         if (event.key === "Tab") {
             event.preventDefault();
-            const match = commandNames.find((command) =>
-                command.startsWith(value.toLowerCase()),
-            );
-            if (match) setValue(match);
+
+            const normalizedValue = value.trim().toLowerCase();
+            const seed =
+                autocomplete && normalizedValue.startsWith(autocomplete.seed)
+                    ? autocomplete.seed
+                    : normalizedValue;
+            const matches = getCommandMatches(seed);
+
+            if (matches.length === 0) {
+                setAutocomplete(null);
+                return;
+            }
+
+            if (matches.length === 1) {
+                setValue(matches[0]);
+                setAutocomplete(null);
+                return;
+            }
+
+            const nextIndex =
+                autocomplete?.seed === seed
+                    ? (autocomplete.index +
+                          (event.shiftKey ? -1 : 1) +
+                          matches.length) %
+                      matches.length
+                    : 0;
+
+            setValue(matches[nextIndex]);
+            setAutocomplete({ seed, matches, index: nextIndex });
         }
     };
 
@@ -212,13 +260,33 @@ const MiniTerminal = () => {
                     <input
                         autoComplete="off"
                         id="mini-terminal-input"
-                        onChange={(event) => setValue(event.target.value)}
+                        onChange={(event) => handleChange(event.target.value)}
                         onKeyDown={handleKeyDown}
                         ref={inputRef}
                         spellCheck={false}
                         value={value}
                     />
                 </form>
+
+                {autocomplete && autocomplete.matches.length > 1 && (
+                    <div
+                        className="mini-terminal__autocomplete"
+                        aria-label="Autocomplete suggestions"
+                    >
+                        {autocomplete.matches.map((command, index) => (
+                            <span
+                                className={
+                                    index === autocomplete.index
+                                        ? "is-active"
+                                        : undefined
+                                }
+                                key={command}
+                            >
+                                {command}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );
