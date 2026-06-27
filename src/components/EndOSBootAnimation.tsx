@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "@/styles/EndOSBootAnimation.css";
 
 interface EndOSBootAnimationProps {
@@ -6,91 +6,54 @@ interface EndOSBootAnimationProps {
     skipAnimation?: boolean;
 }
 
-const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
+const bootSequence = [
+    { stage: 2, duration: 2600 },
+    { stage: 3, duration: 3000 },
+    { stage: 4, duration: 3000 },
+    { stage: 5, duration: 3200 },
+    { stage: 6, duration: 2600 },
+    { stage: 7, duration: 2200 },
+];
+
+const EndOSBootAnimation = ({
     onComplete,
     skipAnimation = false,
-}) => {
+}: EndOSBootAnimationProps) => {
     const [active, setActive] = useState(true);
     const [bootStage, setBootStage] = useState(0);
-    const [showLogo, setShowLogo] = useState(false);
-    const [bootComplete, setBootComplete] = useState(false);
 
     const handleAnimationComplete = useCallback(() => {
         setActive(false);
-        if (onComplete) {
-            onComplete();
-        }
+        onComplete?.();
     }, [onComplete]);
 
-    // Boot sequence timing
     useEffect(() => {
         if (skipAnimation) {
-            const skipTimeout = setTimeout(handleAnimationComplete, 0);
-            return () => clearTimeout(skipTimeout);
+            const timer = setTimeout(handleAnimationComplete, 0);
+            return () => clearTimeout(timer);
         }
 
-        // Initialize boot sequence with proper timing to prevent overlap
-        const bootSequence = [
-            { stage: 1, delay: 1500 }, // Initial screen flicker
-            { stage: 2, delay: 3000 }, // BIOS check (longer time to read)
-            { stage: 3, delay: 3500 }, // System scan (longer for progress bar)
-            { stage: 4, delay: 3500 }, // Loading modules (allow time for animation)
-            { stage: 5, delay: 3500 }, // Fox protocols (allow time to read traits)
-            { stage: 6, delay: 3000 }, // Show logo (allow time to appreciate)
-            { stage: 7, delay: 3000 }, // Final activation (longer read time)
-            { stage: 8, delay: 2000 }, // Fade out
-        ];
+        const timers: ReturnType<typeof setTimeout>[] = [];
 
-        let timeout: ReturnType<typeof setTimeout>;
-        let currentIndex = 0;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            timers.push(setTimeout(() => setBootStage(7), 0));
+            timers.push(setTimeout(handleAnimationComplete, 900));
+            return () => timers.forEach(clearTimeout);
+        }
 
-        const runNextStage = () => {
-            if (currentIndex < bootSequence.length) {
-                const { stage, delay } = bootSequence[currentIndex];
+        let elapsed = 350;
 
-                // Clean transition - clear ALL previous stages to prevent any background visibility
-                document.querySelectorAll(".boot-stage").forEach((el) => {
-                    el.classList.remove("active");
-                });
-
-                // Reset content visibility
-                document.querySelectorAll(".boot-content").forEach((el) => {
-                    el.classList.remove("active");
-                });
-
-                // Short delay to allow for transition
-                setTimeout(() => {
-                    // First ensure boot content is visible
-                    document.querySelectorAll(".boot-content").forEach((el) => {
-                        el.classList.add("active");
-                    });
-
-                    // Then activate the correct stage
-                    setBootStage(stage);
-
-                    if (stage === 6) {
-                        setShowLogo(true);
-                    } else if (stage === 7) {
-                        setBootComplete(true);
-                    }
-                }, 300);
-
-                currentIndex++;
-                timeout = setTimeout(runNextStage, delay);
-            } else {
-                handleAnimationComplete();
-            }
-        };
-
-        // Start the sequence
-        timeout = setTimeout(runNextStage, 500);
+        bootSequence.forEach(({ stage, duration }) => {
+            timers.push(setTimeout(() => setBootStage(stage), elapsed));
+            elapsed += duration;
+        });
+        timers.push(setTimeout(handleAnimationComplete, elapsed));
 
         return () => {
-            if (timeout) clearTimeout(timeout);
+            timers.forEach(clearTimeout);
         };
     }, [skipAnimation, handleAnimationComplete]);
 
-    // Skip button click handler
     const handleSkip = () => {
         handleAnimationComplete();
     };
@@ -115,7 +78,7 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
                     <div className="visor-line bottom"></div>
 
                     {/* Boot Sequence Content */}
-                    <div className={`boot-content`}>
+                    <div className="boot-content active">
                         {/* BIOS Check */}
                         <div
                             className={`boot-stage bios ${bootStage === 2 ? "active" : ""}`}
@@ -217,7 +180,7 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
 
                         {/* Logo Display */}
                         <div
-                            className={`boot-stage logo-display ${bootStage === 6 && showLogo ? "active" : ""}`}
+                            className={`boot-stage logo-display ${bootStage === 6 ? "active" : ""}`}
                         >
                             <div className="endos-logo">
                                 <span className="logo-end">End</span>
@@ -230,7 +193,7 @@ const EndOSBootAnimation: React.FC<EndOSBootAnimationProps> = ({
 
                         {/* System Ready */}
                         <div
-                            className={`boot-stage system-ready ${bootStage === 7 && bootComplete ? "active" : ""}`}
+                            className={`boot-stage system-ready ${bootStage === 7 ? "active" : ""}`}
                         >
                             <div className="ready-status">SYSTEM ACTIVATED</div>
                             <div className="welcome-message">

@@ -625,3 +625,32 @@
     font-size: 12px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-scan-line,
+  .visor-left-ear,
+  .visor-right-ear,
+  .visor-line,
+  .boot-text-line,
+  .scan-progress-bar,
+  .module-item,
+  .module-icon,
+  .fox-trait,
+  .endos-logo,
+  .logo-subtitle,
+  .ready-status,
+  .skip-button {
+    animation: none;
+  }
+
+  .scan-progress-bar {
+    width: 100%;
+  }
+
+  .module-item,
+  .fox-trait,
+  .endos-logo,
+  .logo-subtitle {
+    opacity: 1;
+  }
+}
