@@ -19,8 +19,8 @@
     "clsx": "^2.1.0",
     "itty-router": "^5.0.24",
     "lucide-react": "1.25.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.1",
     "tailwind-merge": "^3.6.0",
     "zustand": "5.0.14"
