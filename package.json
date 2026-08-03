@@ -49,7 +49,7 @@
     "husky": "^9.0.10",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.2.0",
-    "postcss": "8.5.20",
+    "postcss": "8.5.25",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "rimraf": "^6.1.3",
