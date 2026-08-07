@@ -43,7 +43,7 @@ const AboutPage = () => {
                     <p>
                         Find me on{" "}
                         <a
-                            href="https://twitch.tv/EndofTimee"
+                            href="https://twitch.tv/EndofTimeWorks"
                             className="text-accent-neon hover:text-glow"
                             target="_blank"
                             rel="noopener noreferrer"
