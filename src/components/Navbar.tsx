@@ -31,7 +31,7 @@ const Navbar = () => {
                     </Link>
 
                     <a
-                        href="https://blog.endoftimee.tech"
+                        href="https://blog.endoftime.works"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="nav-link"
@@ -48,7 +48,7 @@ const Navbar = () => {
                     </Link>
 
                     <a
-                        href="https://vnc.endoftimee.tech"
+                        href="https://vnc.endoftime.works"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="nav-link"
@@ -58,7 +58,7 @@ const Navbar = () => {
                     </a>
 
                     <a
-                        href="https://twitch.tv/EndofTimee"
+                        href="https://twitch.tv/EndofTimeWorks"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="nav-link"
@@ -69,7 +69,7 @@ const Navbar = () => {
 
                     <div className="nav-link">
                         <iframe
-                            src="https://github.com/sponsors/System-End/button"
+                            src="https://github.com/sponsors/EndofTimeWorks/button"
                             title="Sponsor End!"
                             height="32"
                             width="114"
