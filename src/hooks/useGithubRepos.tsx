@@ -1,5 +1,62 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { GithubRepo } from "@/types";
+import { getApiUrl, getGithubUsername, shouldUseLocalApi } from "@/utils/api";
+
+type GithubApiRepo = Omit<GithubRepo, "languages">;
+
+const fetchLanguages = async (
+    languagesUrl: string,
+    signal: AbortSignal,
+): Promise<string[]> => {
+    const response = await fetch(languagesUrl, {
+        headers: {
+            Accept: "application/vnd.github+json",
+        },
+        signal,
+    });
+
+    if (!response.ok) {
+        return [];
+    }
+
+    const languages = (await response.json()) as Record<string, number>;
+    return Object.keys(languages);
+};
+
+const fetchReposFromGithub = async (signal: AbortSignal) => {
+    const username = encodeURIComponent(getGithubUsername());
+    const response = await fetch(
+        `https://api.github.com/users/${username}/repos?sort=updated&per_page=12`,
+        {
+            headers: {
+                Accept: "application/vnd.github+json",
+            },
+            signal,
+        },
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch repositories");
+    }
+
+    const repos = (await response.json()) as GithubApiRepo[];
+    return Promise.all(
+        repos.map(async (repo) => ({
+            ...repo,
+            languages: await fetchLanguages(repo.languages_url, signal),
+        })),
+    );
+};
+
+const fetchReposFromApi = async (signal: AbortSignal) => {
+    const response = await fetch(getApiUrl("/api/github-repos"), { signal });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch repositories");
+    }
+
+    return (await response.json()) as GithubRepo[];
+};
 
 const useGithubRepos = () => {
     const [repos, setRepos] = useState<GithubRepo[]>([]);
@@ -19,15 +76,10 @@ const useGithubRepos = () => {
                 setLoading(true);
                 setError(null);
 
-                const response = await fetch("/api/github-repos", {
-                    signal: controller.signal,
-                });
+                const reposData = shouldUseLocalApi
+                    ? await fetchReposFromApi(controller.signal)
+                    : await fetchReposFromGithub(controller.signal);
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch repositories");
-                }
-
-                const reposData = (await response.json()) as GithubRepo[];
                 setRepos(reposData);
             } catch (err) {
                 if (controller.signal.aborted) {

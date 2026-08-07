@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Music } from "lucide-react";
+import { getApiUrl, shouldUseLocalApi } from "@/utils/api";
 
 interface LastFMImage {
     "#text": string;
@@ -30,6 +31,41 @@ interface CurrentTrack {
     isPlaying: boolean;
 }
 
+const LASTFM_API_URL = "https://ws.audioscrobbler.com/2.0/";
+
+const getLastFmUrl = () => {
+    const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
+    const username = import.meta.env.VITE_LASTFM_USERNAME;
+
+    if (!apiKey || !username) {
+        return null;
+    }
+
+    return `${LASTFM_API_URL}?${new URLSearchParams({
+        method: "user.getrecenttracks",
+        user: username,
+        api_key: apiKey,
+        format: "json",
+        limit: "1",
+    }).toString()}`;
+};
+
+const fetchLastFmTrack = async (signal: AbortSignal) => {
+    const directUrl = getLastFmUrl();
+    const url =
+        shouldUseLocalApi || !directUrl
+            ? getApiUrl("/api/lastfm/current-track")
+            : directUrl;
+
+    const response = await fetch(url, { signal });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return (await response.json()) as LastFMResponse;
+};
+
 const MusicDisplay = () => {
     const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
     const [loading, setLoading] = useState(true);
@@ -41,15 +77,7 @@ const MusicDisplay = () => {
 
         const fetchCurrentTrack = async () => {
             try {
-                const response = await fetch("/api/lastfm/current-track", {
-                    signal: controller.signal,
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data: LastFMResponse = await response.json();
+                const data = await fetchLastFmTrack(controller.signal);
 
                 if (!data.recenttracks?.track?.length) {
                     setCurrentTrack(null);

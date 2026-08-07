@@ -1,34 +1,40 @@
-import { Link, useLocation } from "react-router-dom";
-import {
-    Home,
-    Code,
-    BookOpen,
-    GraduationCap,
-    TvMinimalPlay,
-} from "lucide-react";
+import type { MouseEvent } from "react";
+import { Home, Code, BookOpen, TvMinimalPlay } from "lucide-react";
 
-const Navbar = () => {
-    const location = useLocation();
+interface NavbarProps {
+    activePath: string;
+    onNavigate: (path: "/" | "/projects") => void;
+}
+
+const Navbar = ({ activePath, onNavigate }: NavbarProps) => {
+    const handleLocalLink =
+        (path: "/" | "/projects") =>
+        (event: MouseEvent<HTMLAnchorElement>) => {
+            event.preventDefault();
+            onNavigate(path);
+        };
 
     return (
         <nav className="navbar">
             <div className="nav-content">
                 <div className="nav-links">
-                    <Link
-                        to="/"
-                        className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+                    <a
+                        href="/"
+                        onClick={handleLocalLink("/")}
+                        className={`nav-link ${activePath === "/" ? "active" : ""}`}
                     >
                         <Home size={20} />
                         <span>About</span>
-                    </Link>
+                    </a>
 
-                    <Link
-                        to="/projects"
-                        className={`nav-link ${location.pathname === "/projects" ? "active" : ""}`}
+                    <a
+                        href="/projects"
+                        onClick={handleLocalLink("/projects")}
+                        className={`nav-link ${activePath === "/projects" ? "active" : ""}`}
                     >
                         <Code size={20} />
                         <span>Projects</span>
-                    </Link>
+                    </a>
 
                     <a
                         href="https://blog.endoftime.works"
@@ -39,14 +45,6 @@ const Navbar = () => {
                         <BookOpen size={20} />
                         <span>Blog</span>
                     </a>
-                    <Link
-                        to="/apcsp"
-                        className={`nav-link ${location.pathname === "/apcsp" ? "active" : ""}`}
-                    >
-                        <GraduationCap size={20} />
-                        <span>APCSP</span>
-                    </Link>
-
                     <a
                         href="https://vnc.endoftime.works"
                         target="_blank"
