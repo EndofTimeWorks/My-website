@@ -1,26 +1,31 @@
 # Personal Website
 
-React + TypeScript personal site with a fox-themed UI, a small projects feed, music status, and a few dormant auth-related files that are intentionally kept in the repo but not wired into the active app.
+React + TypeScript personal site with a fox-themed UI, a small projects feed, music status, and static-friendly self-hosting defaults.
 
 ## Stack
 
 - React 19
 - Vite
 - TypeScript
-- React Router
 - Zustand
 
 ## Routes
 
 - `/` - about page
 - `/projects` - GitHub repositories
-- `/apcsp` - APCSP page
-
 ## Environment
 
 Copy `.env.example` to `.env` and fill in what you need.
 
-Current variables:
+Frontend/static variables:
+
+- `VITE_LASTFM_API_KEY`
+- `VITE_LASTFM_USERNAME`
+- `VITE_GITHUB_USERNAME`
+- `VITE_API_BASE_URL`
+- `VITE_USE_LOCAL_API`
+
+Local worker dev variables:
 
 - `LASTFM_API_KEY`
 - `LASTFM_USERNAME`
@@ -34,10 +39,16 @@ Install dependencies:
 pnpm install
 ```
 
-Run the frontend:
+Run the frontend with the local API worker:
 
 ```bash
 pnpm dev
+```
+
+Run only the static frontend:
+
+```bash
+pnpm dev:frontend
 ```
 
 Run checks:
@@ -50,5 +61,5 @@ pnpm build
 
 ## Notes
 
-- The auth-related files are currently parked and are not part of the active route tree or live app shell.
-- The repo includes a worker entrypoint under `src/worker/`, but you said deployment will be on your own server, so it is not the primary hosting path.
+- The nginx deployment can serve `dist/` as plain static files.
+- The worker entrypoint is for local API testing. Put real worker values in `.dev.vars` or an uncommitted `.env`.

@@ -4,7 +4,6 @@ interface Env {
     GITHUB_USERNAME?: string;
     LASTFM_API_KEY?: string;
     LASTFM_USERNAME?: string;
-    SYSTEM_ACCESS_CODE?: string;
 }
 
 const router = AutoRouter({
@@ -118,20 +117,6 @@ router.get("/api/lastfm/current-track", async (_request, env: Env) => {
 
     const data = await response.json();
     return data;
-});
-
-router.post("/api/auth/login", async (request, env: Env) => {
-    if (!env.SYSTEM_ACCESS_CODE) {
-        return new Response(
-            JSON.stringify({ error: "System access is not configured" }),
-            { status: 503 },
-        );
-    }
-
-    const body = (await request.json()) as { password?: string };
-    return {
-        success: body.password === env.SYSTEM_ACCESS_CODE,
-    };
 });
 
 export default {

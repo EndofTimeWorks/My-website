@@ -30,7 +30,6 @@ export default tseslint.config(
         "warn",
         {
           allowConstantExport: true,
-          allowExportNames: ["useAuth", "systemMembers"],
         },
       ],
     },

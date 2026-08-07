@@ -30,13 +30,7 @@
                                       ]
                         },
     "include":  [
-                    "src",
-                    ".unused/ParallaxPage.tsx",
-                    ".unused/ParallaxEffect.tsx",
-                    ".unused/SystemStatus.tsx",
-                    ".unused/SwitchNotification.tsx",
-                    ".unused/LoginPage.tsx",
-                    ".unused/SystemPage.tsx"
+                    "src"
                 ],
     "references":  [
                        {

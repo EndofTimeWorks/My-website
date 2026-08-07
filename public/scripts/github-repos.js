@@ -1,4 +1,8 @@
-fetch("/api/github-repos")
+fetch("https://api.github.com/users/System-End/repos?sort=updated&per_page=12", {
+    headers: {
+        Accept: "application/vnd.github+json",
+    },
+})
     .then((response) => {
         if (!response.ok) {
             throw new Error("Failed to fetch repositories");

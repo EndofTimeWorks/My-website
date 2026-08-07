@@ -1,10 +1,11 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-    readonly VITE_SPOTIFY_CLIENT_ID: string;
-    readonly VITE_SPOTIFY_CLIENT_SECRET: string;
-    readonly VITE_SPOTIFY_REDIRECT_URI: string;
-    readonly VITE_WORKER_URL: string;
+    readonly VITE_API_BASE_URL?: string;
+    readonly VITE_GITHUB_USERNAME?: string;
+    readonly VITE_LASTFM_API_KEY?: string;
+    readonly VITE_LASTFM_USERNAME?: string;
+    readonly VITE_USE_LOCAL_API?: string;
 }
 
 interface ImportMeta {

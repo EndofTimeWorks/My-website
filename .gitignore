@@ -42,7 +42,7 @@ lerna-debug.log*
 
 # Cloudflare
 .wrangler
-.dev.vars
-.prod.vars
+.dev.vars*
+.prod.vars*
 AGENTS.md
 deploy.sh
