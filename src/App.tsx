@@ -166,7 +166,7 @@ const App = () => {
                             <footer className="py-6 border-t border-accent-primary/10 text-center text-sm text-text-primary/60">
                                 <p>
                                     © 2023 - {new Date().getFullYear()}{" "}
-                                    EndofTimee. All rights reserved.
+                                    EndofTimeWorks. All rights reserved.
                                 </p>
                                 <div className="flex justify-center items-center gap-2 mt-2">
                                     <span className="text-xs">

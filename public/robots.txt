@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://endoftimee.com/sitemap.xml
+Sitemap: https://endoftime.works/sitemap.xml
