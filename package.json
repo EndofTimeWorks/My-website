@@ -44,7 +44,7 @@
     "@vitejs/plugin-react-swc": "^4.3.1",
     "@vitest/ui": "^4.1.10",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
-    "baseline-browser-mapping": "2.11.8",
+    "baseline-browser-mapping": "2.11.12",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "7.1.1",
