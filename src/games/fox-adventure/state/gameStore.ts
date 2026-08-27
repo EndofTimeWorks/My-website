@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type {
+    ActivePowerUp,
     GameState,
     Position,
     Collectible,
@@ -8,8 +9,10 @@ import type {
 } from "@/types/game";
 
 const BASE_PLAYER_SPEED = 45;
-const COLLISION_DISTANCE = 5;
+const COLLISION_DISTANCE = 6;
 const POWER_UP_DURATION_MS = 5000;
+const DAMAGE_COOLDOWN_MS = 1500;
+const DAMAGE_FLASH_MS = 350;
 const PLAYFIELD_MIN = 10;
 const PLAYFIELD_MAX = 90;
 const ENEMY_EDGE_MIN = 4;
@@ -26,24 +29,37 @@ const createInitialPlayer = () => ({
     speed: BASE_PLAYER_SPEED,
     powerUps: [],
     isInvincible: false,
+    damageCooldownUntil: 0,
+    damageFlashUntil: 0,
 });
 
-const applyPowerUpEffects = (player: {
-    position: Position;
-    health: number;
-    speed: number;
-    powerUps: PowerUp[];
-    isInvincible: boolean;
-}) => {
-    const hasShield = player.powerUps.some((powerUp) => powerUp.type === "SHIELD");
-    const speedBoosts = player.powerUps.filter(
+const applyPlayerEffects = (
+    player: {
+        position: Position;
+        health: number;
+        speed: number;
+        powerUps: ActivePowerUp[];
+        isInvincible: boolean;
+        damageCooldownUntil: number;
+        damageFlashUntil: number;
+    },
+    now: number,
+) => {
+    const activePowerUps = player.powerUps.filter(
+        (powerUp) => powerUp.expiresAt > now,
+    );
+    const hasShield = activePowerUps.some((powerUp) => powerUp.type === "SHIELD");
+    const speedBoosts = activePowerUps.filter(
         (powerUp) => powerUp.type === "SPEED",
     ).length;
 
     return {
         ...player,
+        powerUps: activePowerUps,
         speed: BASE_PLAYER_SPEED * Math.pow(1.5, speedBoosts),
-        isInvincible: player.isInvincible || hasShield,
+        isInvincible: hasShield || player.damageCooldownUntil > now,
+        damageFlashUntil:
+            player.damageFlashUntil > now ? player.damageFlashUntil : 0,
     };
 };
 
@@ -100,7 +116,7 @@ const createEnemy = (level: number): Enemy => {
         type: enemyTypes[Math.floor(Math.random() * enemyTypes.length)],
         position: { x, y },
         direction: { x: 0, y: 0 },
-        speed: 9 + Math.random() * 6 + level * 1.2,
+        speed: 14 + Math.random() * 8 + level * 1.5,
     };
 };
 
@@ -202,7 +218,7 @@ const useGameStore = create<GameState>((set, get) => ({
     },
 
     takeDamage: (amount: number) => {
-        const { player, gameStatus, score, highScores } = get();
+        const { player, gameStatus, score, highScores, timePlayed } = get();
         if (player.isInvincible) return;
 
         const newHealth = Math.max(0, player.health - amount);
@@ -213,6 +229,8 @@ const useGameStore = create<GameState>((set, get) => ({
                 ...player,
                 health: newHealth,
                 isInvincible: true,
+                damageCooldownUntil: timePlayed + DAMAGE_COOLDOWN_MS,
+                damageFlashUntil: timePlayed + DAMAGE_FLASH_MS,
             },
             gameStatus: isGameOver ? "GAME_OVER" : gameStatus,
             highScores: isGameOver
@@ -221,47 +239,29 @@ const useGameStore = create<GameState>((set, get) => ({
         });
 
         if (!isGameOver) {
-            setTimeout(() => {
-                const currentPlayer = get().player;
-                const hasShield = currentPlayer.powerUps.some(
-                    (powerUp) => powerUp.type === "SHIELD",
-                );
-                set({
-                    player: {
-                        ...currentPlayer,
-                        isInvincible: hasShield,
-                    },
-                });
-            }, 1500);
+            set({ player: applyPlayerEffects(get().player, timePlayed) });
         }
     },
 
     activatePowerUp: (powerUpId: string) => {
-        const { player, powerUps } = get();
+        const { player, powerUps, timePlayed } = get();
         const powerUp = powerUps.find((p) => p.id === powerUpId);
         if (!powerUp) return;
+        const activePowerUp: ActivePowerUp = {
+            ...powerUp,
+            expiresAt: timePlayed + powerUp.duration,
+        };
 
-        const updatedPlayer = applyPowerUpEffects({
+        const updatedPlayer = applyPlayerEffects({
             ...player,
-            powerUps: [...player.powerUps, powerUp],
-        });
+            powerUps: [...player.powerUps, activePowerUp],
+        }, timePlayed);
 
         set({
             player: updatedPlayer,
             powerUps: powerUps.filter((p) => p.id !== powerUpId),
         });
 
-        setTimeout(() => {
-            const currentPlayer = get().player;
-            const resetPlayer = applyPowerUpEffects({
-                ...currentPlayer,
-                powerUps: currentPlayer.powerUps.filter(
-                    (p) => p.id !== powerUp.id,
-                ),
-            });
-
-            set({ player: resetPlayer });
-        }, powerUp.duration);
     },
 
     startNewGame: () =>
@@ -314,12 +314,13 @@ const useGameStore = create<GameState>((set, get) => ({
     },
 
     updateTimePlayed: (delta: number) => {
-        const { timePlayed, score, level } = get();
+        const { timePlayed, score, level, player } = get();
         const newTime = timePlayed + delta;
 
         const newLevel = Math.floor(score / 100) + 1;
 
         set({
+            player: applyPlayerEffects(player, newTime),
             timePlayed: newTime,
             level: Math.max(level, newLevel),
         });

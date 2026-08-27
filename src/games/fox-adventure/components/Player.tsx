@@ -3,10 +3,14 @@ import useGameStore from "../state/gameStore";
 
 export const Player: React.FC = () => {
     const player = useGameStore((state) => state.player);
+    const timePlayed = useGameStore((state) => state.timePlayed);
+    const isDamageFlashing = player.damageFlashUntil > timePlayed;
 
     return (
         <div
-            className={`absolute ${player.isInvincible ? "animate-pulse" : ""}`}
+            className={`absolute ${player.isInvincible ? "animate-pulse" : ""} ${
+                isDamageFlashing ? "player-hit" : ""
+            }`}
             style={{
                 left: `${player.position.x}%`,
                 top: `${player.position.y}%`,

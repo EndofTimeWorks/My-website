@@ -10,6 +10,10 @@ export interface PowerUp {
     position: Position;
 }
 
+export interface ActivePowerUp extends PowerUp {
+    expiresAt: number;
+}
+
 export interface Collectible {
     id: string;
     type: "STAR" | "GEM";
@@ -29,8 +33,10 @@ export interface PlayerState {
     position: Position;
     health: number;
     speed: number;
-    powerUps: PowerUp[];
+    powerUps: ActivePowerUp[];
     isInvincible: boolean;
+    damageCooldownUntil: number;
+    damageFlashUntil: number;
 }
 
 export interface GameState {

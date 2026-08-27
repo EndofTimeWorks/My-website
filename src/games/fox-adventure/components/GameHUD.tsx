@@ -15,7 +15,6 @@ export const GameHUD: React.FC = () => {
     };
 
     const bestScore = highScores.length > 0 ? Math.max(...highScores) : 0;
-
     const getPowerUpIcon = (type: string) => {
         switch (type) {
             case "SPEED":
@@ -49,19 +48,33 @@ export const GameHUD: React.FC = () => {
                     </span>
                 </div>
 
-                {player.powerUps.length > 0 && (
-                    <div className="flex gap-2">
-                        {player.powerUps.map((powerUp) => (
+                <div className="flex flex-wrap gap-2">
+                    {player.powerUps.length > 0 ? (
+                        player.powerUps.map((powerUp) => (
                             <div
                                 key={powerUp.id}
-                                className="bg-background-primary/50 p-2 rounded-lg backdrop-blur-sm flex items-center gap-1"
+                                className="flex items-center gap-1.5 rounded-lg bg-background-primary/50 p-2 backdrop-blur-sm"
                             >
                                 {getPowerUpIcon(powerUp.type)}
                                 <span className="text-xs">{powerUp.type}</span>
+                                <span className="min-w-7 rounded bg-background-secondary/70 px-1.5 py-0.5 text-center text-[10px] text-white/80">
+                                    {Math.max(
+                                        0,
+                                        Math.ceil(
+                                            (powerUp.expiresAt - timePlayed) /
+                                                1000,
+                                        ),
+                                    )}
+                                    s
+                                </span>
                             </div>
-                        ))}
-                    </div>
-                )}
+                        ))
+                    ) : (
+                        <div className="rounded-lg bg-background-primary/40 px-2 py-1 text-xs text-white/60 backdrop-blur-sm">
+                            No active power-ups
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="absolute left-1/2 top-4 -translate-x-1/2 text-center">
