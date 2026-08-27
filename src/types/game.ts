@@ -45,8 +45,8 @@ export interface GameState {
     timePlayed: number;
 
     // Actions
-    movePlayer: (direction: Position) => void;
-    updateEnemies: () => void;
+    movePlayer: (direction: Position, deltaSeconds: number) => void;
+    updateEnemies: (deltaSeconds: number) => void;
     collectItem: (itemId: string) => void;
     takeDamage: (amount: number) => void;
     activatePowerUp: (powerUpId: string) => void;

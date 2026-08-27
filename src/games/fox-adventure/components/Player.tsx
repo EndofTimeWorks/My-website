@@ -6,9 +6,7 @@ export const Player: React.FC = () => {
 
     return (
         <div
-            className={`absolute transition-all duration-100 ${
-                player.isInvincible ? "animate-pulse" : ""
-            }`}
+            className={`absolute ${player.isInvincible ? "animate-pulse" : ""}`}
             style={{
                 left: `${player.position.x}%`,
                 top: `${player.position.y}%`,

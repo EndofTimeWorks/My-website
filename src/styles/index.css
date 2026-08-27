@@ -5,6 +5,7 @@
 @import "cursor.css";
 /* Base game styles */
 .game-viewport {
+    cursor: default;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
@@ -16,6 +17,82 @@
         var(--background-primary) 0%,
         var(--background-secondary) 100%
     );
+}
+.game-world {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(
+            135deg,
+            rgba(157, 78, 221, 0.12),
+            rgba(0, 245, 255, 0.06) 45%,
+            rgba(255, 122, 89, 0.08)
+        ),
+        var(--background-primary);
+    background-size:
+        48px 48px,
+        48px 48px,
+        auto,
+        auto;
+}
+.game-entity {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+}
+.game-collectible {
+    width: 1.5rem;
+    height: 1.5rem;
+    animation: game-bob 1.8s ease-in-out infinite;
+}
+.game-collectible-star {
+    color: #ffd166;
+    background: rgba(255, 209, 102, 0.14);
+    border: 1px solid rgba(255, 209, 102, 0.55);
+}
+.game-collectible-gem {
+    color: #c77dff;
+    background: rgba(199, 125, 255, 0.14);
+    border: 1px solid rgba(199, 125, 255, 0.55);
+}
+.game-enemy {
+    width: 2rem;
+    height: 2rem;
+    color: #fff;
+    background: #e63946;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.game-enemy-owl {
+    background: #bf6f37;
+}
+.game-enemy-hunter {
+    background: #7f1d1d;
+}
+.game-power-up {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--background-primary);
+    animation: game-bob 1.4s ease-in-out infinite;
+}
+.game-power-up-speed {
+    background: #00f5ff;
+    border: 1px solid rgba(0, 245, 255, 0.8);
+}
+.game-power-up-shield {
+    background: #7dd3fc;
+    border: 1px solid rgba(125, 211, 252, 0.8);
+}
+@keyframes game-bob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -4px;
+    }
 }
 /* Game UI elements */
 .game-hud {

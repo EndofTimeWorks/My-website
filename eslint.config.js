@@ -5,7 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default tseslint.config(
-  { ignores: ["dist", "node_modules", ".unused"] },
+  { ignores: ["dist", "node_modules", ".unused", ".wrangler"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

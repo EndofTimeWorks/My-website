@@ -42,17 +42,18 @@ export const useGameLoop = (keysRef: RefObject<Set<string>>) => {
             }
 
             const deltaTime = timestamp - lastUpdate;
+            const deltaSeconds = Math.min(deltaTime / 1000, 0.05);
             const state = useGameStore.getState();
 
             if (state.gameStatus === "PLAYING") {
                 const direction = getMovementDirection(keysRef.current);
 
                 if (direction.x !== 0 || direction.y !== 0) {
-                    state.movePlayer(direction);
+                    state.movePlayer(direction, deltaSeconds);
                 }
 
                 state.updateTimePlayed(deltaTime);
-                state.updateEnemies();
+                state.updateEnemies(deltaSeconds);
                 state.checkCollisions();
 
                 if (timestamp - lastCollectibleSpawn > 1500) {

@@ -7,9 +7,18 @@ import type {
     PowerUp,
 } from "@/types/game";
 
-const BASE_PLAYER_SPEED = 0.8;
+const BASE_PLAYER_SPEED = 45;
 const COLLISION_DISTANCE = 5;
 const POWER_UP_DURATION_MS = 5000;
+const PLAYFIELD_MIN = 10;
+const PLAYFIELD_MAX = 90;
+const ENEMY_EDGE_MIN = 4;
+const ENEMY_EDGE_MAX = 96;
+
+const randomPlayfieldPosition = (): Position => ({
+    x: Math.random() * (PLAYFIELD_MAX - PLAYFIELD_MIN) + PLAYFIELD_MIN,
+    y: Math.random() * (PLAYFIELD_MAX - PLAYFIELD_MIN) + PLAYFIELD_MIN,
+});
 
 const createInitialPlayer = () => ({
     position: { x: 50, y: 50 },
@@ -38,6 +47,74 @@ const applyPowerUpEffects = (player: {
     };
 };
 
+const createCollectible = (): Collectible => {
+    const isGem = Math.random() > 0.7;
+
+    return {
+        id: `collectible-${Date.now()}-${Math.random()}`,
+        type: isGem ? "GEM" : "STAR",
+        value: isGem ? 25 : 10,
+        position: randomPlayfieldPosition(),
+    };
+};
+
+const createEnemy = (level: number): Enemy => {
+    const side = Math.floor(Math.random() * 4);
+    let x: number, y: number;
+
+    switch (side) {
+        case 0:
+            x =
+                Math.random() * (ENEMY_EDGE_MAX - ENEMY_EDGE_MIN) +
+                ENEMY_EDGE_MIN;
+            y = ENEMY_EDGE_MIN;
+            break;
+        case 1:
+            x = ENEMY_EDGE_MAX;
+            y =
+                Math.random() * (ENEMY_EDGE_MAX - ENEMY_EDGE_MIN) +
+                ENEMY_EDGE_MIN;
+            break;
+        case 2:
+            x =
+                Math.random() * (ENEMY_EDGE_MAX - ENEMY_EDGE_MIN) +
+                ENEMY_EDGE_MIN;
+            y = ENEMY_EDGE_MAX;
+            break;
+        default:
+            x = ENEMY_EDGE_MIN;
+            y =
+                Math.random() * (ENEMY_EDGE_MAX - ENEMY_EDGE_MIN) +
+                ENEMY_EDGE_MIN;
+            break;
+    }
+
+    const enemyTypes: Array<"WOLF" | "OWL" | "HUNTER"> = [
+        "WOLF",
+        "OWL",
+        "HUNTER",
+    ];
+
+    return {
+        id: `enemy-${Date.now()}-${Math.random()}`,
+        type: enemyTypes[Math.floor(Math.random() * enemyTypes.length)],
+        position: { x, y },
+        direction: { x: 0, y: 0 },
+        speed: 9 + Math.random() * 6 + level * 1.2,
+    };
+};
+
+const createPowerUp = (): PowerUp => {
+    const types: Array<"SPEED" | "SHIELD"> = ["SPEED", "SHIELD"];
+
+    return {
+        id: `powerup-${Date.now()}-${Math.random()}`,
+        type: types[Math.floor(Math.random() * types.length)],
+        duration: POWER_UP_DURATION_MS,
+        position: randomPlayfieldPosition(),
+    };
+};
+
 const useGameStore = create<GameState>((set, get) => ({
     player: createInitialPlayer(),
     enemies: [],
@@ -49,32 +126,28 @@ const useGameStore = create<GameState>((set, get) => ({
     highScores: [0],
     timePlayed: 0,
 
-    movePlayer: (direction: Position) => {
+    movePlayer: (direction: Position, deltaSeconds: number) => {
         const { player } = get();
+        const distance = player.speed * deltaSeconds;
+
         set({
             player: {
                 ...player,
                 position: {
                     x: Math.max(
                         2,
-                        Math.min(
-                            98,
-                            player.position.x + direction.x * player.speed,
-                        ),
+                        Math.min(98, player.position.x + direction.x * distance),
                     ),
                     y: Math.max(
                         2,
-                        Math.min(
-                            98,
-                            player.position.y + direction.y * player.speed,
-                        ),
+                        Math.min(98, player.position.y + direction.y * distance),
                     ),
                 },
             },
         });
     },
 
-    updateEnemies: () => {
+    updateEnemies: (deltaSeconds: number) => {
         const { enemies, player } = get();
         if (enemies.length === 0) return;
 
@@ -98,14 +171,16 @@ const useGameStore = create<GameState>((set, get) => ({
                         0,
                         Math.min(
                             100,
-                            enemy.position.x + newDirection.x * enemy.speed,
+                            enemy.position.x +
+                                newDirection.x * enemy.speed * deltaSeconds,
                         ),
                     ),
                     y: Math.max(
                         0,
                         Math.min(
                             100,
-                            enemy.position.y + newDirection.y * enemy.speed,
+                            enemy.position.y +
+                                newDirection.y * enemy.speed * deltaSeconds,
                         ),
                     ),
                 },
@@ -192,9 +267,9 @@ const useGameStore = create<GameState>((set, get) => ({
     startNewGame: () =>
         set({
             player: createInitialPlayer(),
-            enemies: [],
-            collectibles: [],
-            powerUps: [],
+            enemies: [createEnemy(1), createEnemy(1)],
+            collectibles: Array.from({ length: 5 }, createCollectible),
+            powerUps: [createPowerUp()],
             score: 0,
             level: 1,
             gameStatus: "PLAYING",
@@ -220,18 +295,7 @@ const useGameStore = create<GameState>((set, get) => ({
         const { collectibles } = get();
         if (collectibles.length >= 10) return;
 
-        const isGem = Math.random() > 0.7;
-        const collectible: Collectible = {
-            id: `collectible-${Date.now()}-${Math.random()}`,
-            type: isGem ? "GEM" : "STAR",
-            value: isGem ? 25 : 10,
-            position: {
-                x: Math.random() * 80 + 10,
-                y: Math.random() * 80 + 10,
-            },
-        };
-
-        set({ collectibles: [...collectibles, collectible] });
+        set({ collectibles: [...collectibles, createCollectible()] });
     },
 
     spawnEnemy: () => {
@@ -239,60 +303,14 @@ const useGameStore = create<GameState>((set, get) => ({
         const maxEnemies = Math.min(3 + level, 8);
         if (enemies.length >= maxEnemies) return;
 
-        const side = Math.floor(Math.random() * 4);
-        let x: number, y: number;
-
-        switch (side) {
-            case 0:
-                x = Math.random() * 100;
-                y = 0;
-                break;
-            case 1:
-                x = 100;
-                y = Math.random() * 100;
-                break;
-            case 2:
-                x = Math.random() * 100;
-                y = 100;
-                break;
-            default:
-                x = 0;
-                y = Math.random() * 100;
-                break;
-        }
-
-        const enemyTypes: Array<"WOLF" | "OWL" | "HUNTER"> = [
-            "WOLF",
-            "OWL",
-            "HUNTER",
-        ];
-        const enemy: Enemy = {
-            id: `enemy-${Date.now()}-${Math.random()}`,
-            type: enemyTypes[Math.floor(Math.random() * enemyTypes.length)],
-            position: { x, y },
-            direction: { x: 0, y: 0 },
-            speed: 0.15 + Math.random() * 0.1 + level * 0.02,
-        };
-
-        set({ enemies: [...enemies, enemy] });
+        set({ enemies: [...enemies, createEnemy(level)] });
     },
 
     spawnPowerUp: () => {
         const { powerUps } = get();
         if (powerUps.length >= 2) return;
 
-        const types: Array<"SPEED" | "SHIELD"> = ["SPEED", "SHIELD"];
-        const powerUp: PowerUp = {
-            id: `powerup-${Date.now()}-${Math.random()}`,
-            type: types[Math.floor(Math.random() * types.length)],
-            duration: POWER_UP_DURATION_MS,
-            position: {
-                x: Math.random() * 80 + 10,
-                y: Math.random() * 80 + 10,
-            },
-        };
-
-        set({ powerUps: [...powerUps, powerUp] });
+        set({ powerUps: [...powerUps, createPowerUp()] });
     },
 
     updateTimePlayed: (delta: number) => {

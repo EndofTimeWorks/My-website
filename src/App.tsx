@@ -184,7 +184,7 @@ const App = () => {
                                 <FoxGame />
                                 <button
                                     onClick={() => setIsGameActive(false)}
-                                    className="fixed top-4 right-4 z-[999] bg-red-500/80 hover:bg-red-500 px-3 py-1.5 rounded-md text-white text-sm font-medium transition-colors"
+                                    className="fixed bottom-4 right-4 z-[999] bg-red-500/80 hover:bg-red-500 px-3 py-1.5 rounded-md text-white text-sm font-medium transition-colors"
                                 >
                                     Exit Game
                                 </button>
