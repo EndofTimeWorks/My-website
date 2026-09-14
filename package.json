@@ -21,7 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "itty-router": "^5.0.24",
-    "lucide-react": "1.40.0",
+    "lucide-react": "1.44.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "tailwind-merge": "^3.6.0",
